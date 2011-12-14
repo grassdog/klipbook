@@ -4,7 +4,7 @@ Klipbook creates a html summary of your Kindle book clippings.
 
 ## How does it work?
 
-Copy your clippings file (called "My Clippings.txt") from your Kindle device to your local drive.
+Copy your clippings file (called "My Clippings.txt" on a 3rd generation Kindle) from your Kindle device to your local drive via USB.
 
 **List the books in your clippings file:**
 
@@ -26,17 +26,17 @@ Keep this nicely formatted html version of your clippings for your own reference
 
 <img src="https://github.com/grassdog/klipbook/raw/master/example.png" alt="Example of a summary file" />
 
-## Why not just see your clippings on the Amazon site?
-
-Currently [the Amazon highlights site](https://kindle.amazon.com/your_highlights) only shows clippings for books you purchased on Amazon.
-
 ## Installation
 
 Klipbook is a Ruby gem. To install simply run:
 
     gem install klipbook
 
-## Supported platforms
+## Why not just see your clippings on the Amazon site?
+
+Currently [the Amazon highlights site](https://kindle.amazon.com/your_highlights) only shows clippings for books you purchased on Amazon.
+
+## Tested platforms
 
 Klipbook has been tested on MRI 1.9.3 on Mac OSX.
 

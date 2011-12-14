@@ -10,8 +10,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = 'klipbook'
   gem.homepage = 'https://github.com/grassdog/klipbook'
   gem.license = 'MIT'
-  gem.summary = %Q{Klipbook creates a HTML summary of your Kindle book clippings.}
-  gem.description = %Q{Process your Kindle clippings file to generate a nicely formatted compilation of your clippings of the books you've read}
+  gem.summary = %Q{Klipbook creates a nice html summary of the clippings you've created on your Kindle.}
+  gem.description = %Q{Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read}
   gem.email = 'ray.grasso@gmail.com'
   gem.authors = ['Ray Grasso']
   gem.version = Klipbook::VERSION

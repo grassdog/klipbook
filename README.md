@@ -38,7 +38,8 @@ Currently [the Amazon highlights site](https://kindle.amazon.com/your_highlights
 
 ## Tested platforms
 
-Klipbook has been tested on MRI 1.9.3 on Mac OSX.
+Klipbook has been tested on clippings files from 3rd generation Kindles and run using MRI 1.9.3 on Mac OSX Lion and Ubuntu.
+
 
 ## Contributing to Klipbook
 

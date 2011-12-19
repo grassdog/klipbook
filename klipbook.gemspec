@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "bin/klipbook",
-    "example.png",
     "features/list_books.feature",
     "features/print_book_summary.feature",
     "features/step_definitions/klipbook_steps.rb",

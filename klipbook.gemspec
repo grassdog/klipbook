@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "klipbook"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2011-12-14"
-  s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of your clippings of the books you've read"
+  s.date = "2011-12-19"
+  s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]
   s.extra_rdoc_files = [
@@ -28,10 +28,12 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "bin/klipbook",
+    "example.png",
     "features/list_books.feature",
     "features/print_book_summary.feature",
     "features/step_definitions/klipbook_steps.rb",
     "features/support/env.rb",
+    "klipbook.gemspec",
     "lib/klipbook.rb",
     "lib/klipbook/blank.rb",
     "lib/klipbook/book_summary.erb",
@@ -55,7 +57,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "Klipbook creates a HTML summary of your Kindle book clippings."
+  s.summary = "Klipbook creates a nice html summary of the clippings you've created on your Kindle."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

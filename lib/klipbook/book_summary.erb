@@ -55,6 +55,10 @@
         color: #8C8C8C;
       }
 
+      li.note p {
+        font-style: italic;
+      }
+
       footer {
         font-size: .85em;
         margin-left: 20em;
@@ -75,7 +79,7 @@
     <ul>
       <% @clippings.each do |clipping| %>
         <% unless clipping.text.blank? %>
-        <li>
+        <li class="<%= clipping.type %>">
           <p>
             <%= ERB::Util.html_escape(clipping.text) %>
           </p>

@@ -83,7 +83,11 @@
           <p>
             <%= ERB::Util.html_escape(clipping.text) %>
           </p>
-          <footer><%= clipping.type %><% if clipping.location %> @ loc <%= clipping.location %><% end %></footer>
+          <footer>
+            <%= clipping.type %>
+            <% if include_pages && clipping.page %> on page <%= clipping.page %><% end %>
+            <% if clipping.location %> @ loc <%= clipping.location %><% end %>
+          </footer>
         </li>
         <% end %>
       <% end %>

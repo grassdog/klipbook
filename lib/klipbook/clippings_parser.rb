@@ -58,7 +58,7 @@ module Klipbook
     end
 
     def extract_type(metadata)
-      type = metadata.scan(/^- (\w+)/).first.first
+      type = metadata.scan(/^-( Your)? (\w+)/).first[1]
       type.downcase.to_sym
     end
 
@@ -67,11 +67,11 @@ module Klipbook
     end
 
     def extract_location(metadata)
-      match = metadata.scan(/Loc\. ([0-9]+-?)/)
+      match = metadata.scan(/Loc(ation|\.) ([0-9]+-?)/)
 
       return nil if match.empty?
 
-      location = match.first.first
+      location = match.first[1]
       location.to_i
     end
 

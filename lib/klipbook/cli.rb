@@ -16,6 +16,7 @@ module Klipbook
     end
 
     desc 'summarise CLIPPINGS_FILE  BOOK_NUMBER  OUTPUT_FILE', 'Output an html summary of the clippings for a book'
+    method_option :include_pages, :aliases => '-p', :desc => 'Include page numbers in output when available'
     def summarise(clippings_file=nil, book_number=nil, output_file=nil)
       if (clippings_file.nil? or book_number.nil? or output_file.nil?)
         puts 'Please provide a CLIPPINGS_FILE, BOOK_NUMBER, and OUTPUT_FILE'
@@ -26,7 +27,7 @@ module Klipbook
 
       book_number = book_number.to_i
 
-      Klipbook::Runner.new(clippings_file).print_book_summary(book_number, File.open(output_file, 'w'))
+      Klipbook::Runner.new(clippings_file).print_book_summary(book_number, File.open(output_file, 'w'), options)
     end
 
     map '-v' => :version

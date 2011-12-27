@@ -246,6 +246,10 @@ describe Klipbook::ClippingsParser do
         subject[:location].should == 1858
       end
 
+      it 'extracts the page number' do
+        subject[:page].should == 171
+      end
+
       it 'extracts the date' do
         subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
       end
@@ -262,6 +266,10 @@ describe Klipbook::ClippingsParser do
 
       it 'extracts the first element of the location range' do
         subject[:location].should == 1858
+      end
+
+      it 'extracts the page number' do
+        subject[:page].should == 171
       end
 
       it 'extracts the date' do
@@ -281,6 +289,10 @@ describe Klipbook::ClippingsParser do
         subject[:location].should be_nil
       end
 
+      it 'extracts the page number' do
+        subject[:page].should == 9
+      end
+
       it 'extracts the date' do
         subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
       end
@@ -296,6 +308,10 @@ describe Klipbook::ClippingsParser do
 
       it 'extracts no location' do
         subject[:location].should be_nil
+      end
+
+      it 'extracts the page number' do
+        subject[:page].should == 9
       end
 
       it 'extracts the date' do

@@ -16,14 +16,14 @@ module Klipbook
       end
     end
 
-    def print_book_summary(book_number, output)
+    def print_book_summary(book_number, output, options={})
       if book_number < 1 or book_number > @clippings_file.books.length
         $stderr.puts "Sorry but you must specify a book index between 1 and #{@clippings_file.books.length}"
         return
       end
 
       book_summary = @clippings_file.books[book_number - 1]
-      output.write book_summary.as_html
+      output.write book_summary.as_html(options)
     end
   end
 end

@@ -75,10 +75,45 @@ describe Klipbook::ClippingsParser do
       end
     end
 
+    context 'on a 4th-generation highlight' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Highlight Location 466-69 | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "The first line of the highlight\n" +
+        "The second line of the highlight"
+      end
+
+      it 'marks the clipping as a highlight' do
+        subject[:type].should == :highlight
+      end
+
+      it 'extracts the highlighted text' do
+        subject[:text].should == "The first line of the highlight\nThe second line of the highlight"
+      end
+    end
+
     context 'on a note' do
       let (:content) do
         "Book title\n" +
         "- Note Loc. 623  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "The note text"
+      end
+
+      it 'marks the clipping as a note' do
+        subject[:type].should == :note
+      end
+
+      it 'extracts the note text' do
+        subject[:text].should == "The note text"
+      end
+    end
+
+    context 'on a 4th-generation note' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Note Location 623  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
         "\n" +
         "The note text"
       end
@@ -109,10 +144,45 @@ describe Klipbook::ClippingsParser do
       end
     end
 
+    context 'on a 4th-generation bookmark' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Bookmark on Page 1 | Location 406  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "\n"
+      end
+
+      it 'marks the clipping as a bookmark' do
+        subject[:type].should == :bookmark
+      end
+
+      it 'extracts empty text' do
+        subject[:text].should == ''
+      end
+    end
+
     context 'on a clipping with a single location value' do
       let (:content) do
         "Book title\n" +
         "- Highlight Loc. 465 | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "The first line of the highlight\n" +
+        "The second line of the highlight"
+      end
+
+      it 'extracts the location' do
+        subject[:location].should == 465
+      end
+
+      it 'extracts the added_on date' do
+        subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
+      end
+    end
+
+    context 'on a 4th-generation clipping with a single location value' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Highlight Location 465 | Added on Thursday, April 21, 2011, 07:31 AM\n" +
         "\n" +
         "The first line of the highlight\n" +
         "The second line of the highlight"
@@ -145,6 +215,24 @@ describe Klipbook::ClippingsParser do
       end
     end
 
+    context 'on a 4th-generation clipping with a location range' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Highlight Location 466-69  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "The first line of the highlight\n" +
+        "The second line of the highlight"
+      end
+
+      it 'extracts the first element of the location range' do
+        subject[:location].should == 466
+      end
+
+      it 'extracts the added_on date' do
+        subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
+      end
+    end
+
     context 'on a highlight with a page number and location range' do
       let (:content) do
         "Book title\n" +
@@ -163,10 +251,45 @@ describe Klipbook::ClippingsParser do
       end
     end
 
+    context 'on a 4th-generation highlight with a page number and location range' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Highlight on Page 171 | Location 1858-59  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "Some highlighted text\n" +
+        "\n"
+      end
+
+      it 'extracts the first element of the location range' do
+        subject[:location].should == 1858
+      end
+
+      it 'extracts the date' do
+        subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
+      end
+    end
+
     context 'on a highlight with a page number and no location' do
       let (:content) do
         "Book title\n" +
         "- Highlight on Page 9 | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "Clipping"
+      end
+
+      it 'extracts no location' do
+        subject[:location].should be_nil
+      end
+
+      it 'extracts the date' do
+        subject[:added_on].should == 'Thursday, April 21, 2011, 07:31 AM'
+      end
+    end
+
+    context 'on a 4th-generation highlight with a page number and no location' do
+      let (:content) do
+        "Book title\n" +
+        "- Your Highlight on Page 9 | Added on Thursday, April 21, 2011, 07:31 AM\n" +
         "\n" +
         "Clipping"
       end

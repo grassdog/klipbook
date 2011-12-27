@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 describe Klipbook::ClippingsParser do
@@ -33,6 +35,25 @@ describe Klipbook::ClippingsParser do
 
       it 'extracts the title as "Book title (sub title)"' do
         subject[:title].should == 'Book title (sub title)'
+      end
+
+      it 'extracts the author "Author\'s Name"' do
+        subject[:author].should == "Author's Name"
+      end
+    end
+
+    context 'on a clipping with a byte-order mark in the title line' do
+      # 2nd-generation Kindles have been observed to add a BOM at the beginning of the file
+      # Kindle Touches have been observed (presumably due to a bug) to add BOM's like this inside a file, not just at the start of the file
+      let (:content) do
+        "\xef\xbb\xbfBook title (Author's Name)\n" +
+        "- Highlight Loc. 466-69  | Added on Thursday, April 21, 2011, 07:31 AM\n" +
+        "\n" +
+        "Highlight test\n"
+      end
+
+      it 'extracts the title as "Book title"' do
+        subject[:title].should == 'Book title'
       end
 
       it 'extracts the author "Author\'s Name"' do

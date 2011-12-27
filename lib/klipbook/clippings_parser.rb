@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Klipbook
   class ClippingsParser
     def extract_clippings_from(file_text)
@@ -19,6 +21,7 @@ module Klipbook
       return nil if lines.length < 2
 
       title_line = lines[0].strip
+      title_line = title_line[1..-1] if title_line[0] == "\xef\xbb\xbf"
       metadata = lines[1].strip
       text_lines = lines[3..-1]
 

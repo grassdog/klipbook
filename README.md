@@ -36,13 +36,17 @@ Klipbook is a Ruby gem. To install simply run:
 
 Currently [the Amazon highlights site](https://kindle.amazon.com/your_highlights) only shows clippings for books you've purchased on Amazon.
 
+## Supported Devices
+
+Klipbook has been tested on clippings files from 3rd generation Kindles and the Kindle Touch.
+
 ## Tested platforms
 
-Klipbook has been tested on clippings files from 3rd generation Kindles and run using MRI 1.9.3 on Mac OSX Lion and Ubuntu.
+Klipbook has been tested on Mac OSX Lion and Ubuntu using MRI 1.9.3. 
 
 ## Contributing to Klipbook
 
-Fork the project on [Github](https://github.com/grassdog/klipbook) and submit a pull request. 
+Fork the project on [Github](https://github.com/grassdog/klipbook), add tests for your changes, and submit a well described pull request. 
 
 ## Copyright
 

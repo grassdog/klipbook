@@ -23,7 +23,8 @@ module Klipbook
       title == other.title && author == other.author
     end
 
-    def as_html
+    def as_html(options={})
+      include_pages = options[:include_pages]
       ERB.new(template, 0, '%<>').result(binding)
     end
 

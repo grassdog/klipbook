@@ -29,6 +29,7 @@ module Klipbook
         author:   extract_author(title_line),
         type:     extract_type(metadata),
         location: extract_location(metadata),
+        page:     extract_page(metadata),
         added_on: extract_added_date(metadata),
         text:     extract_text(text_lines)
       }
@@ -72,6 +73,15 @@ module Klipbook
       return nil if match.empty?
 
       location = match.first[1]
+      location.to_i
+    end
+
+    def extract_page(metadata)
+      match = metadata.scan(/Page (\d+)/)
+
+      return nil if match.empty?
+
+      location = match.first.first
       location.to_i
     end
 

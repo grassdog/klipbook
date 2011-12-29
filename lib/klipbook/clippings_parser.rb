@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Klipbook
   class ClippingsParser
     def extract_clippings_from(file_text)
@@ -35,10 +37,14 @@ module Klipbook
       }
     end
 
+    def strip_control_characters(file_text)
+      file_text.gsub("\r", '').gsub("\xef\xbb\xbf", '')
+    end
+
   private
 
     def clippings_text_from(file_text)
-      file_text.gsub("\r", '').split('==========')
+      strip_control_characters(file_text).split('==========')
     end
 
     def valid_metadata?(metadata)

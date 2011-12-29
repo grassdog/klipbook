@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 describe Klipbook::ClippingsParser do
@@ -344,6 +346,20 @@ describe Klipbook::ClippingsParser do
       it.build_clipping_from('Dummy content')
 
       Klipbook::Clipping.should have_received.new.with(attributes)
+    end
+  end
+
+  describe "#strip_control_characters" do
+    let(:it) { Klipbook::ClippingsParser.new }
+
+    it "removes all carriage return characters" do
+      processed_text = it.strip_control_characters("An example \r clippings text\r")
+      processed_text.should_not include("\r")
+    end
+
+    it "removes all Unicode byte order marks" do
+      processed_text = it.strip_control_characters("An example \xef\xbb\xbf clippings text\xef\xbb\xbf")
+      processed_text.should_not include("\xef\xbb\xbf")
     end
   end
 end

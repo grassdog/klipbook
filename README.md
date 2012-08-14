@@ -52,6 +52,39 @@ Klipbook has been tested on Mac OSX Lion and Ubuntu using MRI 1.9.3.
 
 Fork the project on [Github](https://github.com/grassdog/klipbook), add tests for your changes, and submit a well described pull request. 
 
+
+## TODO
+
+Rework parsing code to pull out a file entry. Then have file container parse those and collapse
+them into highlights.
+
+Can have site scraper do the same.
+
+Work out what the end state looks like and clean up code to move towards that.
+
+**Work from the outside (i.e. outputter) in**
+
+### Possible commands
+
+klipbook fromfile [filename] --force
+
+klipbook fromfile --list [filename]
+
+klipbook fromfile --booknum=2 [filename]
+
+klipbook fromsite --user=blah --pass=foo
+
+klipbook fromsite --booknum=3
+
+~/.klipbookrc
+
+credit kindle-highlights
+
+Explain when you'd want to use the clippings file and when you'd want to use the
+site.
+
+
+
 ## Copyright
 
 Copyright (c) 2011 Ray Grasso. See LICENSE.txt for further details.

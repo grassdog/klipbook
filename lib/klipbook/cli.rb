@@ -3,6 +3,14 @@ require 'thor'
 module Klipbook
   class CLI < Thor
 
+    # TODO Add settings here fromfile
+
+    # TODO fromsite
+
+    # TODO Use aruba for features
+
+    # TODO Crib mechanize code from kindle-highlights
+
     desc 'list CLIPPINGS_FILE', 'List the books in the clippings file'
     def list(clippings_file=nil)
       if (clippings_file.nil?)
@@ -14,6 +22,9 @@ module Klipbook
 
       Klipbook::Runner.new(clippings_file).list_books
     end
+
+    # TODO Add summariseall
+    # TODO Add --force option to overwrite files
 
     desc 'summarise CLIPPINGS_FILE  BOOK_NUMBER  OUTPUT_FILE', 'Output an html summary of the clippings for a book'
     method_option :include_pages, :aliases => '-p', :desc => 'Include page numbers in output when available'

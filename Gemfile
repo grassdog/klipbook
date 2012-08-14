@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'thor'
+gem 'mechanize'
 
 group :development do
   gem 'rspec'
@@ -12,8 +13,5 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'rb-inotify', :require => false
-  gem 'rb-fsevent', :require => false
-  gem 'rb-fchange', :require => false
-  gem 'growl_notify'
+  gem 'terminal-notifier-guard' if RUBY_PLATFORM.downcase.include?('darwin12')
 end

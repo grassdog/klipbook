@@ -1,10 +1,20 @@
 # encoding: utf-8
 require 'klipbook/blank'
 require 'klipbook/version'
-require 'klipbook/clippings_file'
+require 'klipbook/file/clippings_file'
+require 'klipbook/file/clippings_parser'
+
+require 'klipbook/sources/kindle_device/file_parser'
+require 'klipbook/sources/kindle_device/entry_parser'
+require 'klipbook/sources/kindle_device/entry'
+
+require 'klipbook/sources/amazon_site/site_scraper'
+
+require 'klipbook/highlight'
+require 'klipbook/book'
+
+require 'klipbook/output/book_summary'
 require 'klipbook/clipping'
-require 'klipbook/clippings_parser'
-require 'klipbook/book_summary'
 require 'klipbook/runner'
 require 'klipbook/cli'
 

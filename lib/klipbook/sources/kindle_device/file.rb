@@ -20,7 +20,7 @@ module Klipbook::Sources
       end
 
       def build_sorted_book_list(sorted_entries)
-        @book_list.from(sorted_entries).sort do |book_a, book_b|
+        @book_list.books_from_entries(sorted_entries).sort do |book_a, book_b|
           book_a.title <=> book_b.title
         end
       end

@@ -1,16 +1,12 @@
-require 'ostruct'
-require 'date'
-
 module Klipbook
-  class Clipping < OpenStruct
+  class Clipping
+    attr_accessor :annotation_id, :text, :location, :type, :page
 
-    def initialize(attributes)
-      super(attributes)
-      self.added_on = DateTime.strptime(self.added_on, '%A, %B %d, %Y, %I:%M %p') if self.added_on
-    end
+    # highlight link
+    # kindle://book?action=open&asin=B001GSTOAM&location=1112
 
-    def <=>(other)
-      (self.location || 0) <=> (other.location || 0)
+    def initialize
+      yield self if block_given?
     end
   end
 end

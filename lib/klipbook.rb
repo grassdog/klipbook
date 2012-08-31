@@ -12,11 +12,10 @@ require 'klipbook/sources/kindle_device/book_list'
 
 require 'klipbook/sources/amazon_site/site_scraper'
 
-require 'klipbook/highlight'
 require 'klipbook/book'
+require 'klipbook/clipping'
 
 require 'klipbook/output/book_summary'
-require 'klipbook/clipping'
 require 'klipbook/runner'
 require 'klipbook/cli'
 

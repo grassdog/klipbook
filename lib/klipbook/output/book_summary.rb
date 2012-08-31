@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'erb'
 
 module Klipbook

@@ -14,7 +14,7 @@ describe Klipbook::Sources::KindleDevice::File do
 
   let (:book_list) do
     Object.new.tap do |fake_book_list|
-      stub(fake_book_list).from { [] }
+      stub(fake_book_list).books_from_entries { [] }
     end
   end
 
@@ -58,7 +58,7 @@ describe Klipbook::Sources::KindleDevice::File do
 
       it 'groups entries by book and builds a book list' do
         subject
-        book_list.should have_received.from([
+        book_list.should have_received.books_from_entries([
           second_book_one_entry,
           first_book_one_entry,
           first_book_two_entry])
@@ -69,7 +69,7 @@ describe Klipbook::Sources::KindleDevice::File do
         book2 = Klipbook::Book.new { |b| b.title = "Second title" }
         books = [book2, book1]
 
-        stub(book_list).from { books }
+        stub(book_list).books_from_entries { books }
         subject.should == [ book1, book2 ]
       end
     end

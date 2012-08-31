@@ -3,7 +3,7 @@
 module Klipbook::Sources
   module KindleDevice
     class FileParser
-      def initialize(entry_parser)
+      def initialize(entry_parser=EntryParser.new)
         @entry_parser = entry_parser
       end
 

@@ -4,16 +4,16 @@ require 'spec_helper'
 
 describe Klipbook::Sources::KindleDevice::FileParser do
 
-  let(:parser) { Klipbook::Sources::KindleDevice::FileParser.new(highlight_parser) }
+  let(:parser) { Klipbook::Sources::KindleDevice::FileParser.new(entry_parser) }
 
-  let(:highlight_parser) do
+  let(:entry_parser) do
     mock_parser = Object.new
-    stub(mock_parser).build_highlight
+    stub(mock_parser).build_entry
     mock_parser
   end
 
-  describe '#extract_highlights' do
-    subject { parser.extract_highlights(raw_text) }
+  describe '#extract_entries' do
+    subject { parser.extract_entries(raw_text) }
 
     context 'called with empty text' do
 
@@ -22,22 +22,22 @@ describe Klipbook::Sources::KindleDevice::FileParser do
       it { should be_empty }
     end
 
-    context 'called with text containing two highlight sections' do
+    context 'called with text containing two entries' do
       let(:raw_text) do
-        " highlight one" +
+        " entry one" +
         "==========" +
-        " highlight two" +
+        " entry two" +
         "=========="
       end
 
-      it 'builds two highlights with the highlight parser and returns them' do
-        highlight_one = Object.new
-        highlight_two = Object.new
+      it 'builds two entries with the entries parser and returns them' do
+        entry_one = Object.new
+        entry_two = Object.new
 
-        stub(highlight_parser).build_highlight(' highlight one') { highlight_one }
-        stub(highlight_parser).build_highlight(' highlight two') { highlight_two }
+        stub(entry_parser).build_entry(' entry one') { entry_one }
+        stub(entry_parser).build_entry(' entry two') { entry_two }
 
-        subject.should == [ highlight_one, highlight_two ]
+        subject.should == [ entry_one, entry_two ]
       end
     end
 
@@ -47,9 +47,9 @@ describe Klipbook::Sources::KindleDevice::FileParser do
         "=========="
       end
 
-      it 'strips carriage returns before calling the highlight parser' do
+      it 'strips carriage returns before calling the entry parser' do
         subject
-        highlight_parser.should have_received.build_highlight('Example  text')
+        entry_parser.should have_received.build_entry('Example  text')
       end
     end
 
@@ -59,9 +59,9 @@ describe Klipbook::Sources::KindleDevice::FileParser do
         "=========="
       end
 
-      it 'strips control characters before calling the highlight parser' do
+      it 'strips control characters before calling the entry parser' do
         subject
-        highlight_parser.should have_received.build_highlight('Example  text')
+        entry_parser.should have_received.build_entry('Example  text')
       end
     end
   end

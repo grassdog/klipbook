@@ -1,7 +1,85 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
+
+require 'gli'
 require 'klipbook'
 
-Klipbook::CLI.start
+include GLI::App
+
+program_desc "Creates a nice html summary of the clippings you've saved on your Kindle"
+
+config_file '.klipbook.rc'
+
+version Klipbook::VERSION
+
+# klipbook fromfile [filename] --force
+# klipbook fromfile --list [filename]
+# klipbook fromfile --booknum=2 [filename]
+
+# klipbook fromsite --user=blah --pass=foo
+# klipbook fromsite --booknum=3
+
+desc 'The directory path that summary files will be written to'
+default_value Dir.pwd
+arg_name 'Directory'
+flag [:o, :'output-dir']
+
+desc 'Force overwrite of any existing summary files'
+switch [:f, :force]
+
+desc 'Generate a html summary of a clippings file from a Kindle device'
+arg_name 'clippings-file'
+command :fromfile do |c|
+
+  c.action do |global_options,options,args|
+
+    raise "Must provide clippings file" if args.empty?
+
+    raw_file = File.open(args[0], 'r')
+    file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
+    output_dir = File.open(global[:o], 'w')
+
+    Klipbook::Runner.new(file).summarise_all_books(output_dir, options[:force])
+  end
+end
+
+desc 'Generate a html summary of clippings from the Amazon Kindle website'
+command :fromsite do |c|
+
+  c.desc 'Username for Amazon Kindle Site'
+  c.arg_name 'Username'
+  c.flag [:u, :username]
+
+  c.desc 'Password for Amazon Kindle Site'
+  c.arg_name 'Password'
+  c.flag [:p, :password]
+
+  c.action do |global_options,options,args|
+    puts "fromsite command ran"
+  end
+end
+
+pre do |global,command,options,args|
+  if global[:o] && !File.exist?(global[:o])
+    $stderr.puts "Output directory doesn't exist: #{global[:o]}"
+    false
+  else
+    true
+  end
+end
+
+#post do |global,command,options,args|
+  ## Post logic here
+  ## Use skips_post before a command to skip this
+  ## block on that command only
+#end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)
 

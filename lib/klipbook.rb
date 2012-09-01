@@ -12,6 +12,8 @@ require 'klipbook/sources/amazon_site/site_scraper'
 require 'klipbook/book'
 require 'klipbook/clipping'
 
-require 'klipbook/output/book_summary'
+require 'klipbook/summariser'
 require 'klipbook/lister'
 
+require 'klipbook/output/book_summary'
+require 'klipbook/output/html_summary_writer'

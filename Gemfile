@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'thor'
+gem 'gli'
 gem 'mechanize'
 
 group :development do

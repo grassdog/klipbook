@@ -13,5 +13,5 @@ require 'klipbook/book'
 require 'klipbook/clipping'
 
 require 'klipbook/output/book_summary'
-require 'klipbook/runner'
+require 'klipbook/lister'
 

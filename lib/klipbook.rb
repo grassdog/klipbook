@@ -8,7 +8,6 @@ require 'klipbook/sources/kindle_device/file_parser'
 require 'klipbook/sources/kindle_device/entry_parser'
 require 'klipbook/sources/kindle_device/entry'
 require 'klipbook/sources/kindle_device/file'
-require 'klipbook/sources/kindle_device/book_list'
 
 require 'klipbook/sources/amazon_site/site_scraper'
 

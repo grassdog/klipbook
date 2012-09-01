@@ -21,7 +21,7 @@ describe Klipbook::Runner do
   end
 
   before :each do
-    stub(Klipbook::ClippingsFile).new { clippings_file }
+    stub(Klipbook::Sources::KindleDevice::File).new { clippings_file }
   end
 
   describe '#list_books' do

@@ -1,8 +1,6 @@
 # encoding: utf-8
 require 'klipbook/blank'
 require 'klipbook/version'
-require 'klipbook/file/clippings_file'
-require 'klipbook/file/clippings_parser'
 
 require 'klipbook/sources/kindle_device/file_parser'
 require 'klipbook/sources/kindle_device/entry_parser'

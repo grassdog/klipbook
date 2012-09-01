@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="generator" content="Klipbook"/>
-    <title><%= @clippings.first.title %> - Collated Kindle Clippings</title>
+    <title><%= title %> - Collated Kindle Clippings</title>
     <style type="text/css">
       body {
         color: #333;
@@ -71,13 +71,13 @@
   </head>
   <body>
 
-    <h1><%= @clippings.first.title %></h1>
-    <% unless @author.blank? %>
+    <h1><%= title %></h1>
+    <% unless author.blank? %>
       <h2>by <%= author %></h2>
     <% end %>
 
     <ul>
-      <% @clippings.each do |clipping| %>
+      <% clippings.each do |clipping| %>
         <% unless clipping.text.blank? %>
         <li class="<%= clipping.type %>">
           <p>

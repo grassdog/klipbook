@@ -5,5 +5,9 @@ module Klipbook
     def initialize
       yield self if block_given?
     end
+
+    def get_binding
+      binding
+    end
   end
 end

@@ -15,5 +15,4 @@ require 'klipbook/clipping'
 require 'klipbook/summariser'
 require 'klipbook/lister'
 
-require 'klipbook/output/book_summary'
 require 'klipbook/output/html_summary_writer'

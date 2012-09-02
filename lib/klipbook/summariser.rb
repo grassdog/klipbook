@@ -5,9 +5,9 @@ module Klipbook
       @summary_writer = summary_writer
     end
 
-    def summarise_all_books(force)
+    def summarise_all_books(output_dir, force)
       @book_source.books.each do |book|
-        @summary_writer.write(book, force)
+        @summary_writer.write(book, output_dir, force)
       end
     end
 

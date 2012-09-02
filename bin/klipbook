@@ -47,9 +47,9 @@ command :fromfile do |c|
 
     raw_file = File.open(args[0], 'r')
     file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
-    output_dir = global[:o]
+    output_dir = global_options[:o]
 
-    Klipbook::Summariser.new(file).summarise_all_books(output_dir, global[:force])
+    Klipbook::Summariser.new(file).summarise_all_books(output_dir, global_options[:force])
   end
 end
 
@@ -79,7 +79,9 @@ command :fromsite do |c|
 
   c.action do |global_options,options,args|
     scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)
-    books = scraper.books
+    output_dir = global_options[:o]
+
+    Klipbook::Summariser.new(scraper).summarise_all_books(output_dir, global_options[:force])
   end
 end
 
@@ -101,6 +103,8 @@ end
 on_error do |exception|
   # Error logic here
   # return false to skip default error handling
+
+  puts exception.backtrace
   true
 end
 

@@ -19,14 +19,18 @@ module Klipbook::Sources
       end
 
       def books
+        @books ||= fetch_books
+      end
+
+      private
+
+      def fetch_books
         @message_stream.puts 'Logging into site'
         signin_submission = @agent.submit(@login_form)
         page = @agent.click(signin_submission.link_with(:text => /Your Highlights/))
 
         scrape_books(page)
       end
-
-      private
 
       def scrape_books(page)
         books = []

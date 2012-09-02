@@ -58,7 +58,7 @@ module Klipbook::Sources
       def extract_location(metadata)
         match = metadata.scan(/Loc(ation|\.) ([0-9]+-?)/)
 
-        return nil if match.empty?
+        return 0 if match.empty?
 
         location = match.first[1]
         location.to_i

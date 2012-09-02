@@ -250,7 +250,7 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Clipping"
       end
 
-      its(:location) { should be_nil }
+      its(:location) { should == 0 }
 
       its(:page) { should == 9 }
 
@@ -265,7 +265,7 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Clipping"
       end
 
-      its(:location) { should be_nil }
+      its(:location) { should == 0 }
 
       its(:page) { should == 9 }
 

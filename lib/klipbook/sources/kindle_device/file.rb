@@ -31,7 +31,7 @@ module Klipbook::Sources
       def books_from_entries(entries)
         entries.select { |entry| entry.type != :bookmark }
                .group_by(&:title)
-               .map { |title, entries| book_from_entries(entries) }
+               .map { |title, book_entries| book_from_entries(book_entries) }
       end
 
       def book_from_entries(entries)

@@ -50,8 +50,6 @@ command :fromfile do |c|
     output_dir = global[:o]
 
     Klipbook::Summariser.new(file).summarise_all_books(output_dir, global[:force])
-
-    # TODO Add lister in here
   end
 end
 
@@ -70,6 +68,14 @@ command :fromsite do |c|
   c.arg_name 'Count'
   c.default_value 1
   c.flag [:n, :'num-books']
+
+  c.command [:list,:ls] do |sc|
+    sc.action do |global_options,options,args|
+      scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)
+
+      Klipbook::Lister.new(scraper).list_books
+    end
+  end
 
   c.action do |global_options,options,args|
     scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)

@@ -17,3 +17,4 @@ require 'klipbook/summariser'
 require 'klipbook/lister'
 
 require 'klipbook/output/html_summary_writer'
+require 'klipbook/output/book_helpers'

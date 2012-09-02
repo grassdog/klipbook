@@ -7,6 +7,8 @@ module Klipbook::Output
     end
 
     def write(book, output_dir, force)
+      book.extend Klipbook::Output::BookHelpers
+
       filename = create_file_name(book, output_dir)
 
       if !force && File.exists?(filename)
@@ -26,8 +28,7 @@ module Klipbook::Output
       File.join(output_dir, "#{book.title} by #{book.author}.html")
     end
 
-    def generate_html(book, options={})
-      include_pages = options[:include_pages]
+    def generate_html(book)
       ERB.new(template, 0, '%<>').result(book.get_binding)
     end
 

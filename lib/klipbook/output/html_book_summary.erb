@@ -29,10 +29,31 @@
       }
 
       h2 {
+        float: left;
+        margin-right: 6em;
         line-height: 1.1em;
         font-size: 1.3em;
         color: #555;
+        font-weight: bold;
         font-style: italic;
+      }
+
+      h3 {
+        float: left;
+        font-style: italic;
+        font-weight: bold;
+        color: #555;
+        font-size: 1.1em;
+      }
+
+      .clearfix:before,
+      .clearfix:after {
+        content: " ";
+        display: table;
+      }
+
+      .clearfix:after {
+        clear: both;
       }
 
       ul {
@@ -67,14 +88,34 @@
       footer span {
         font-style: italic;
       }
+
+      footer a {
+        text-decoration: underline;
+        color: #8C8C8C;
+      }
+
+      footer a, footer a:link, footer a:visited {
+        color: #8C8C8C;
+      }
+
+      footer a:hover {
+        color: #084ab7;
+      }
     </style>
   </head>
   <body>
 
     <h1><%= title %></h1>
+
     <% unless author.blank? %>
       <h2>by <%= author %></h2>
     <% end %>
+
+    <% if last_update %>
+      <h3>Last updated: <%= last_update.strftime('%e %B %Y') %></h2>
+    <% end %>
+
+    <div class="clearfix"></div>
 
     <ul>
       <% clippings.each do |clipping| %>
@@ -85,8 +126,7 @@
           </p>
           <footer>
             <%= clipping.type %>
-            <% if include_pages && clipping.page %> on page <%= clipping.page %><% end %>
-            <% if clipping.location %> @ loc <%= clipping.location %><% end %>
+            <% if clipping.location %> @ <%= location_html(clipping.location) %><% end %>
           </footer>
         </li>
         <% end %>

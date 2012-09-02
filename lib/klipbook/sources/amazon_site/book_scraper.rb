@@ -26,22 +26,40 @@ module Klipbook::Sources
       end
 
       def scrape_clippings(page)
-        page.search(".//div[@class='highlightRow yourHighlight']").map { |element| build_clipping(element) }
+        page.search(".//div[@class='highlightRow yourHighlight']").map { |element| build_clipping(element) }.flatten
       end
 
       def build_clipping(element)
-        Klipbook::Clipping.new do |c|
-          c.annotation_id = element.xpath("form/input[@id='annotation_id']").attribute("value").value
-          #c.asin = element.xpath("p/span[@class='hidden asin']").text
+        location = extract_location(element)
+        annotation_id = element.xpath("form/input[@id='annotation_id']").attribute("value").value
+        note_text = element.xpath("p/span[@class='noteContent']").text
+
+        highlight = Klipbook::Clipping.new do |c|
+          c.annotation_id = annotation_id
           c.text = element.xpath("span[@class='highlight']").text
           c.type = :highlight
+          c.location = location
+        end
 
-          # TODO Extract notes
-          #c.note = element.xpath("p/span[@class='noteContent']").text
-
-          if element.xpath("a[@class='k4pcReadMore readMore linkOut']").attribute("href").value =~ /location=([0-9]+)$/
-            c.location = $1.to_i
+        if note_text.blank?
+          highlight
+        else
+          note = Klipbook::Clipping.new do |c|
+            c.annotation_id = annotation_id
+            c.text = note_text
+            c.type = :note
+            c.location = location
           end
+
+          [highlight, note]
+        end
+      end
+
+      def extract_location(element)
+        if element.xpath("a[@class='k4pcReadMore readMore linkOut']").attribute("href").value =~ /location=([0-9]+)$/
+          $1.to_i
+        else
+          0
         end
       end
     end

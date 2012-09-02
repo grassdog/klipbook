@@ -3,9 +3,9 @@ require 'mechanize'
 module Klipbook::Sources
   module AmazonSite
     class Scraper
-      def initialize(username, password,
+      def initialize(username, password, max_books,
                      book_scraper=Klipbook::Sources::AmazonSite::BookScraper.new,
-                     message_stream=$stdout, max_books=100)
+                     message_stream=$stdout)
         @max_books = max_books
         @message_stream = message_stream
         @agent = Mechanize.new
@@ -32,10 +32,12 @@ module Klipbook::Sources
         books = []
         @message_stream.print 'Fetching books '
 
-        begin
+        @max_books.times do |count|
           @message_stream.print '.'
           books << @book_scraper.scrape_book(page)
-        end while page = get_next_page(page)
+          page = get_next_page(page)
+          break unless page
+        end
 
         puts ' Done!'
 

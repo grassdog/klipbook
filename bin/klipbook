@@ -32,15 +32,26 @@ desc 'Generate a html summary of a clippings file from a Kindle device'
 arg_name 'clippings-file'
 command :fromfile do |c|
 
+  c.command [:list,:ls] do |sc|
+    sc.action do |global_options,options,args|
+      raw_file = File.open(args[0], 'r')
+      file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
+
+      Klipbook::Lister.new(file).list_books
+    end
+  end
+
   c.action do |global_options,options,args|
 
     raise "Must provide clippings file" if args.empty?
 
     raw_file = File.open(args[0], 'r')
     file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
-    output_dir = File.open(global[:o], 'w')
+    output_dir = global[:o]
 
-    Klipbook::Runner.new(file).summarise_all_books(output_dir, options[:force])
+    Klipbook::Summariser.new(file).summarise_all_books(output_dir, global[:force])
+
+    # TODO Add lister in here
   end
 end
 
@@ -55,8 +66,14 @@ command :fromsite do |c|
   c.arg_name 'Password'
   c.flag [:p, :password]
 
+  c.desc 'Maximum number of books to fetch'
+  c.arg_name 'Count'
+  c.default_value 1
+  c.flag [:n, :'num-books']
+
   c.action do |global_options,options,args|
-    puts "fromsite command ran"
+    scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)
+    books = scraper.books
   end
 end
 

@@ -25,25 +25,20 @@ describe Klipbook::Summariser do
   describe '#summarise_all_books' do
     subject { Klipbook::Summariser.new(book_source, summary_writer).summarise_all_books(output_dir, true, message_stream) }
 
-    let (:books) { [ Klipbook::Book.new ] }
+    let (:book_one) { Klipbook::Book.new }
+    let (:book_two) { Klipbook::Book.new }
+
+    let (:books) { [ book_one, book_two ] }
 
     it 'prints a message displaying the output directory' do
       subject
       message_stream.should have_received.puts('Output directory: fake output dir')
     end
 
-    context 'with a book source containing two books' do
-
-      let (:book_one) { Klipbook::Book.new }
-      let (:book_two) { Klipbook::Book.new }
-
-      let (:books) { [ book_one, book_two ] }
-
-      it 'passes each book to the summary writer' do
-        subject
-        summary_writer.should have_received.write(book_one, output_dir, true)
-        summary_writer.should have_received.write(book_two, output_dir, true)
-      end
+    it 'passes each book to the summary writer' do
+      subject
+      summary_writer.should have_received.write(book_one, output_dir, true)
+      summary_writer.should have_received.write(book_two, output_dir, true)
     end
   end
 
@@ -69,7 +64,7 @@ describe Klipbook::Summariser do
 
         it 'passes the second book to the summary writer' do
           subject
-          #summary_writer.should_not have_received.write(book_one, output_dir, true)
+          summary_writer.should_not have_received.write(book_one, output_dir, true)
           summary_writer.should have_received.write(book_two, output_dir, true)
         end
       end

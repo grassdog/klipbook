@@ -66,7 +66,7 @@ describe Klipbook::Output::HtmlSummaryWriter do
           File.size(expected_filepath).should == 0
         end
 
-        it 'prints a skipping message' do
+        it 'prints a message informing that the file is being skipped' do
           subject
           message_stream.should have_received.puts("\e[33mSkipping \e[0m#{expected_filename}")
         end
@@ -75,12 +75,12 @@ describe Klipbook::Output::HtmlSummaryWriter do
       context "and 'force' set to true" do
         let(:force) { true }
 
-        it 'will overwrite the file' do
+        it 'overwrites the file' do
           subject
           File.size(expected_filepath).should > 0
         end
 
-        it 'prints a writing message' do
+        it 'prints a message informing that the file is being written' do
           subject
           message_stream.should have_received.puts("\e[32mWriting \e[0m#{expected_filename}")
         end

@@ -5,7 +5,7 @@ module Klipbook
       @summary_writer = summary_writer
     end
 
-    def summarise_all_books(output_dir, force, message_stream=$stderr)
+    def summarise_all_books(output_dir, force, message_stream=$stdout)
       message_stream.puts "Output directory: #{output_dir}"
 
       @book_source.books.each do |book|

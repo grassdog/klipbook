@@ -10,8 +10,7 @@ module Klipbook
       else
         output.puts 'Book list:'
         @book_source.books.each_with_index do |book, index|
-          author = book.author ? " by #{book.author}" : ''
-          output.puts "[#{index + 1}] #{book.title}#{author}"
+          output.puts "[#{index + 1}] #{book.title_and_author}"
         end
       end
     end

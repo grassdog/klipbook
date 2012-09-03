@@ -2,7 +2,7 @@ require 'erb'
 
 module Klipbook::Output
   class HtmlSummaryWriter
-    def initialize(message_stream=$stderr)
+    def initialize(message_stream=$stdout)
       @message_stream = message_stream
     end
 
@@ -28,13 +28,7 @@ module Klipbook::Output
     private
 
     def filename_for_book(book)
-      unless book.author.blank?
-        author = " by #{book.author}"
-      else
-        author = ''
-      end
-
-      "#{book.title}#{author}.html"
+      "#{book.title_and_author}.html"
     end
 
     def generate_html(book)

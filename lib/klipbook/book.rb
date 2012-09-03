@@ -6,6 +6,11 @@ module Klipbook
       yield self if block_given?
     end
 
+    def title_and_author
+      author_txt = author ? " by #{author}" : ''
+      "#{title}#{author_txt}"
+    end
+
     def get_binding
       binding
     end

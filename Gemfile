@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'gli'
 gem 'mechanize'
+gem 'rainbow'
 
 group :development do
   gem 'rspec'

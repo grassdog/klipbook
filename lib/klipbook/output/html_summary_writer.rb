@@ -28,7 +28,13 @@ module Klipbook::Output
     private
 
     def filename_for_book(book)
-      "#{book.title} by #{book.author}.html"
+      unless book.author.blank?
+        author = " by #{book.author}"
+      else
+        author = ''
+      end
+
+      "#{book.title}#{author}.html"
     end
 
     def generate_html(book)

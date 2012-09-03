@@ -13,11 +13,13 @@ module Klipbook
       end
     end
 
-    def summarise_book(book_index, force)
-      raise "Sorry there are only #{@book_source.books.count} books" unless book_index < @book_source.books.count
+    def summarise_book(book_index, output_dir, force)
+      unless book_index < @book_source.books.count
+        raise "Invalid book. Please specify a number between 1 and #{@book_source.books.count}."
+      end
 
       book = @book_source.books.fetch(book_index)
-      @summary_writer.write(book, force)
+      @summary_writer.write(book, output_dir, force)
     end
   end
 end

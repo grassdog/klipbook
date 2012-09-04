@@ -9,16 +9,9 @@ include GLI::App
 
 program_desc "Creates a nice html summary of the clippings you've saved on your Kindle"
 
-config_file '.klipbook.rc'
+config_file '.klipbookrc'
 
 version Klipbook::VERSION
-
-# klipbook fromfile [filename] --force
-# klipbook fromfile --list [filename]
-# klipbook fromfile --booknum=2 [filename]
-
-# klipbook fromsite --user=blah --pass=foo
-# klipbook fromsite --booknum=3
 
 desc 'The directory path that summary files will be written to'
 default_value Dir.pwd
@@ -28,16 +21,25 @@ flag [:o, :'output-dir']
 desc 'Force overwrite of any existing summary files'
 switch [:f, :force]
 
-desc 'Generate a html summary of a clippings file from a Kindle device'
+desc 'Generate a html summary of clippings from a Kindle device clippings file'
 arg_name 'clippings-file'
 command :fromfile do |c|
 
+  c.desc 'Maximum number of books to summarise'
+  c.arg_name 'Count'
+  c.default_value 1
+  c.flag [:m, :'max-books']
+
+  # TODO Add -n option to summarise a specific book
+
   c.command [:list,:ls] do |sc|
     sc.action do |global_options,options,args|
+      raise "Must provide clippings file" if args.empty?
+
       raw_file = File.open(args[0], 'r')
       file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
 
-      Klipbook::Lister.new(file).list_books
+      Klipbook::Lister.new(file.books).list_books
     end
   end
 
@@ -48,8 +50,9 @@ command :fromfile do |c|
     raw_file = File.open(args[0], 'r')
     file = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip)
     output_dir = global_options[:o]
+    books = file.books.take(options[:m].to_i)
 
-    Klipbook::Summariser.new(file).summarise_all_books(output_dir, global_options[:force])
+    Klipbook::Summariser.new(books).summarise_all_books(output_dir, global_options[:force])
   end
 end
 
@@ -64,34 +67,43 @@ command :fromsite do |c|
   c.arg_name 'Password'
   c.flag [:p, :password]
 
-  c.desc 'Maximum number of books to fetch'
+  c.desc 'Maximum number of books to summarise'
   c.arg_name 'Count'
   c.default_value 1
-  c.flag [:n, :'num-books']
+  c.flag [:m, :'max-books']
 
   c.command [:list,:ls] do |sc|
     sc.action do |global_options,options,args|
-      scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)
+      scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:m].to_i)
 
-      Klipbook::Lister.new(scraper).list_books
+      Klipbook::Lister.new(scraper.books).list_books
     end
   end
 
   c.action do |global_options,options,args|
-    scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:n].to_i)
+    scraper = Klipbook::Sources::AmazonSite::Scraper.new(options[:username], options[:password], options[:m].to_i)
     output_dir = global_options[:o]
 
-    Klipbook::Summariser.new(scraper).summarise_all_books(output_dir, global_options[:force])
+    Klipbook::Summariser.new(scraper.books).summarise_all_books(output_dir, global_options[:force])
   end
 end
 
 pre do |global,command,options,args|
+  all_good = true
+
+  if command.name == :fromsite
+    unless options[:u] && options[:p]
+      $stderr.puts 'Please provide a username and password'
+      all_good = false
+    end
+  end
+
   if global[:o] && !File.exist?(global[:o])
     $stderr.puts "Output directory doesn't exist: #{global[:o]}"
-    false
-  else
-    true
+    all_good = false
   end
+
+  all_good
 end
 
 #post do |global,command,options,args|
@@ -104,7 +116,6 @@ on_error do |exception|
   # Error logic here
   # return false to skip default error handling
 
-  puts exception.backtrace
   true
 end
 

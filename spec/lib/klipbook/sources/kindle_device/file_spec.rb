@@ -20,33 +20,42 @@ describe Klipbook::Sources::KindleDevice::File do
       file_parser.should have_received.extract_entries('file text')
     end
 
-    context 'with entries for two books' do
+    context 'with entries for three books' do
       let(:entries) do
         [
           Klipbook::Sources::KindleDevice::Entry.new do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
+            e.added_on = DateTime.new(2012, 10, 10)
           end,
           Klipbook::Sources::KindleDevice::Entry.new do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
+            e.added_on = DateTime.new(2012, 10, 10)
           end,
           Klipbook::Sources::KindleDevice::Entry.new do |e|
             e.title = 'Book two'
             e.author = 'Author two'
             e.type = :highlight
+            e.added_on = DateTime.new(2012, 10, 12)
+          end,
+          Klipbook::Sources::KindleDevice::Entry.new do |e|
+            e.title = 'Book three'
+            e.author = 'Author two'
+            e.type = :highlight
+            e.added_on = DateTime.new(2012, 10, 11)
           end
         ]
       end
 
-      it 'returns two books' do
-        subject.should have(2).items
+      it 'returns three books' do
+        subject.should have(3).items
       end
 
-      it 'returns books sorted by title' do
-        subject.map(&:title).should == [ 'Book one', 'Book two' ]
+      it 'returns books sorted by last_update descending' do
+        subject.map(&:title).should == [ 'Book two', 'Book three', 'Book one' ]
       end
     end
 

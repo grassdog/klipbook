@@ -24,7 +24,7 @@ module Klipbook::Sources
 
       def build_sorted_book_list(sorted_entries)
         books_from_entries(sorted_entries).sort do |book_a, book_b|
-          book_a.title <=> book_b.title
+          -(book_a.last_update <=> book_b.last_update)
         end
       end
 

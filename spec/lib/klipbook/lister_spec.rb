@@ -2,12 +2,6 @@ require 'spec_helper'
 
 describe Klipbook::Lister do
 
-  let (:book_source) do
-    Object.new.tap do |fake_book_source|
-      stub(fake_book_source).books { books }
-    end
-  end
-
   let (:output) do
     Object.new.tap do |fake_output|
       stub(fake_output).puts
@@ -16,9 +10,9 @@ describe Klipbook::Lister do
 
   describe '#list_books' do
 
-    subject { Klipbook::Lister.new(book_source).list_books(output) }
+    subject { Klipbook::Lister.new(books).list_books(output) }
 
-    context 'with an empty book source' do
+    context 'created with no books' do
 
       let (:books) { [] }
 
@@ -28,7 +22,7 @@ describe Klipbook::Lister do
       end
     end
 
-    context 'with a source containing multiple books' do
+    context 'created with multiple books' do
       let (:books) do
         [
           Klipbook::Book.new { |b| b.title = 'My first fake title' },

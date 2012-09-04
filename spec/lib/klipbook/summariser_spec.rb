@@ -32,7 +32,7 @@ describe Klipbook::Summariser do
 
     it 'prints a message displaying the output directory' do
       subject
-      message_stream.should have_received.puts('Output directory: fake output dir')
+      message_stream.should have_received.puts('Using output directory: fake output dir')
     end
 
     it 'passes each book to the summary writer' do

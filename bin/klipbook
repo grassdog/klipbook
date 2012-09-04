@@ -7,7 +7,7 @@ require 'klipbook'
 
 include GLI::App
 
-program_desc "Creates a nice html summary of the clippings you've saved on your Kindle"
+program_desc "Creates a nice html summary of the clippings you've saved on your Kindle."
 
 config_file '.klipbookrc'
 

@@ -12,6 +12,7 @@ group :development do
   gem 'rcov', '>= 0'
   gem 'pry'
   gem 'cucumber'
+  gem 'aruba'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'

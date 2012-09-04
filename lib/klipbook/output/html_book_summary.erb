@@ -26,11 +26,15 @@
 
       h1 {
         line-height: 1.1em;
+        font-weight: bold;
+      }
+
+      .byline {
+        width: 730px;
       }
 
       h2 {
         float: left;
-        margin-right: 6em;
         line-height: 1.1em;
         font-size: 1.3em;
         color: #555;
@@ -39,7 +43,7 @@
       }
 
       h3 {
-        float: left;
+        float: right;
         font-style: italic;
         font-weight: normal;
         color: #555;
@@ -73,8 +77,8 @@
 
       ul li footer {
         text-align: right;
-        font-size: .85em;
         color: #8C8C8C;
+        margin-left: 20em;
       }
 
       li.note p {
@@ -82,8 +86,7 @@
       }
 
       footer {
-        font-size: .85em;
-        margin-left: 20em;
+        font-size: .8em;
       }
 
       footer span {
@@ -104,6 +107,7 @@
       }
 
       body > footer {
+        font-size: .8em;
         margin-left: 0;
         width: 690px;
         text-align: center;
@@ -115,6 +119,7 @@
 
     <h1><%= title %></h1>
 
+    <div class="byline">
     <% unless author.blank? %>
       <h2>by <%= author %></h2>
     <% end %>
@@ -122,6 +127,7 @@
     <% if last_update %>
       <h3>Last updated: <%= last_update.strftime('%e %B %Y') %></h3>
     <% end %>
+    </div>
 
     <div class="clearfix"></div>
 

@@ -2,12 +2,6 @@ require 'spec_helper'
 
 describe Klipbook::Summariser do
 
-  let (:book_source) do
-    Object.new.tap do |fake_book_source|
-      stub(fake_book_source).books { books }
-    end
-  end
-
   let (:summary_writer) do
     Object.new.tap do |fake_writer|
       stub(fake_writer).write
@@ -20,15 +14,16 @@ describe Klipbook::Summariser do
     end
   end
 
+  let (:book_one) { Klipbook::Book.new }
+  let (:book_two) { Klipbook::Book.new }
+
+  let (:books) { [ book_one, book_two ] }
+
   let(:output_dir) { 'fake output dir' }
 
   describe '#summarise_all_books' do
-    subject { Klipbook::Summariser.new(book_source, summary_writer).summarise_all_books(output_dir, true, message_stream) }
+    subject { Klipbook::Summariser.new(books, summary_writer).summarise_all_books(output_dir, true, message_stream) }
 
-    let (:book_one) { Klipbook::Book.new }
-    let (:book_two) { Klipbook::Book.new }
-
-    let (:books) { [ book_one, book_two ] }
 
     it 'prints a message displaying the output directory' do
       subject
@@ -43,7 +38,7 @@ describe Klipbook::Summariser do
   end
 
   describe '#summarise_book' do
-    subject { Klipbook::Summariser.new(book_source, summary_writer).summarise_book(book_index, output_dir, true) }
+    subject { Klipbook::Summariser.new(books, summary_writer).summarise_book(book_index, output_dir, true) }
 
     context 'with a book source containing two books' do
 

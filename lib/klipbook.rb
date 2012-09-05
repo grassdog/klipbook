@@ -13,8 +13,8 @@ require 'klipbook/sources/amazon_site/book_scraper'
 require 'klipbook/book'
 require 'klipbook/clipping'
 
-require 'klipbook/summariser'
-require 'klipbook/lister'
+require 'klipbook/collator'
+require 'klipbook/printer'
 
 require 'klipbook/output/html_summary_writer'
 require 'klipbook/output/book_helpers'

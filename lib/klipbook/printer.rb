@@ -1,10 +1,10 @@
 module Klipbook
-  class Lister
+  class Printer
     def initialize(books)
       @books = books
     end
 
-    def list_books(output=$stdout)
+    def print(output=$stdout)
       if @books.empty?
         output.puts 'No books available'
       else

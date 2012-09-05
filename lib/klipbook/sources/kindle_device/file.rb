@@ -1,13 +1,14 @@
 module Klipbook::Sources
   module KindleDevice
     class File
-      def initialize(file_text, file_parser=FileParser.new)
+      def initialize(file_text, max_books, file_parser=FileParser.new)
         @file_text = file_text
         @file_parser = file_parser
+        @max_books = max_books
       end
 
       def books
-        @books ||= build_books
+        @books ||= build_books.take(@max_books)
       end
 
     private

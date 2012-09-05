@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Klipbook::Collator do
 
+  let (:it) { Klipbook::Collator.new(books, summary_writer) }
+
   let (:summary_writer) do
     Object.new.tap do |fake_writer|
       stub(fake_writer).write
@@ -16,14 +18,13 @@ describe Klipbook::Collator do
 
   let (:book_one) { Klipbook::Book.new }
   let (:book_two) { Klipbook::Book.new }
-
   let (:books) { [ book_one, book_two ] }
 
   let(:output_dir) { 'fake output dir' }
 
   describe '#collate_books' do
-    subject { Klipbook::Collator.new(books, summary_writer).collate_books(output_dir, true, message_stream) }
 
+    subject { it.collate_books(output_dir, true, message_stream) }
 
     it 'prints a message displaying the output directory' do
       subject

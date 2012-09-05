@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Klipbook::Sources::KindleDevice::File do
 
-  let(:file) { Klipbook::Sources::KindleDevice::File.new('file text', file_parser) }
+  let(:file) { Klipbook::Sources::KindleDevice::File.new('file text', max_books, file_parser) }
+
+  let (:max_books) { 30 }
 
   let (:entries) { [] }
 
@@ -56,6 +58,15 @@ describe Klipbook::Sources::KindleDevice::File do
 
       it 'returns books sorted by last_update descending' do
         subject.map(&:title).should == [ 'Book two', 'Book three', 'Book one' ]
+      end
+
+      context 'and max_books set to 2' do
+
+        let (:max_books) { 2 }
+
+        it 'returns two books' do
+          subject.should have(2).items
+        end
       end
     end
 

@@ -1,6 +1,8 @@
-require 'pry'
-
 CLIPPING_FILE = File.join(File.dirname(__FILE__), '../fixtures/clippings-for-three-books.txt')
+
+Given /^a file in "([^"]*)" named "([^"]*)"$/ do |output_dir, file_name|
+  in_current_dir { FileUtils.touch(File.join(output_dir, file_name)) }
+end
 
 Given /^a file that contains clippings for 3 books called "([^"]*)"$/ do |file_name|
   in_current_dir { FileUtils.cp(CLIPPING_FILE, file_name) }
@@ -8,6 +10,10 @@ end
 
 When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)"$/ do |book_count, input_file, output_dir|
   run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir} file:#{input_file}"))
+end
+
+When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)" forcefully$/ do |book_count, input_file, output_dir|
+  run_simple(unescape("klipbook -n #{book_count} collate -f -o #{output_dir} file:#{input_file}"))
 end
 
 Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/ do |output_folder, file_name, clipping_count|

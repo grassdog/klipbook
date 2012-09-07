@@ -4,16 +4,22 @@ Given /^a file in "([^"]*)" named "([^"]*)"$/ do |output_dir, file_name|
   in_current_dir { FileUtils.touch(File.join(output_dir, file_name)) }
 end
 
+Given /^there is not a directory named "([^"]*)"$/ do |directory_name|
+  in_current_dir do
+    FileUtils.rm_f(directory_name)
+  end
+end
+
 Given /^a file that contains clippings for 3 books called "([^"]*)"$/ do |file_name|
   in_current_dir { FileUtils.cp(CLIPPING_FILE, file_name) }
 end
 
 When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)"$/ do |book_count, input_file, output_dir|
-  run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir} file:#{input_file}"))
+  run_collate_file(book_count, output_dir, input_file, false)
 end
 
 When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)" forcefully$/ do |book_count, input_file, output_dir|
-  run_simple(unescape("klipbook -n #{book_count} collate -f -o #{output_dir} file:#{input_file}"))
+  run_collate_file(book_count, output_dir, input_file, true)
 end
 
 Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/ do |output_folder, file_name, clipping_count|
@@ -28,7 +34,7 @@ end
 
 # FIXME This step currently assumes you have site: set up in your klipbookrc
 When /^I collate clippings for "([^"]*)" books from the kindle site to the output directory "([^"]*)"$/ do |book_count, output_dir|
-  run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir}"))
+  run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir}"), false)
 end
 
 Then /^I should find "([^"]*)" collated files in the directory "([^"]*)" that contains clippings$/ do |file_count, output_dir|
@@ -45,4 +51,13 @@ Then /^I should find "([^"]*)" collated files in the directory "([^"]*)" that co
   end
 end
 
+def run_collate_file(book_count, output, input, force=false)
+  force_str = if force
+    '-f'
+  else
+    ''
+  end
+
+  run_simple(unescape("klipbook -n #{book_count} collate #{force_str} -o #{output} file:#{input}"), false)
+end
 

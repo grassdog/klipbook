@@ -5,13 +5,9 @@ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'gli'
 require 'klipbook'
 
-class InvalidSourceError < RuntimeError; end
-
 include GLI::App
 
 program_desc "Collates the clippings you've saved on your Kindle into a nice html summary for each book."
-
-config_file '.klipbookrc'
 
 version Klipbook::VERSION
 
@@ -38,7 +34,7 @@ command :collate do |c|
   c.switch [:f, :force]
 
   c.action do |globals,options,args|
-    books = fetch_books(args[0], globals[:n].to_i)
+    books = fetch_books(args, globals)
     Klipbook::Collator.new(books).summarise_all_books(output_dir, globals[:force])
   end
 end
@@ -52,23 +48,16 @@ long_desc "Clippings are fetched from the specified source before being listed t
           "   site:my-kindle-user@blah.com:my-kindle-password"
 command :list do |c|
   c.action do |globals,options,args|
-    books = fetch_books(args[0], globals[:n].to_i)
+    books = fetch_books(args, globals)
     Klipbook::Printer.new(books).print
   end
 end
 
-
-SOURCE_HELP = "Please provide a valid source.\n" +
-              "e.g.\n" +
-              "     file:path/to/my-clippings-file.txt\n" +
-              "     site:my-kindle-user@blah.com:my-kindle-password"
-
 pre do |globals,command,options,args|
   all_good = true
 
-  if args.empty?
-    $stderr.puts SOURCE_HELP
-    all_good = false
+  unless source_spec(args)
+    raise InvalidSourceError
   end
 
   if options[:o] && !File.exist?(options[:o])
@@ -84,30 +73,12 @@ pre do |globals,command,options,args|
   all_good
 end
 
-on_error do |exception|
-  if exception.is_a?(InvalidSourceError)
-    $stderr.puts SOURCE_HELP
-  end
-
-  true
+def source_spec(args)
+  @source_spec ||= (args[0] || Klipbook::Config.new.read[:source])
 end
 
-def valid_source(source)
-  source =~ /(file:|site:.+:.+)/
-end
-
-def fetch_books(source_spec, max_books)
-  if (source_spec =~ /file:(.+)/)
-    # TODO Catch and wrap these guys
-    raw_file = File.open($1, 'r')
-    Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip, max_books).books
-  elsif (source_spec =~ /site:(.+):(.+)/)
-    username = $1
-    password = $2
-    Klipbook::Sources::AmazonSite::Scraper.new(username, password, max_books).books
-  else
-    raise InvalidSourceError
-  end
+def fetch_books(args, globals)
+  Klipbook::Fetcher.new(source_spec(args), globals[:n].to_i).fetch_books
 end
 
 exit run(ARGV)

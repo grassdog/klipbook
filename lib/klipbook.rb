@@ -10,9 +10,12 @@ require 'klipbook/sources/kindle_device/file'
 require 'klipbook/sources/amazon_site/scraper'
 require 'klipbook/sources/amazon_site/book_scraper'
 
+require 'klipbook/invalid_source_error'
+require 'klipbook/config'
 require 'klipbook/book'
 require 'klipbook/clipping'
 
+require 'klipbook/fetcher'
 require 'klipbook/collator'
 require 'klipbook/printer'
 

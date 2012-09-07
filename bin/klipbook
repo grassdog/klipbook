@@ -35,7 +35,7 @@ command :collate do |c|
 
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
-    Klipbook::Collator.new(books).summarise_all_books(output_dir, globals[:force])
+    Klipbook::Collator.new(books).collate_books(options[:o], globals[:force])
   end
 end
 

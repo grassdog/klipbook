@@ -1,0 +1,95 @@
+﻿Metaprogramming Ruby (Raymond Grasso) (Perrotta)
+- Highlight Loc. 466-69  | Added on Thursday, April 21, 2011, 07:31 AM
+
+a minute," he says, drawing Figure Instance variables live in objects, and methods live in classes.. "Objects that share the same class also share the same methods, so the methods must be stored in the class, not the object." 
+==========
+Instapaper: Long Reads (Instapaper: Long Reads)
+- Highlight Loc. 91-93  | Added on Sunday, April 24, 2011, 02:20 PM
+
+3. Do not freeze work design into code! Leave as much work design as possible for work teams to determine and modify. If that is not possible, make sure that the people who will live with the new system are involved in the design of their work.
+==========
+Instapaper: Long Reads (Instapaper: Long Reads)
+- Highlight Loc. 90-91  | Added on Sunday, April 24, 2011, 02:20 PM
+
+2. Simplify before you automate. Never automate a work process until the work teams have devised as simple a work process as they possibly can. Automating the right thing is at least as important as automating it right.
+==========
+Instapaper: Long Reads (Instapaper: Long Reads)
+- Highlight Loc. 150-51  | Added on Sunday, April 24, 2011, 02:25 PM
+
+Roll-in of progressive change They started off with small teams (4 people in the beginning) so not a big bang approach. 
+==========
+Instapaper: Long Reads (Instapaper: Long Reads)
+- Highlight Loc. 167-72  | Added on Sunday, April 24, 2011, 02:28 PM
+
+What is management’s role? The hardest part is working with managers and helping them see their new role.  Their role becomes understanding demand, thinking outside in, engage staff, walk the process, allow staff to experiment with design and evaluate etc.  Previously managers used to be specialists at solving tricky decisions, but now they have to become a specialist in training (moving from ‘disablers’ to ‘enablers).  They now need to create conditions that enable workers to reach their goals.  They need to support and encourage the initiative of the workers.  They need to ensure that the process / initiative is end to end.  Also, building agreement with others outside the process.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 921-23  | Added on Monday, April 25, 2011, 09:18 AM
+
+Your objective should be to balance experimentation with deliberation and review. In order to do this, consider how you can generate the most knowledge at the least cost in your circumstances.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 930-32  | Added on Monday, April 25, 2011, 01:10 PM
+
+There are many ways to represent the system, from models to prototypes, to incremental deliveries, but the important thing is to select the representation that gathers the most knowledge. Most users relate better to seeing working screens than to a requirements document, so working software tends to generate better knowledge faster.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1035-44  | Added on Monday, April 25, 2011, 01:21 PM
+
+In most cases, increasing feedback, not decreasing it, is the single most effective way to deal with troubled software development projects and environments. Instead of letting defects accumulate, run tests as soon as the code is written. Instead of adding more documentation or detailed planning, try checking out ideas by writing code. Instead of gathering more requirements from users, show them an assortment of potential user screens and get their input. Instead of studying more carefully which tool to use, bring the top three candidates inhouse and test them. Instead of trying to figure out how to convert an entire system in a single massive effort, create a Web front end to the legacy system and try the new idea out.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1066-67  | Added on Monday, April 25, 2011, 01:24 PM
+
+One reason just-in-time flow is so effective is that it requires significantly improved worker-to-worker communication and surfaces quality problems as soon as they occur.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1074-77  | Added on Monday, April 25, 2011, 01:28 PM
+
+An iteration is a useful increment of software that is designed, programmed, tested, integrated, and delivered during a short, fixed timeframe. It is very similar to a prototype in product development except that an iteration produces a working portion of the final product. This software will be improved in future iterations, but it is working, tested, integrated code from the beginning.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1180-81  | Added on Monday, April 25, 2011, 02:34 PM
+
+A Standish Group study found that 45 percent of features in a typical system are never used and 19 percent are rarely used.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1359-62  | Added on Tuesday, April 26, 2011, 08:34 AM
+
+When you have a difficult problem, try this: Develop a set of alternative solutions to a problem, see how well they actually work, and then merge the best features of the solutions or choose one of the alternatives. It might seem wasteful to develop multiple solutions to the same problem, but set-based development can lead to better solutions faster,
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Bookmark Loc. 1364  | Added on Tuesday, April 26, 2011, 08:36 AM
+
+
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1392-93  | Added on Tuesday, April 26, 2011, 08:42 AM
+
+Set-based development means that you communicate constraints, not solutions.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1535-36  | Added on Tuesday, April 26, 2011, 08:59 AM
+
+This presents us with a new category of waste: waste caused by software that is difficult to change.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1586-88  | Added on Tuesday, April 26, 2011, 09:10 AM
+
+Lean software development emphasizes developing a robust, change-tolerant design, one that accepts the inevitability of change and structures the system so that it can be readily adapted to the most likely kinds of changes.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1588-89  | Added on Tuesday, April 26, 2011, 09:11 AM
+
+The main reason software changes throughout its lifecycle is that the business process in which it is used evolves over time.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1627-28  | Added on Tuesday, April 26, 2011, 09:19 AM
+
+the underlying economic mechanism for controlling complexity in just-in-time systems is minimizing irreversible actions.
+==========
+Lean Software Development: An Agile Toolkit (Mary Poppendieck and Tom Poppendieck)
+- Highlight Loc. 1722-23  | Added on Tuesday, April 26, 2011, 09:48 AM
+
+Good design is a discovery process, done through short, repeated exploratory cycles.
+==========

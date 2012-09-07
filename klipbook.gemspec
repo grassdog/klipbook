@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "klipbook"
-  s.version = "0.3.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2011-12-29"
+  s.date = "2012-09-07"
   s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]
@@ -29,26 +29,40 @@ Gem::Specification.new do |s|
     "Rakefile",
     "bin/klipbook",
     "example.png",
-    "features/list_books.feature",
-    "features/print_book_summary.feature",
-    "features/step_definitions/klipbook_steps.rb",
+    "features/collate.feature",
+    "features/fixtures/clippings-for-three-books.txt",
+    "features/list.feature",
+    "features/step_definitions/collate_steps.rb",
+    "features/step_definitions/list_steps.rb",
     "features/support/env.rb",
     "klipbook.gemspec",
     "lib/klipbook.rb",
     "lib/klipbook/blank.rb",
-    "lib/klipbook/book_summary.erb",
-    "lib/klipbook/book_summary.rb",
-    "lib/klipbook/cli.rb",
+    "lib/klipbook/book.rb",
     "lib/klipbook/clipping.rb",
-    "lib/klipbook/clippings_file.rb",
-    "lib/klipbook/clippings_parser.rb",
-    "lib/klipbook/runner.rb",
+    "lib/klipbook/collator.rb",
+    "lib/klipbook/config.rb",
+    "lib/klipbook/fetcher.rb",
+    "lib/klipbook/invalid_source_error.rb",
+    "lib/klipbook/output/book_helpers.rb",
+    "lib/klipbook/output/html_book_summary.erb",
+    "lib/klipbook/output/html_summary_writer.rb",
+    "lib/klipbook/printer.rb",
+    "lib/klipbook/sources/amazon_site/book_scraper.rb",
+    "lib/klipbook/sources/amazon_site/scraper.rb",
+    "lib/klipbook/sources/kindle_device/entry.rb",
+    "lib/klipbook/sources/kindle_device/entry_parser.rb",
+    "lib/klipbook/sources/kindle_device/file.rb",
+    "lib/klipbook/sources/kindle_device/file_parser.rb",
     "lib/klipbook/version.rb",
-    "spec/lib/klipbook/book_summary_spec.rb",
-    "spec/lib/klipbook/clipping_spec.rb",
-    "spec/lib/klipbook/clippings_file_spec.rb",
-    "spec/lib/klipbook/clippings_parser_spec.rb",
-    "spec/lib/klipbook/runner_spec.rb",
+    "spec/lib/klipbook/book_spec.rb",
+    "spec/lib/klipbook/collator_spec.rb",
+    "spec/lib/klipbook/fetcher_spec.rb",
+    "spec/lib/klipbook/output/html_summary_writer_spec.rb",
+    "spec/lib/klipbook/printer_spec.rb",
+    "spec/lib/klipbook/sources/kindle_device/entry_parser_spec.rb",
+    "spec/lib/klipbook/sources/kindle_device/file_parser_spec.rb",
+    "spec/lib/klipbook/sources/kindle_device/file_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/rspec2.rb",
     "spec/support/with_rr.rb"
@@ -56,58 +70,61 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/grassdog/klipbook"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.23"
   s.summary = "Klipbook creates a nice html summary of the clippings you've created on your Kindle."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<thor>, [">= 0"])
+      s.add_runtime_dependency(%q<gli>, [">= 0"])
+      s.add_runtime_dependency(%q<mechanize>, [">= 0"])
+      s.add_runtime_dependency(%q<rainbow>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rr>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<pry>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<aruba>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
       s.add_development_dependency(%q<guard-cucumber>, [">= 0"])
-      s.add_development_dependency(%q<rb-inotify>, [">= 0"])
-      s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
-      s.add_development_dependency(%q<rb-fchange>, [">= 0"])
-      s.add_development_dependency(%q<growl_notify>, [">= 0"])
+      s.add_development_dependency(%q<terminal-notifier-guard>, [">= 0"])
     else
-      s.add_dependency(%q<thor>, [">= 0"])
+      s.add_dependency(%q<gli>, [">= 0"])
+      s.add_dependency(%q<mechanize>, [">= 0"])
+      s.add_dependency(%q<rainbow>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rr>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<aruba>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
       s.add_dependency(%q<guard-cucumber>, [">= 0"])
-      s.add_dependency(%q<rb-inotify>, [">= 0"])
-      s.add_dependency(%q<rb-fsevent>, [">= 0"])
-      s.add_dependency(%q<rb-fchange>, [">= 0"])
-      s.add_dependency(%q<growl_notify>, [">= 0"])
+      s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thor>, [">= 0"])
+    s.add_dependency(%q<gli>, [">= 0"])
+    s.add_dependency(%q<mechanize>, [">= 0"])
+    s.add_dependency(%q<rainbow>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rr>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<aruba>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])
     s.add_dependency(%q<guard-cucumber>, [">= 0"])
-    s.add_dependency(%q<rb-inotify>, [">= 0"])
-    s.add_dependency(%q<rb-fsevent>, [">= 0"])
-    s.add_dependency(%q<rb-fchange>, [">= 0"])
-    s.add_dependency(%q<growl_notify>, [">= 0"])
+    s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
   end
 end
 

@@ -9,6 +9,15 @@ include GLI::App
 
 program_desc "Collates the clippings you've saved on your Kindle into a nice html summary for each book."
 
+SOURCE_HELP = "Two sources are currently supported: a file from a Kindle device and the Kindle site itself.\n\n" +
+              "Example file formats:\n\n" +
+              "   file:path/to/my-clippings-file.txt\n\n" +
+              "   site:my-kindle-user@blah.com:my-kindle-password\n\n" +
+              "Note that source and output file defaults can be stored in a file called ~/.klipbookrc\n\n" +
+              "This file is YAML formatted e.g.\n\n" +
+              "source: site:my-kindle-user@blah.com:my-kindle-password\n\n" +
+              "output: my/default/output/directory"
+
 version Klipbook::VERSION
 
 desc 'Number of books to process'
@@ -18,15 +27,11 @@ flag [:n, :'num-books']
 
 desc 'Collate your clippings into a html file for each book'
 arg_name 'source'
-long_desc "Clippings are fetched from the specified source before being collated into a html file.\n\n" +
-          "Two sources are currently supported: a file from a Kindle device and the Kindle site itself.\n\n" +
-          "Example file formats:\n\n" +
-          "   file:path/to/my-clippings-file.txt\n\n" +
-          "   site:my-kindle-user@blah.com:my-kindle-password"
+long_desc "Clippings are fetched from the specified source before being collated into html " +
+          "files and written into the current directory.\n\n" + SOURCE_HELP
 command :collate do |c|
 
-  c.desc 'The directory path where collated files are written'
-  c.default_value Dir.pwd
+  c.desc 'Override the directory path where collated files are written'
   c.arg_name 'Directory'
   c.flag [:o, :'output-dir']
 
@@ -35,17 +40,13 @@ command :collate do |c|
 
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
-    Klipbook::Collator.new(books).collate_books(options[:o], options[:f])
+    Klipbook::Collator.new(books).collate_books(output_dir(options), options[:f])
   end
 end
 
 desc 'List available books'
 arg_name 'source'
-long_desc "Clippings are fetched from the specified source before being listed to screen.\n\n" +
-          "Two sources are currently supported: a file from a Kindle device and the Kindle site itself.\n\n" +
-          "Example file formats:\n\n" +
-          "   file:path/to/my-clippings-file.txt\n\n" +
-          "   site:my-kindle-user@blah.com:my-kindle-password"
+long_desc "Clippings are fetched from the specified source before being listed to screen.\n\n" + SOURCE_HELP
 command :list do |c|
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
@@ -54,23 +55,20 @@ command :list do |c|
 end
 
 pre do |globals,command,options,args|
-  all_good = true
-
   unless source_spec(args)
     raise InvalidSourceError
   end
 
-  if options[:o] && !File.exist?(options[:o])
-    $stderr.puts "Output directory doesn't exist: #{options[:o]}"
-    all_good = false
+  odir = output_dir(options)
+  if odir && !File.exists?(odir)
+    raise "Output directory doesn't exist: #{odir}"
   end
 
   if globals[:n].to_i == 0
-    $stderr.puts 'Specify a number of books greater than 0'
-    all_good = false
+    raise 'Specify a number of books greater than 0'
   end
 
-  all_good
+  true
 end
 
 def source_spec(args)
@@ -79,6 +77,14 @@ end
 
 def fetch_books(args, globals)
   Klipbook::Fetcher.new(source_spec(args), globals[:n].to_i).fetch_books
+end
+
+def output_dir(options)
+  @output_dir ||= unless options[:o] == 'Current directory'
+    options[:o]
+  else
+    Klipbook::Config.new.read[:output] || Dir.pwd
+  end
 end
 
 exit run(ARGV)

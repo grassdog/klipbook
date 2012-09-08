@@ -71,6 +71,10 @@ pre do |globals,command,options,args|
   true
 end
 
+on_error do |exception|
+  true
+end
+
 def source_spec(args)
   @source_spec ||= (args[0] || Klipbook::Config.new.read[:source])
 end
@@ -80,11 +84,7 @@ def fetch_books(args, globals)
 end
 
 def output_dir(options)
-  @output_dir ||= unless options[:o] == 'Current directory'
-    options[:o]
-  else
-    Klipbook::Config.new.read[:output] || Dir.pwd
-  end
+  @output_dir ||= (options[:o] || Klipbook::Config.new.read[:output] || Dir.pwd)
 end
 
 exit run(ARGV)

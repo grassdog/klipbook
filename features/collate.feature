@@ -42,9 +42,10 @@ Feature: klipbook collates the clippings from a clippings file
     Then the output should contain "error: Output directory doesn't exist: output"
     And the exit status should be 1
 
+  @slow
   Scenario: Site with clippings for a book
     Given a directory named "output"
     When I collate clippings for "1" books from the kindle site to the output directory "output"
-    Then I should find "1" collated files in the directory "output" that contains clippings
+    Then I should find "1" collated files containing clippings in the directory "output"
     And the exit status should be 0
 

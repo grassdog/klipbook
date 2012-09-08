@@ -7,3 +7,6 @@ $LOAD_PATH << File.expand_path('../../../lib', __FILE__)
 require 'klipbook'
 require 'fileutils'
 
+Before('@slow') do
+  @aruba_io_wait_seconds = 40
+end

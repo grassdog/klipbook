@@ -37,14 +37,12 @@ When /^I collate clippings for "([^"]*)" books from the kindle site to the outpu
   run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir}"), false)
 end
 
-Then /^I should find "([^"]*)" collated files in the directory "([^"]*)" that contains clippings$/ do |file_count, output_dir|
+Then /^I should find "([^"]*)" collated files containing clippings in the directory "([^"]*)"$/ do |file_count, output_dir|
   in_current_dir do
-    files = Dir['*.html']
+    files = Dir['output/*.html']
     files.should have(file_count.to_i).items
-
-    files.each do |file|
-      file_path = File.join(output_dir, file)
-      File.open(file_path, 'r') do |f|
+    files.each do |fname|
+      File.open(fname, 'r') do |f|
         f.read.should match(/<footer>\s+\d+ clippings &bull;/m)
       end
     end

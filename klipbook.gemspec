@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2012-09-07"
+  s.date = "2012-09-08"
   s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]

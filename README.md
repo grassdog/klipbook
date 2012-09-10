@@ -18,8 +18,8 @@ canonical source and will contain all of your notes and highlights from across a
 your Kindle devices and applications. Currently the Amazon highlights site only shows
 clippings for books you've purchased on Amazon.
 
-If your books are personal documents and you've read them on your kindle device
-itself then you should use the file from that device as a source i.e. you Kindle
+If your books are personal documents and you've read them on your Kindle device
+itself then you should use the file from that device as a source i.e. your Kindle
 device only keeps clippings that you made directly on it.
 
 ## How does it work?
@@ -40,23 +40,28 @@ Then write out a list of your clippings via:
     $ klipbook collate "file:My Clippings.txt"
 
 This command will write the collected clippings for the latest annotated book to a file in the current
-directory. You can override the output directory with the `--output-dir` flag.
+directory. You can override the output directory with the `--output-dir` switch.
+
+You can also specify a maximum count of books you'd like collated with the `--num-books` switch.
 
 Klipbook will not overwrite an exiting file by default. You can change this with
 the `--force` flag.
 
-You can also specify a maximum count of books you'd like collated with the `--num-books` flag.
-
 #### From the site
 
-Specify your amazon username and password to klipbook and it will scrape the site and
+Specify your Amazon username and password to klipbook and it will scrape the site and
 output a clippings file.
 
     $ klipbook collate site:my-username@blah.com:my-password
     
 The same flags above apply.
 
-If you don't feel like having your credentials in your shell history you can set your
+Note that the scraping requires a network connection (obviously) and can take a while
+so please be patient.
+
+### Set up defaults
+
+If you don't feel like having your Amazon credentials in your shell history you can set your
 default source in the klipbook rc file: `~/.klipbookrc`.
 
 This is simply a YAML file and you can specify default values for the source and the
@@ -77,6 +82,9 @@ The list command lists the books avaiable in the specified source.
     Book list:
     [1] The Big Sleep by Raymond Chandler
     [2] How to jump out of a plane without a parachute and survive by Rip Rockjaw
+
+By default it will only list the latest book. This can be overrided with the
+`--num-books` switch.
 
 ## Installation
 

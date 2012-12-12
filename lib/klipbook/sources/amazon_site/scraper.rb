@@ -10,7 +10,9 @@ module Klipbook::Sources
         @password = password
         @max_books = max_books
         @message_stream = message_stream
-        @agent = Mechanize.new
+        @agent = Mechanize.new do |a|
+          a.user_agent_alias = 'Mac Safari'
+        end
         @book_scraper = book_scraper
       end
 

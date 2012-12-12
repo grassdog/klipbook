@@ -2,7 +2,7 @@ require 'mechanize'
 
 module Klipbook::Sources
   module AmazonSite
-    class Scraper
+    class SiteScraper
       def initialize(username, password, max_books,
                      book_scraper=Klipbook::Sources::AmazonSite::BookScraper.new,
                      message_stream=$stdout)

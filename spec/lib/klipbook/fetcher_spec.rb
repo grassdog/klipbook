@@ -20,12 +20,12 @@ describe Klipbook::Fetcher do
     let(:fetcher) { Klipbook::Fetcher.new('site:username@example.com:password', 2) }
 
     before(:each) do
-      stub(Klipbook::Sources::AmazonSite::Scraper).new { fake_source }
+      stub(Klipbook::Sources::AmazonSite::SiteScraper).new { fake_source }
     end
 
     it 'creates a site scraper with the provided credentials' do
       subject
-      Klipbook::Sources::AmazonSite::Scraper.should have_received.new('username@example.com', 'password', 2)
+      Klipbook::Sources::AmazonSite::SiteScraper.should have_received.new('username@example.com', 'password', 2)
     end
 
     describe '#fetch_books' do

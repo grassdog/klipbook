@@ -9,7 +9,7 @@ module Klipbook
       elsif (source_spec =~ /site:(.+):(.+)/)
         username = $1
         password = $2
-        @source = Klipbook::Sources::AmazonSite::Scraper.new(username, password, max_books)
+        @source = Klipbook::Sources::AmazonSite::SiteScraper.new(username, password, max_books)
       else
         raise InvalidSourceError("Unrecognised source type. Only 'file' and 'site' are supported")
       end

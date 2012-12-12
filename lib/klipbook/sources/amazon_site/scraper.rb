@@ -68,9 +68,9 @@ module Klipbook::Sources
       end
 
       def get_next_page(page)
-        ret = page.search(".//a[@id='nextBookLink']").first
-        if ret and ret.attribute("href")
-          @agent.get("https://kindle.amazon.com" + ret.attribute("href").value)
+        link = page.link_with(:dom_id => "nextBookLink")
+        if link
+          link.click
         else
           nil
         end

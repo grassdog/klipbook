@@ -1,0 +1,6 @@
+== 1.0.2 / 2012-12-12
+
+* Bug fixes
+
+	* Updated site scraping code to ensure it still works
+

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "klipbook"
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2012-09-08"
+  s.date = "2012-12-12"
   s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     ".yardopts",
+    "CHANGELOG.txt",
     "Gemfile",
     "Gemfile.lock",
     "Guardfile",
@@ -49,7 +50,7 @@ Gem::Specification.new do |s|
     "lib/klipbook/output/html_summary_writer.rb",
     "lib/klipbook/printer.rb",
     "lib/klipbook/sources/amazon_site/book_scraper.rb",
-    "lib/klipbook/sources/amazon_site/scraper.rb",
+    "lib/klipbook/sources/amazon_site/site_scraper.rb",
     "lib/klipbook/sources/kindle_device/entry.rb",
     "lib/klipbook/sources/kindle_device/entry_parser.rb",
     "lib/klipbook/sources/kindle_device/file.rb",

@@ -106,5 +106,5 @@ Fork the project on [Github](https://github.com/grassdog/klipbook), add tests fo
 
 ## Copyright
 
-Copyright (c) 2012 Ray Grasso. See LICENSE.txt for further details.
+Copyright (c) 2013 Ray Grasso. See LICENSE.txt for further details.
 

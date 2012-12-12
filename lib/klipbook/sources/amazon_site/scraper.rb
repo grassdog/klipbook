@@ -17,24 +17,24 @@ module Klipbook::Sources
       end
 
       def books
-        @books ||= fetch_books
+        @books ||= fetch_up_to_max_books
       end
 
       private
 
-      def fetch_books
-        login_form = login
-
-        signin_submission = @agent.submit(login_form)
-
-        raise 'Invalid Username or password' unless signin_submission.title == "Amazon Kindle: Home"
-
-        page = @agent.click(signin_submission.link_with(:text => /Your Highlights/))
-
-        scrape_books(page)
+      def fetch_up_to_max_books
+        scrape_books(fetch_first_books_page)
       end
 
-      def login
+      def fetch_first_books_page
+        welcome_page = get_welcome_page
+
+        raise 'Invalid Username or password' unless welcome_page.title == 'Amazon Kindle: Home'
+
+        @agent.click(welcome_page.link_with(:text => /Your Highlights/))
+      end
+
+      def get_welcome_page
         @message_stream.puts 'Logging into site'
 
         begin
@@ -43,12 +43,12 @@ module Klipbook::Sources
           raise 'Could not connect to Amazon Kindle Site'
         end
 
-        login_form = page.form('signIn')
+        login_form = page.form('signIn').tap do |f|
+          f.email = @username
+          f.password = @password
+        end
 
-        login_form.email = @username
-        login_form.password = @password
-
-        login_form
+        @agent.submit(login_form)
       end
 
       def scrape_books(page)
@@ -68,9 +68,9 @@ module Klipbook::Sources
       end
 
       def get_next_page(page)
-        link = page.link_with(:dom_id => "nextBookLink")
-        if link
-          link.click
+        next_book_link = page.link_with(:dom_id => "nextBookLink")
+        if next_book_link
+          @agent.click(next_book_link)
         else
           nil
         end

@@ -1,7 +1,7 @@
-module Klipbook
-  class Fetcher
+module Klipbook::Sources
+  class BookSource
     def initialize(source_spec, max_books)
-      raise InvalidSourceError unless valid_source(source_spec)
+      raise InvalidSourceError unless valid_source?(source_spec)
 
       if (source_spec =~ /file:(.+)/)
         raw_file = File.open($1, 'r')
@@ -10,20 +10,17 @@ module Klipbook
         username = $1
         password = $2
         @source = Klipbook::Sources::AmazonSite::SiteScraper.new(username, password, max_books)
-      else
-        raise InvalidSourceError("Unrecognised source type. Only 'file' and 'site' are supported")
       end
     end
 
-    def fetch_books
+    def books
       @source.books
     end
 
     private
 
-    def valid_source(source_spec)
+    def valid_source?(source_spec)
       source_spec =~ /(file:|site:.+:.+)/
     end
   end
 end
-

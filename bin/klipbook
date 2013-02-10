@@ -80,7 +80,7 @@ def source_spec(args)
 end
 
 def fetch_books(args, globals)
-  Klipbook::Fetcher.new(source_spec(args), globals[:n].to_i).fetch_books
+  Klipbook::Sources::BookSource.new(source_spec(args), globals[:n].to_i).books
 end
 
 def output_dir(options)

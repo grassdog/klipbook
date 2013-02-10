@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Klipbook::Fetcher do
+describe Klipbook::Sources::BookSource do
 
   let(:fake_source) do
     Object.new.tap do |fakey|
@@ -10,14 +10,14 @@ describe Klipbook::Fetcher do
 
   context 'when created with an invalid source' do
     it 'raises an error' do
-      expect { Klipbook::Fetcher.new('sdf' , 2) }.to raise_error(InvalidSourceError)
+      expect { Klipbook::Sources::BookSource.new('sdf' , 2) }.to raise_error(InvalidSourceError)
     end
   end
 
   context 'when created with a site source' do
     subject { fetcher }
 
-    let(:fetcher) { Klipbook::Fetcher.new('site:username@example.com:password', 2) }
+    let(:fetcher) { Klipbook::Sources::BookSource.new('site:username@example.com:password', 2) }
 
     before(:each) do
       stub(Klipbook::Sources::AmazonSite::SiteScraper).new { fake_source }
@@ -28,8 +28,8 @@ describe Klipbook::Fetcher do
       Klipbook::Sources::AmazonSite::SiteScraper.should have_received.new('username@example.com', 'password', 2)
     end
 
-    describe '#fetch_books' do
-      subject { fetcher.fetch_books }
+    describe '#books' do
+      subject { fetcher.books }
 
       let(:books) { [] }
 
@@ -42,7 +42,7 @@ describe Klipbook::Fetcher do
   context 'when created with a file source' do
     subject { fetcher }
 
-    let(:fetcher) { Klipbook::Fetcher.new('file:filename', 2) }
+    let(:fetcher) { Klipbook::Sources::BookSource.new('file:filename', 2) }
 
     let(:fake_file) do
       Object.new.tap do |file|
@@ -68,8 +68,8 @@ describe Klipbook::Fetcher do
       Klipbook::Sources::KindleDevice::File.should have_received.new('fake contents', 2)
     end
 
-    describe '#fetch_books' do
-      subject { fetcher.fetch_books }
+    describe '#books' do
+      subject { fetcher.books }
 
       let(:books) { [] }
 

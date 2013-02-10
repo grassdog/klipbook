@@ -40,7 +40,7 @@ command :collate do |c|
 
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
-    Klipbook::Collator.new(books).collate_books(output_dir(options), options[:f])
+    Klipbook::Commands::PrettyPrint.new(books).call(output_dir(options), options[:f])
   end
 end
 
@@ -50,7 +50,7 @@ long_desc "Clippings are fetched from the specified source before being listed t
 command :list do |c|
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
-    Klipbook::Printer.new(books).print
+    Klipbook::Commands::ListBooks.new(books).call
   end
 end
 

@@ -2,6 +2,10 @@
 require 'klipbook/util/blank'
 require 'klipbook/version'
 
+require 'klipbook/commands/collate'
+require 'klipbook/commands/list_books'
+require 'klipbook/commands/pretty_print'
+
 require 'klipbook/sources/kindle_device/file_parser'
 require 'klipbook/sources/kindle_device/entry_parser'
 require 'klipbook/sources/kindle_device/entry'

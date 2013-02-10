@@ -23,5 +23,4 @@ require 'klipbook/config'
 require 'klipbook/collator'
 require 'klipbook/printer'
 
-require 'klipbook/output/html_summary_writer'
-require 'klipbook/output/book_helpers'
+require 'klipbook/pretty_print/html_book_summary'

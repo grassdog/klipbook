@@ -3,7 +3,7 @@ require 'spec_helper'
 # This is more of an integration test but what the heck
 # it can live in here for now
 
-describe Klipbook::PrettyPrint::HtmlBookSummary do
+describe Klipbook::PrettyPrint::HtmlPrinter do
 
   before(:all) do
     @output_dir = Dir.mktmpdir
@@ -27,9 +27,9 @@ describe Klipbook::PrettyPrint::HtmlBookSummary do
     end
   end
 
-  describe '#write' do
+  describe '#print_to_file' do
 
-    subject { Klipbook::PrettyPrint::HtmlBookSummary.new(message_stream).write(book, @output_dir, force) }
+    subject { Klipbook::PrettyPrint::HtmlPrinter.new(message_stream).print_to_file(book, @output_dir, force) }
 
     let(:force) { false }
 

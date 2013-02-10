@@ -1,12 +1,12 @@
 require 'erb'
 
 module Klipbook::PrettyPrint
-  class HtmlBookSummary
+  class HtmlPrinter
     def initialize(message_stream=$stdout)
       @message_stream = message_stream
     end
 
-    def write(book, output_dir, force)
+    def print_to_file(book, output_dir, force)
       require 'rainbow'
 
       filename = filename_for_book(book)
@@ -37,12 +37,5 @@ module Klipbook::PrettyPrint
       @template ||= File.read(File.join(File.dirname(__FILE__), 'html_book_summary.erb'))
     end
 
-    def location_html(location)
-      if self.asin
-        "<a href=\"kindle://book?action=open&asin=#{asin}&location=#{location}\">loc #{location}</a>"
-      else
-        "loc #{location}"
-      end
-    end
   end
 end

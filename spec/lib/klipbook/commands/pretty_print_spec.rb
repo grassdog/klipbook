@@ -6,7 +6,7 @@ describe Klipbook::Commands::PrettyPrint do
 
   let (:pretty_printer) do
     Object.new.tap do |fake_printer|
-      stub(fake_printer).call
+      stub(fake_printer).print_to_file
     end
   end
 
@@ -31,10 +31,10 @@ describe Klipbook::Commands::PrettyPrint do
       message_stream.should have_received.puts('Using output directory: fake output dir')
     end
 
-    it 'passes each book to the summary writer' do
+    it 'passes each book to the pretty printer' do
       subject
-      pretty_printer.should have_received.call(book_one, output_dir, true)
-      pretty_printer.should have_received.call(book_two, output_dir, true)
+      pretty_printer.should have_received.print_to_file(book_one, output_dir, true)
+      pretty_printer.should have_received.print_to_file(book_two, output_dir, true)
     end
   end
 end

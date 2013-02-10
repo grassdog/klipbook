@@ -14,5 +14,13 @@ module Klipbook
     def get_binding
       binding
     end
+
+    def location_html(location)
+      if self.asin
+        "<a href=\"kindle://book?action=open&asin=#{asin}&location=#{location}\">loc #{location}</a>"
+      else
+        "loc #{location}"
+      end
+    end
   end
 end

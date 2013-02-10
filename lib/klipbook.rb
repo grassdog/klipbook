@@ -21,4 +21,4 @@ require 'klipbook/sources/amazon_site/book_scraper'
 
 require 'klipbook/config'
 
-require 'klipbook/pretty_print/html_book_summary'
+require 'klipbook/pretty_print/html_printer'

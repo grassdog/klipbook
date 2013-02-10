@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'klipbook/blank'
+require 'klipbook/util/blank'
 require 'klipbook/version'
 
 require 'klipbook/sources/kindle_device/file_parser'

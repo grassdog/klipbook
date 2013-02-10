@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Klipbook::Printer do
+describe Klipbook::Commands::ListBooks do
 
   let (:output) do
     Object.new.tap do |fake_output|
@@ -8,9 +8,9 @@ describe Klipbook::Printer do
     end
   end
 
-  describe '#print' do
+  describe '#call' do
 
-    subject { Klipbook::Printer.new(books).print(output) }
+    subject { Klipbook::Commands::ListBooks.new(books).call(output) }
 
     context 'when created with no books' do
 

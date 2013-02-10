@@ -20,6 +20,5 @@ require 'klipbook/sources/amazon_site/site_scraper'
 require 'klipbook/sources/amazon_site/book_scraper'
 
 require 'klipbook/config'
-require 'klipbook/collator'
 
 require 'klipbook/pretty_print/html_book_summary'

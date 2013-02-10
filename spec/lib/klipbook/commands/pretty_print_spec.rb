@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Klipbook::Collator do
+describe Klipbook::Commands::PrettyPrint do
 
-  let (:it) { Klipbook::Collator.new(books, summary_writer) }
+  let (:it) { Klipbook::Commands::PrettyPrint.new(books, pretty_printer) }
 
-  let (:summary_writer) do
-    Object.new.tap do |fake_writer|
-      stub(fake_writer).write
+  let (:pretty_printer) do
+    Object.new.tap do |fake_printer|
+      stub(fake_printer).call
     end
   end
 
@@ -22,9 +22,9 @@ describe Klipbook::Collator do
 
   let(:output_dir) { 'fake output dir' }
 
-  describe '#collate_books' do
+  describe '#call' do
 
-    subject { it.collate_books(output_dir, true, message_stream) }
+    subject { it.call(output_dir, true, message_stream) }
 
     it 'prints a message displaying the output directory' do
       subject
@@ -33,8 +33,8 @@ describe Klipbook::Collator do
 
     it 'passes each book to the summary writer' do
       subject
-      summary_writer.should have_received.write(book_one, output_dir, true)
-      summary_writer.should have_received.write(book_two, output_dir, true)
+      pretty_printer.should have_received.call(book_one, output_dir, true)
+      pretty_printer.should have_received.call(book_two, output_dir, true)
     end
   end
 end

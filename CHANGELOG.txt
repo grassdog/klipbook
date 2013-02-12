@@ -1,3 +1,16 @@
+== 2.0.0 / 2013-02-12
+
+* Feature changes
+
+	* Renamed the collate command to pretty print which describes what it does better.
+
+	* Introduces a _new_ collate command that collates all clippings into a single JSON
+file.
+
+* Other unexposed changes
+
+	* Internally refactored much of the codebase into a more sensible structure.
+
 == 1.0.2 / 2012-12-12
 
 * Bug fixes

@@ -10,7 +10,7 @@ group :development do
   gem 'bundler'
   gem 'jeweler', '~> 1.6.4'
   gem 'rcov', '>= 0'
-  gem 'pry'
+  gem 'pry-debugger'
   gem 'cucumber'
   gem 'aruba'
   gem 'guard'

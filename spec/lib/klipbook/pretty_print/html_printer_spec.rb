@@ -14,7 +14,7 @@ describe Klipbook::PrettyPrint::HtmlPrinter do
   end
 
   let(:book) do
-    Klipbook::Book.new do |b|
+    Klipbook::Book.new.tap do |b|
       b.title = 'Fake book title'
       b.author = 'Fake Author'
       b.clippings = []

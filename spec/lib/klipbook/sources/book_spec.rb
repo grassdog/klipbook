@@ -7,7 +7,7 @@ describe Klipbook::Book do
 
     context 'with no author' do
       let(:book) do
-        Klipbook::Book.new do |b|
+        Klipbook::Book.new.tap do |b|
           b.title = 'Book title'
         end
       end
@@ -19,7 +19,7 @@ describe Klipbook::Book do
 
     context 'with an author' do
       let(:book) do
-        Klipbook::Book.new do |b|
+        Klipbook::Book.new.tap do |b|
           b.title = 'Book title'
           b.author = 'Rob Ripjaw'
         end

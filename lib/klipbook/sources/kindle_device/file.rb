@@ -38,12 +38,12 @@ module Klipbook::Sources
       def book_from_entries(entries)
         entries.sort! { |ea, eb| ea.location <=> eb.location }
 
-        Klipbook::Book.new do |b|
+        Klipbook::Book.new.tap do |b|
           b.title = entries.first.title
           b.author = entries.first.author
           b.last_update = entries.map(&:added_on).max
           b.clippings = entries.map do |e|
-            Klipbook::Clipping.new do |c|
+            Klipbook::Clipping.new.tap do |c|
               c.location = e.location
               c.page = e.page
               c.text = e.text

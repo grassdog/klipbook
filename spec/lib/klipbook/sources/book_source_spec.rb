@@ -15,9 +15,9 @@ describe Klipbook::Sources::BookSource do
   end
 
   context 'when created with a site source' do
-    subject { fetcher }
+    subject { book_source }
 
-    let(:fetcher) { Klipbook::Sources::BookSource.new('site:username@example.com:password', 2) }
+    let(:book_source) { Klipbook::Sources::BookSource.new('site:username@example.com:password', 2) }
 
     before(:each) do
       stub(Klipbook::Sources::AmazonSite::SiteScraper).new { fake_source }
@@ -29,7 +29,7 @@ describe Klipbook::Sources::BookSource do
     end
 
     describe '#books' do
-      subject { fetcher.books }
+      subject { book_source.books }
 
       let(:books) { [] }
 
@@ -40,9 +40,9 @@ describe Klipbook::Sources::BookSource do
   end
 
   context 'when created with a file source' do
-    subject { fetcher }
+    subject { book_source }
 
-    let(:fetcher) { Klipbook::Sources::BookSource.new('file:filename', 2) }
+    let(:book_source) { Klipbook::Sources::BookSource.new('file:filename', 2) }
 
     let(:fake_file) do
       Object.new.tap do |file|
@@ -62,18 +62,18 @@ describe Klipbook::Sources::BookSource do
       File.should have_received.open('filename', 'r')
     end
 
-    it 'uses the file contents to create a file source' do
+    pending 'uses the file contents to create a file source' do
       subject
 
       Klipbook::Sources::KindleDevice::File.should have_received.new('fake contents', 2)
     end
 
     describe '#books' do
-      subject { fetcher.books }
+      subject { book_source.books }
 
       let(:books) { [] }
 
-      it 'returns the books returned by the file source' do
+      pending 'returns the books returned by the file source' do
         subject.should == books
       end
     end

@@ -11,7 +11,7 @@ module Klipbook::Sources
       private
 
       def build_book(page, element)
-        Klipbook::Book.new do |b|
+        Klipbook::Book.new.tap do |b|
           b.asin = element.attribute("id").value.gsub(/_[0-9]+$/, "")
           b.author = element.xpath("span[@class='author']").text.gsub("\n", "").gsub(" by ", "").strip
           b.title = element.xpath("span/a").text
@@ -34,7 +34,7 @@ module Klipbook::Sources
         annotation_id = element.xpath("form/input[@id='annotation_id']").attribute("value").value
         note_text = element.xpath("p/span[@class='noteContent']").text
 
-        highlight = Klipbook::Clipping.new do |c|
+        highlight = Klipbook::Clipping.new.tap do |c|
           c.annotation_id = annotation_id
           c.text = element.xpath("span[@class='highlight']").text
           c.type = :highlight
@@ -44,7 +44,7 @@ module Klipbook::Sources
         if note_text.blank?
           highlight
         else
-          note = Klipbook::Clipping.new do |c|
+          note = Klipbook::Clipping.new.tap do |c|
             c.annotation_id = annotation_id
             c.text = note_text
             c.type = :note

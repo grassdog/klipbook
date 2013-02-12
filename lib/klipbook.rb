@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'klipbook/util/blank'
+require 'klipbook/util/struct_to_json'
 require 'klipbook/version'
 
 require 'klipbook/commands/collate'
@@ -22,3 +23,4 @@ require 'klipbook/sources/amazon_site/book_scraper'
 require 'klipbook/config'
 
 require 'klipbook/pretty_print/html_printer'
+require 'klipbook/collate/book_file'

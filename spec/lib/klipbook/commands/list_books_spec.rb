@@ -25,8 +25,8 @@ describe Klipbook::Commands::ListBooks do
     context 'when created with multiple books' do
       let (:books) do
         [
-          Klipbook::Book.new { |b| b.title = 'My first fake title' },
-          Klipbook::Book.new { |b| b.title = 'Another fake book'; b.author = 'Rock Riphard' }
+          Klipbook::Book.new.tap { |b| b.title = 'My first fake title' },
+          Klipbook::Book.new.tap { |b| b.title = 'Another fake book'; b.author = 'Rock Riphard' }
         ]
       end
 

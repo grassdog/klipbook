@@ -25,17 +25,37 @@ arg_name 'count'
 default_value 1
 flag [:n, :'num-books']
 
-desc 'Collate your clippings into a html file for each book'
+desc 'Collate your clippings into a single json file'
 arg_name 'source'
-long_desc "Clippings are fetched from the specified source before being collated into html " +
-          "files and written into the current directory.\n\n" + SOURCE_HELP
+long_desc "Clippings are fetched from the specified source, collated, and written into a single json file.\n\n" +
+          SOURCE_HELP
 command :collate do |c|
 
-  c.desc 'Override the directory path where collated files are written'
+  c.desc 'Specify the name of the json file to be written to.'
+  c.arg_name 'File-name'
+  c.flag [:c, :'output-file']
+
+  c.desc 'Force overwrite of any existing book entries within the output file'
+  c.switch [:f, :force]
+
+  c.action do |globals,options,args|
+    books = fetch_books(args, globals)
+    book_file = Klipbook::Collate::BookFile.new([])
+    Klipbook::Commands::Collate.new(books, book_file).call(output_file(options), options[:f])
+  end
+end
+
+desc 'Pretty print your clippings into a html file for each book'
+arg_name 'source'
+long_desc "Clippings are fetched from the specified source before being written to html " +
+          "files in the output directory.\n\n" + SOURCE_HELP
+command :pprint do |c|
+
+  c.desc 'Override the directory path where html files are written'
   c.arg_name 'Directory'
   c.flag [:o, :'output-dir']
 
-  c.desc 'Force overwrite of any existing collated files'
+  c.desc 'Force overwrite of any existing files'
   c.switch [:f, :force]
 
   c.action do |globals,options,args|
@@ -46,7 +66,7 @@ end
 
 desc 'List available books'
 arg_name 'source'
-long_desc "Clippings are fetched from the specified source before being listed to screen.\n\n" + SOURCE_HELP
+long_desc "List the books from the specified source to screen.\n\n" + SOURCE_HELP
 command :list do |c|
   c.action do |globals,options,args|
     books = fetch_books(args, globals)
@@ -85,6 +105,10 @@ end
 
 def output_dir(options)
   @output_dir ||= (options[:o] || Klipbook::Config.new.read[:output] || Dir.pwd)
+end
+
+def output_file(options)
+  @output_file ||= (options[:c] || Klipbook::Config.new.read[:output_file] || File.join(Dir.pwd, 'books.json'))
 end
 
 exit run(ARGV)

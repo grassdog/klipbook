@@ -16,8 +16,8 @@ describe Klipbook::Commands::PrettyPrint do
     end
   end
 
-  let (:book_one) { Klipbook::Book.new }
-  let (:book_two) { Klipbook::Book.new }
+  let (:book_one) { Klipbook::Book.new('book one') }
+  let (:book_two) { Klipbook::Book.new('book two') }
   let (:books) { [ book_one, book_two ] }
 
   let(:output_dir) { 'fake output dir' }

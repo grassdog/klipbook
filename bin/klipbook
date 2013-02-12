@@ -39,9 +39,9 @@ command :collate do |c|
   c.switch [:f, :force]
 
   c.action do |globals,options,args|
+    book_file_path = output_file(options)
     books = fetch_books(args, globals)
-    book_file = Klipbook::Collate::BookFile.new([])
-    Klipbook::Commands::Collate.new(books, book_file).call(output_file(options), options[:f])
+    Klipbook::Commands::Collate.new(books, book_file(book_file_path)).call(book_file_path, options[:f])
   end
 end
 
@@ -93,6 +93,18 @@ end
 
 on_error do |exception|
   true
+end
+
+def book_file(file_path)
+  raw_json = if File.exist?(file_path)
+               File.open(file_path, 'r') do |f|
+                 f.read
+               end
+             else
+               ''
+             end
+
+  Klipbook::Collate::BookFile.from_json(raw_json)
 end
 
 def source_spec(args)

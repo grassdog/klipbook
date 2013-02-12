@@ -15,4 +15,14 @@ Klipbook::Book = Struct.new(:asin, :author, :title, :last_update, :clippings) do
       "loc #{location}"
     end
   end
+
+  def self.from_hash(hash)
+    self.new.tap do |b|
+      b.asin = hash['asin']
+      b.author = hash['author']
+      b.title = hash['title']
+      b.last_update = hash['last_update']
+      b.clippings = hash['clippings'].map { |clip| Klipbook::Clipping.from_hash(clip) }
+    end
+  end
 end

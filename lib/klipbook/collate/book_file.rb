@@ -18,11 +18,12 @@ module Klipbook::Collate
       @books = books || []
     end
 
-    def add_books(new_books, force)
+    def add_books(new_books, force, message_stream=$stdout)
       new_books.each do |new_book|
         if book_exists?(new_book)
-          replace_book(new_book) if force
+          replace_book(new_book, message_stream) if force
         else
+          message_stream.puts "Adding: #{new_book.title_and_author}"
           @books.push(new_book)
         end
       end
@@ -42,7 +43,9 @@ module Klipbook::Collate
       @books.find { |existing_book| existing_book.title_and_author == new_book.title_and_author }
     end
 
-    def replace_book(new_book)
+    def replace_book(new_book, message_stream)
+      message_stream.puts "Updating: #{new_book.title_and_author}"
+
       old_book = find_book(new_book)
       @books.delete(old_book)
       @books.push(new_book)

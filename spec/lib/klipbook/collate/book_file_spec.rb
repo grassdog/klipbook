@@ -15,6 +15,12 @@ describe Klipbook::Collate::BookFile do
   end
 
   describe '#add_books' do
+    let (:message_stream) do
+      Object.new.tap do |fake_stream|
+        stub(fake_stream).puts
+      end
+    end
+
     let(:it) do
       books = [
         Klipbook::Book.new.tap do |b|
@@ -35,7 +41,7 @@ describe Klipbook::Collate::BookFile do
         b.author = 'Author two'
       end
 
-      it.add_books([ new_book ], false)
+      it.add_books([ new_book ], false, message_stream)
       it.books.should have(3).items
       it.books.should include(new_book)
     end
@@ -47,7 +53,7 @@ describe Klipbook::Collate::BookFile do
         b.asin = 'new asin'
       end
 
-      it.add_books([ new_book ], true)
+      it.add_books([ new_book ], true, message_stream)
       it.books.should have(2).items
       it.books.should include(new_book)
     end
@@ -59,7 +65,7 @@ describe Klipbook::Collate::BookFile do
         b.asin = 'new asin'
       end
 
-      it.add_books([ new_book ], false)
+      it.add_books([ new_book ], false, message_stream)
       it.books.should have(2).items
       it.books.should_not include(new_book)
     end

@@ -14,12 +14,12 @@ Given /^a file that contains clippings for 3 books called "([^"]*)"$/ do |file_n
   in_current_dir { FileUtils.cp(CLIPPING_FILE, file_name) }
 end
 
-When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)"$/ do |book_count, input_file, output_dir|
-  run_collate_file(book_count, output_dir, input_file, false)
+When /^I pretty print clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)"$/ do |book_count, input_file, output_dir|
+  run_pretty_print_file(book_count, output_dir, input_file, false)
 end
 
-When /^I collate clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)" forcefully$/ do |book_count, input_file, output_dir|
-  run_collate_file(book_count, output_dir, input_file, true)
+When /^I pretty print clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)" forcefully$/ do |book_count, input_file, output_dir|
+  run_pretty_print_file(book_count, output_dir, input_file, true)
 end
 
 Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/ do |output_folder, file_name, clipping_count|
@@ -33,11 +33,11 @@ Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contain
 end
 
 # FIXME This step currently assumes you have site: set up in your klipbookrc
-When /^I collate clippings for "([^"]*)" books from the kindle site to the output directory "([^"]*)"$/ do |book_count, output_dir|
-  run_simple(unescape("klipbook -n #{book_count} collate -o #{output_dir}"), false)
+When /^I pretty print clippings for "([^"]*)" books from the kindle site to the output directory "([^"]*)"$/ do |book_count, output_dir|
+  run_simple(unescape("klipbook -n #{book_count} pprint -o #{output_dir}"), false)
 end
 
-Then /^I should find "([^"]*)" collated files containing clippings in the directory "([^"]*)"$/ do |file_count, output_dir|
+Then /^I should find "([^"]*)" pretty printed files containing clippings in the directory "([^"]*)"$/ do |file_count, output_dir|
   in_current_dir do
     files = Dir['output/*.html']
     files.should have(file_count.to_i).items
@@ -49,13 +49,13 @@ Then /^I should find "([^"]*)" collated files containing clippings in the direct
   end
 end
 
-def run_collate_file(book_count, output, input, force=false)
+def run_pretty_print_file(book_count, output, input, force=false)
   force_str = if force
     '-f'
   else
     ''
   end
 
-  run_simple(unescape("klipbook -n #{book_count} collate #{force_str} -o #{output} file:#{input}"), false)
+  run_simple(unescape("klipbook -n #{book_count} pprint #{force_str} -o #{output} file:#{input}"), false)
 end
 

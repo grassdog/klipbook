@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "klipbook"
-  s.version = "1.0.2"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2012-12-12"
+  s.date = "2013-02-13"
   s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]
@@ -33,34 +33,39 @@ Gem::Specification.new do |s|
     "features/collate.feature",
     "features/fixtures/clippings-for-three-books.txt",
     "features/list.feature",
+    "features/pretty_print.feature",
     "features/step_definitions/collate_steps.rb",
     "features/step_definitions/list_steps.rb",
+    "features/step_definitions/pretty_print_steps.rb",
     "features/support/env.rb",
     "klipbook.gemspec",
     "lib/klipbook.rb",
-    "lib/klipbook/blank.rb",
-    "lib/klipbook/book.rb",
-    "lib/klipbook/clipping.rb",
-    "lib/klipbook/collator.rb",
+    "lib/klipbook/collate/book_file.rb",
+    "lib/klipbook/commands/collate.rb",
+    "lib/klipbook/commands/list_books.rb",
+    "lib/klipbook/commands/pretty_print.rb",
     "lib/klipbook/config.rb",
-    "lib/klipbook/fetcher.rb",
-    "lib/klipbook/invalid_source_error.rb",
-    "lib/klipbook/output/book_helpers.rb",
-    "lib/klipbook/output/html_book_summary.erb",
-    "lib/klipbook/output/html_summary_writer.rb",
-    "lib/klipbook/printer.rb",
+    "lib/klipbook/pretty_print/html_book_summary.erb",
+    "lib/klipbook/pretty_print/html_printer.rb",
     "lib/klipbook/sources/amazon_site/book_scraper.rb",
     "lib/klipbook/sources/amazon_site/site_scraper.rb",
+    "lib/klipbook/sources/book.rb",
+    "lib/klipbook/sources/book_source.rb",
+    "lib/klipbook/sources/clipping.rb",
+    "lib/klipbook/sources/invalid_source_error.rb",
     "lib/klipbook/sources/kindle_device/entry.rb",
     "lib/klipbook/sources/kindle_device/entry_parser.rb",
     "lib/klipbook/sources/kindle_device/file.rb",
     "lib/klipbook/sources/kindle_device/file_parser.rb",
+    "lib/klipbook/util/blank.rb",
+    "lib/klipbook/util/struct_to_json.rb",
     "lib/klipbook/version.rb",
-    "spec/lib/klipbook/book_spec.rb",
-    "spec/lib/klipbook/collator_spec.rb",
-    "spec/lib/klipbook/fetcher_spec.rb",
-    "spec/lib/klipbook/output/html_summary_writer_spec.rb",
-    "spec/lib/klipbook/printer_spec.rb",
+    "spec/lib/klipbook/collate/book_file_spec.rb",
+    "spec/lib/klipbook/commands/list_books_spec.rb",
+    "spec/lib/klipbook/commands/pretty_print_spec.rb",
+    "spec/lib/klipbook/pretty_print/html_printer_spec.rb",
+    "spec/lib/klipbook/sources/book_source_spec.rb",
+    "spec/lib/klipbook/sources/book_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/entry_parser_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/file_parser_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/file_spec.rb",
@@ -86,7 +91,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
-      s.add_development_dependency(%q<pry>, [">= 0"])
+      s.add_development_dependency(%q<pry-debugger>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<aruba>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
@@ -102,7 +107,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
-      s.add_dependency(%q<pry>, [">= 0"])
+      s.add_dependency(%q<pry-debugger>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<aruba>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
@@ -119,7 +124,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
-    s.add_dependency(%q<pry>, [">= 0"])
+    s.add_dependency(%q<pry-debugger>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<aruba>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])

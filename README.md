@@ -60,7 +60,9 @@ Klipbook will not overwrite an exiting file by default. You can change this with
 Specify your Amazon username and password to klipbook and it will scrape the site and
 output a clippings file.
 
+```sh
 $ klipbook pprint site:my-username@blah.com:my-password
+```
 
 The same flags above apply.
 
@@ -79,14 +81,14 @@ output directory, e.g.
 $ cat ~/.klipbookrc
 
 :source: site:my-username@blah.com:my-password
-:output:my/default/output/directory
+:output: /path/to/my/default/output/directory
 ```
 
 Command line options override the defaults stored in the rc file.
 
 ### List
 
-The list command lists the books avaiable in the specified source.
+The `list` command lists the books available in the specified source.
 
 ```sh
 $ klipbook list file:"My Clippings.txt"
@@ -117,7 +119,7 @@ flag.
 Klipbook is a Ruby gem. To install simply run:
 
 ```sh
-gem install klipbook
+$ gem install klipbook
 ```
 
 ## Supported Devices

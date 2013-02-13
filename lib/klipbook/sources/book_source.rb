@@ -4,8 +4,8 @@ module Klipbook::Sources
       raise InvalidSourceError unless valid_source?(source_spec)
 
       if (source_spec =~ /file:(.+)/)
-        raw_file = File.open($1, 'r')
-        @source = Klipbook::Sources::KindleDevice::File.new(raw_file.read.strip, max_books)
+        file_path = $1
+        @source = Klipbook::Sources::KindleDevice::File.new(file_path, max_books)
       elsif (source_spec =~ /site:(.+):(.+)/)
         username = $1
         password = $2

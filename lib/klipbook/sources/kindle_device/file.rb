@@ -1,8 +1,8 @@
 module Klipbook::Sources
   module KindleDevice
     class File
-      def initialize(file_text, max_books, file_parser=FileParser.new)
-        @file_text = file_text
+      def initialize(file_path, max_books, file_parser=FileParser.new)
+        @file_text = ::File.open(file_path, 'r') {|f| f.read.strip }
         @file_parser = file_parser
         @max_books = max_books
       end

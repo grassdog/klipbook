@@ -19,10 +19,7 @@ def get_book_source(opts)
     exit 127
   end
 
-  credentials = credentials(opts)
-  infile      = infile(opts)
-
-  get_file_source(infile, max_books) || get_site_source(credentials, max_books)
+  get_file_source(infile(opts), max_books) || get_site_source(credentials(opts), max_books)
 end
 
 def exit_unless_valid_source(opts)

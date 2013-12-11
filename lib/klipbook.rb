@@ -7,7 +7,6 @@ require 'klipbook/commands/collate'
 require 'klipbook/commands/list_books'
 require 'klipbook/commands/pretty_print'
 
-require 'klipbook/sources/book_source'
 require 'klipbook/sources/book'
 require 'klipbook/sources/clipping'
 require 'klipbook/sources/invalid_source_error'

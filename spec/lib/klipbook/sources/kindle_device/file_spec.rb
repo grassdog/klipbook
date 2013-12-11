@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Klipbook::Sources::KindleDevice::File do
 
-  let(:file) { Klipbook::Sources::KindleDevice::File.new('file path', max_books, file_parser) }
+  let(:file) { Klipbook::Sources::KindleDevice::File.new(input_file, max_books, file_parser) }
 
   let(:max_books) { 30 }
 
@@ -17,20 +17,6 @@ describe Klipbook::Sources::KindleDevice::File do
   let(:input_file) do
     Object.new.tap do |fake_file|
       stub(fake_file).read { 'file text' }
-    end
-  end
-
-  before :each do
-    stub(File).open.returns do |*args|
-      passed_block = args.last
-      passed_block.call(input_file)
-    end
-  end
-
-  describe 'initially' do
-    it 'reads the contents of the input file' do
-      file
-      File.should have_received.open('file path', 'r')
     end
   end
 

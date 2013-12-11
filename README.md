@@ -27,11 +27,11 @@ device only keeps clippings that you made directly on it.
 
 ## How does it work?
 
-Klipbook supports three commands: `list`, `pprint`, and `collate`.
+Klipbook supports three commands: `list`, `tohtml`, and `tojson`.
 
-### Pretty print
+### To HTML
 
-`pprint` retrieves the clippings from your latest annotated books and writes them
+`tohtml` retrieves the clippings from your latest annotated books and writes them
 out into a pretty html file for each book.
 
 #### From a file
@@ -42,26 +42,26 @@ your Kindle device to your local drive via USB.
 Then write out a list of your clippings via:
 
 ```sh
-$ klipbook pprint "file:My Clippings.txt"
+$ klipbook tohtml -i "My Clippings.txt"
 ```
 
 This command will write the collected clippings for the latest annotated book to a
 file in the current directory. You can override the output directory with the
-`--output-dir` switch.
+`--outdir` switch.
 
 You can also specify a maximum count of books you'd like collated with the
-`--num-books` switch.
+`--number` switch.
 
 Klipbook will not overwrite an exiting file by default. You can change this with the
 `--force` flag.
 
 #### From the site
 
-Specify your Amazon username and password to klipbook and it will scrape the site and
+Specify your Amazon credentials to klipbook and it will scrape the site and
 output a clippings file.
 
 ```sh
-$ klipbook pprint site:my-username@blah.com:my-password
+$ klipbook tohtml -c my-username@blah.com:my-password
 ```
 
 The same flags above apply.
@@ -80,8 +80,8 @@ output directory, e.g.
 ```sh
 $ cat ~/.klipbookrc
 
-:source: site:my-username@blah.com:my-password
-:output: /path/to/my/default/output/directory
+:credentials: my-username@blah.com:my-password
+:outdir: /path/to/my/default/output/directory
 ```
 
 Command line options override the defaults stored in the rc file.
@@ -91,7 +91,7 @@ Command line options override the defaults stored in the rc file.
 The `list` command lists the books available in the specified source.
 
 ```sh
-$ klipbook list file:"My Clippings.txt"
+$ klipbook list -i "My Clippings.txt"
 
 Book list:
 [1] The Big Sleep by Raymond Chandler
@@ -99,19 +99,19 @@ Book list:
 ```
 
 By default it will only list the latest book. This can be overrided with the
-`--num-books` switch.
+`--number` switch.
 
-### Collate
+### To JSON
 
-`collate` pulls together the clippings from your latest annotated books and combines
+`tojson` pulls together the clippings from your latest annotated books and combines
 them into a single JSON file.
 
 ```sh
-$ klipbook collate -c books.json "file:My Clippings.txt"
+$ klipbook tojson -i "My Clippings.txt" -o books.json
 ```
 
 You can rerun collate on an existing JSON file to add new books. By default existing
-books in the JSON file will not be overwritten. This can be changed with the `force`
+books in the JSON file will not be overwritten. This can be changed with the `--force`
 flag.
 
 ## Installation
@@ -129,12 +129,12 @@ Kindle Touch.
 
 ## Tested platforms
 
-Klipbook has been tested on Mac OSX Mountain Lion using MRI 1.9.3. 
+Klipbook has been tested on Mac OSX Mavericks using MRI 2.0.0
 
 ## Contributing to Klipbook
 
 Fork the project on [Github](https://github.com/grassdog/klipbook), add tests for
-your changes, and submit a well described pull request. 
+your changes, and submit a well described pull request.
 
 ## Copyright
 

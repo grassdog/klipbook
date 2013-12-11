@@ -1,7 +1,7 @@
 require 'json'
 require 'rainbow'
 
-module Klipbook::Collate
+module Klipbook::ToJson
   class BookFile
     attr_reader :books
 

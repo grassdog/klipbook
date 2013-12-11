@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Klipbook::Commands::PrettyPrint do
+describe Klipbook::Commands::ToHtml do
 
-  let (:it) { Klipbook::Commands::PrettyPrint.new(books, pretty_printer) }
+  let (:it) { Klipbook::Commands::ToHtml.new(books, pretty_printer) }
 
   let (:pretty_printer) do
     Object.new.tap do |fake_printer|

@@ -110,7 +110,7 @@ them into a single JSON file.
 $ klipbook tojson -i "My Clippings.txt" -o books.json
 ```
 
-You can rerun collate on an existing JSON file to add new books. By default existing
+You can rerun tojson on an existing JSON file to add new books. By default existing
 books in the JSON file will not be overwritten. This can be changed with the `--force`
 flag.
 

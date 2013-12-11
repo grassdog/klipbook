@@ -1,5 +1,5 @@
 module Klipbook::Commands
-  class Collate
+  class ToJson
     def initialize(books, book_file)
       @books = books
       @book_file = book_file

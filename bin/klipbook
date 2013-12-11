@@ -72,7 +72,7 @@ rescue
 end
 
 def book_file(file_path)
-  Klipbook::Collate::BookFile.from_json(raw_json_from_file(file_path))
+  Klipbook::ToJson::BookFile.from_json(raw_json_from_file(file_path))
 end
 
 #########
@@ -147,7 +147,7 @@ end
 
 opts = Slop.parse(help: true) do
   banner "Usage: klipbook <command> [options]\n\n" +
-         "Klipbook pretty prints the clippings you've saved on your Kindle into JSON or pretty html.\n\n" +
+         "Klipbook writes the clippings you've saved on your Kindle into JSON or pretty html.\n\n" +
          CONFIG_HELP + "\n"
 
   on :v, :version, "Print the version." do
@@ -190,7 +190,7 @@ opts = Slop.parse(help: true) do
 
       books = fetch_books(opts)
 
-      Klipbook::Commands::Collate.new(books, book_file(outfile_path)).call(outfile_path, opts[:force])
+      Klipbook::Commands::ToJson.new(books, book_file(outfile_path)).call(outfile_path, opts[:force])
     end
   end
 
@@ -212,7 +212,7 @@ opts = Slop.parse(help: true) do
 
       outdir_path = ensure_outdir(opts)
 
-      Klipbook::Commands::PrettyPrint.new(books).call(outdir_path, opts[:force])
+      Klipbook::Commands::ToHtml.new(books).call(outdir_path, opts[:force])
     end
   end
 

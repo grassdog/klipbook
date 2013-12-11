@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Klipbook::Collate::BookFile do
+describe Klipbook::ToJson::BookFile do
 
   describe '.from_json' do
 
-    subject { Klipbook::Collate::BookFile.from_json(json) }
+    subject { Klipbook::ToJson::BookFile.from_json(json) }
 
     context 'with empty json' do
 
@@ -32,7 +32,7 @@ describe Klipbook::Collate::BookFile do
           b.author = "Author two"
         end
       ]
-      Klipbook::Collate::BookFile.new(books)
+      Klipbook::ToJson::BookFile.new(books)
     end
 
     it "adds any books that don't already exist" do

@@ -1,6 +1,6 @@
 require 'erb'
 
-module Klipbook::PrettyPrint
+module Klipbook::ToHtml
   class HtmlPrinter
     def initialize(message_stream=$stdout)
       @message_stream = message_stream

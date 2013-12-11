@@ -1,6 +1,6 @@
 module Klipbook::Commands
-  class PrettyPrint
-    def initialize(books, pretty_printer=Klipbook::PrettyPrint::HtmlPrinter.new)
+  class ToHtml
+    def initialize(books, pretty_printer=Klipbook::ToHtml::HtmlPrinter.new)
       @books = books
       @pretty_printer = pretty_printer
     end

@@ -3,9 +3,9 @@ require 'klipbook/util/blank'
 require 'klipbook/util/struct_to_json'
 require 'klipbook/version'
 
-require 'klipbook/commands/collate'
+require 'klipbook/commands/tojson'
 require 'klipbook/commands/list_books'
-require 'klipbook/commands/pretty_print'
+require 'klipbook/commands/tohtml'
 
 require 'klipbook/sources/book'
 require 'klipbook/sources/clipping'
@@ -21,5 +21,5 @@ require 'klipbook/sources/amazon_site/book_scraper'
 
 require 'klipbook/config'
 
-require 'klipbook/pretty_print/html_printer'
-require 'klipbook/collate/book_file'
+require 'klipbook/tohtml/html_printer'
+require 'klipbook/tojson/book_file'

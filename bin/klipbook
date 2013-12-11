@@ -13,10 +13,16 @@ def get_book_source(opts)
   exit_unless_valid_source(opts)
 
   max_books   = opts[:number].to_i
+
+  unless max_books > 0
+    $stderr.puts "Error: Specify a number of books greater than 0"
+    exit 127
+  end
+
   credentials = credentials(opts)
   infile      = infile(opts)
 
-  get_site_source(credentials, max_books) || get_file_source(infile, max_books)
+  get_file_source(infile, max_books) || get_site_source(credentials, max_books)
 end
 
 def exit_unless_valid_source(opts)
@@ -107,7 +113,14 @@ def ensure_outdir(opts)
     exit(127)
   end
 
-  outdir_path(opts)
+  outdir = outdir_path(opts)
+
+  unless File.exists?(outdir)
+    $stderr.puts("Error: Outdir does not exist.")
+    exit(127)
+  end
+
+  outdir
 end
 
 def outdir_path(opts)

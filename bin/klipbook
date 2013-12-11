@@ -152,6 +152,7 @@ opts = Slop.parse(help: true) do
 
   on :v, :version, "Print the version." do
     puts "Klipbook version #{Klipbook::VERSION}"
+    exit 0
   end
 
   command "list" do

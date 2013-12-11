@@ -1,12 +1,13 @@
 module Klipbook::Sources
   module KindleDevice
     class File
-      def initialize(file_path, max_books, file_parser=FileParser.new)
-        @file_text = ::File.open(file_path, 'r') {|f| f.read.strip }
+      def initialize(infile, max_books, file_parser=FileParser.new)
+        @file_text = infile.read.strip
         @file_parser = file_parser
         @max_books = max_books
       end
 
+      # TODO Shift max books here
       def books
         @books ||= build_books.take(@max_books)
       end
@@ -25,7 +26,7 @@ module Klipbook::Sources
 
       def build_sorted_book_list(sorted_entries)
         books_from_entries(sorted_entries).sort do |book_a, book_b|
-          -(book_a.last_update <=> book_b.last_update)
+          book_b.last_update <=> book_a.last_update
         end
       end
 

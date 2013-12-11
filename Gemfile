@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'gli'
+gem 'slop'
 gem 'mechanize'
 gem 'rainbow'
 

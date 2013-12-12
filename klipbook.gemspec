@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "klipbook"
-  s.version = "2.1.0"
+  s.version = "2.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ray Grasso"]
-  s.date = "2013-12-11"
+  s.date = "2013-12-12"
   s.description = "Process your Kindle clippings file to generate a nicely formatted compilation of the clippings of the books you've read"
   s.email = "ray.grasso@gmail.com"
   s.executables = ["klipbook"]
@@ -41,13 +41,10 @@ Gem::Specification.new do |s|
     "features/tojson.feature",
     "klipbook.gemspec",
     "lib/klipbook.rb",
-    "lib/klipbook/collate/book_file.rb",
-    "lib/klipbook/commands/collate.rb",
     "lib/klipbook/commands/list_books.rb",
-    "lib/klipbook/commands/pretty_print.rb",
+    "lib/klipbook/commands/tohtml.rb",
+    "lib/klipbook/commands/tojson.rb",
     "lib/klipbook/config.rb",
-    "lib/klipbook/pretty_print/html_book_summary.erb",
-    "lib/klipbook/pretty_print/html_printer.rb",
     "lib/klipbook/sources/amazon_site/book_scraper.rb",
     "lib/klipbook/sources/amazon_site/site_scraper.rb",
     "lib/klipbook/sources/book.rb",
@@ -57,17 +54,20 @@ Gem::Specification.new do |s|
     "lib/klipbook/sources/kindle_device/entry_parser.rb",
     "lib/klipbook/sources/kindle_device/file.rb",
     "lib/klipbook/sources/kindle_device/file_parser.rb",
+    "lib/klipbook/tohtml/html_book_summary.erb",
+    "lib/klipbook/tohtml/html_printer.rb",
+    "lib/klipbook/tojson/book_file.rb",
     "lib/klipbook/util/blank.rb",
     "lib/klipbook/util/struct_to_json.rb",
     "lib/klipbook/version.rb",
-    "spec/lib/klipbook/collate/book_file_spec.rb",
     "spec/lib/klipbook/commands/list_books_spec.rb",
-    "spec/lib/klipbook/commands/pretty_print_spec.rb",
-    "spec/lib/klipbook/pretty_print/html_printer_spec.rb",
+    "spec/lib/klipbook/commands/tohtml_spec.rb",
     "spec/lib/klipbook/sources/book_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/entry_parser_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/file_parser_spec.rb",
     "spec/lib/klipbook/sources/kindle_device/file_spec.rb",
+    "spec/lib/klipbook/tohtml/html_printer_spec.rb",
+    "spec/lib/klipbook/tojson/book_file_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/rspec2.rb",
     "spec/support/with_rr.rb"

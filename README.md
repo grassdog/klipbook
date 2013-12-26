@@ -1,5 +1,7 @@
 # Klipbook
 
+[![Build Status](https://travis-ci.org/quad/klipbook.png)](https://travis-ci.org/quad/klipbook)
+
 Klipbook takes the highlights and notes that you've created on your Kindle and
 outputs them into nice html or JSON.
 

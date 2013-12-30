@@ -4,6 +4,10 @@ gem 'slop'
 gem 'mechanize'
 gem 'rainbow'
 
+group :test do
+  gem 'rake'
+end
+
 group :development do
   gem 'rspec'
   gem 'rr'

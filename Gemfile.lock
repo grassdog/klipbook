@@ -148,6 +148,7 @@ DEPENDENCIES
   mechanize
   pry-debugger
   rainbow
+  rake
   rr
   rspec
   slop

@@ -46,3 +46,5 @@ end
 desc 'Default: run specs'
 task :default => :spec
 
+desc 'Travis build'
+task :ci => [ :spec, :features ]

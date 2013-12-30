@@ -44,7 +44,5 @@ Cucumber::Rake::Task.new(:allfeatures) do |t|
 end
 
 desc 'Default: run specs'
-task :default => :spec
+task :default => [ :spec, :features ]
 
-desc 'Travis build'
-task :ci => [ :spec, :features ]

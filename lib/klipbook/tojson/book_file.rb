@@ -1,5 +1,4 @@
 require 'json'
-require 'rainbow'
 
 module Klipbook::ToJson
   class BookFile
@@ -25,10 +24,10 @@ module Klipbook::ToJson
           if force
             replace_book(new_book, message_stream)
           else
-            message_stream.puts "Skipping: ".foreground(:yellow) + "#{new_book.title_and_author}"
+            message_stream.puts Colours.yellow("Skipping: ") + "#{new_book.title_and_author}"
           end
         else
-          message_stream.puts "Adding: ".foreground(:green) + "#{new_book.title_and_author}"
+          message_stream.puts Colours.green("Adding: ") + "#{new_book.title_and_author}"
           @books.push(new_book)
         end
       end
@@ -49,7 +48,7 @@ module Klipbook::ToJson
     end
 
     def replace_book(new_book, message_stream)
-      message_stream.puts "Updating: ".foreground(:green) + "#{new_book.title_and_author}"
+      message_stream.puts Colours.green("Updating: ") + "#{new_book.title_and_author}"
 
       old_book = find_book(new_book)
       @books.delete(old_book)

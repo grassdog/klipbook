@@ -2,6 +2,7 @@
 require 'klipbook/util/blank'
 require 'klipbook/util/struct_to_json'
 require 'klipbook/version'
+require 'klipbook/colours'
 
 require 'klipbook/commands/tojson'
 require 'klipbook/commands/list_books'

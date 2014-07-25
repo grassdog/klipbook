@@ -7,17 +7,15 @@ module Klipbook::ToHtml
     end
 
     def print_to_file(book, output_dir, force)
-      require 'rainbow'
-
       filename = filename_for_book(book)
       filepath = File.join(output_dir, filename)
 
       if !force && File.exists?(filepath)
-        @message_stream.puts("Skipping ".foreground(:yellow) + filename)
+        @message_stream.puts(Colours.yellow("Skipping ") + filename)
         return
       end
 
-      @message_stream.puts("Writing ".foreground(:green) + filename)
+      @message_stream.puts(Colours.green("Writing ") + filename)
       File.open(filepath, 'w') do |f|
         f.write generate_html(book)
       end

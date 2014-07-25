@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'slop'
 gem 'mechanize'
-gem 'rainbow'
 
 group :test do
   gem 'rake'

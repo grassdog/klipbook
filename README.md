@@ -131,7 +131,7 @@ Kindle Touch.
 
 ## Tested platforms
 
-Klipbook has been tested on Mac OSX Mavericks using MRI 2.0.0
+Klipbook has been tested on Mac OSX Mavericks using Ruby 2.1.2.
 
 ## Contributing to Klipbook
 
@@ -140,5 +140,5 @@ your changes, and submit a well described pull request.
 
 ## Copyright
 
-Copyright (c) 2013 Ray Grasso. See LICENSE.txt for further details.
+Copyright (c) 2014 Ray Grasso. See LICENSE.txt for further details.
 

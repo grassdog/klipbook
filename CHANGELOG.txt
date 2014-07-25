@@ -1,3 +1,10 @@
+== 2.1.2 / 2014-07-25
+
+* Minor changes
+
+	* Removed Rainbow gem and pry-debugger gems
+	* Tested on Ruby 2.1.2
+
 == 2.1.0 / 2013-12-11
 
 * Feature changes

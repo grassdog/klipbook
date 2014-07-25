@@ -141,10 +141,10 @@ DEPENDENCIES
   guard
   guard-cucumber
   guard-rspec
-  jeweler (~> 1.8.8)
-  mechanize
+  jeweler (~> 1.8)
+  mechanize (~> 2.7)
   pry-byebug
   rake
   rr
   rspec
-  slop
+  slop (~> 3.4)

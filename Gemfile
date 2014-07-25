@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'slop'
-gem 'mechanize'
+gem 'slop', '~> 3.4'
+gem 'mechanize', '~> 2.7'
 
 group :test do
   gem 'rake'
@@ -11,7 +11,7 @@ group :development do
   gem 'rspec'
   gem 'rr'
   gem 'bundler'
-  gem 'jeweler', '~> 1.8.8'
+  gem 'jeweler', '~> 1.8'
   gem 'pry-byebug'
   gem 'cucumber'
   gem 'aruba'

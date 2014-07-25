@@ -6,10 +6,11 @@ module Klipbook::Commands
     end
 
     def call(output_file_path, force, message_stream=$stdout)
-      File.open(output_file_path, 'w') do |output_file|
-        @book_file.add_books(@books, force)
+      message_stream.puts "\nWriting book json to file: #{output_file_path}"
 
-        message_stream.puts "\nWriting book json to file: #{output_file.path}"
+      @book_file.add_books(@books, force)
+
+      File.open(output_file_path, 'w') do |output_file|
         output_file.puts @book_file.to_json
       end
     end

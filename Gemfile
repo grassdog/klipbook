@@ -12,7 +12,7 @@ group :development do
   gem 'rr'
   gem 'bundler'
   gem 'jeweler', '~> 1.8.8'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'cucumber'
   gem 'aruba'
   gem 'guard'

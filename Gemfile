@@ -12,4 +12,5 @@ group :development do
   gem 'guard'
   gem 'guard-rspec', '~> 4.3'
   gem 'guard-cucumber', '~> 1.4'
+  gem 'terminal-notifier-guard', '~> 1.5'
 end

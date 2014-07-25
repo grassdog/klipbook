@@ -9,7 +9,7 @@ group :development do
   gem 'pry-byebug', '~> 1.3'
   gem 'cucumber', '~> 1.3'
   gem 'aruba', '~> 0.6'
-  gem 'guard'
+  gem 'guard', '~> 2.6'
   gem 'guard-rspec', '~> 4.3'
   gem 'guard-cucumber', '~> 1.4'
   gem 'terminal-notifier-guard', '~> 1.5'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Klipbook::Sources::KindleDevice::File do
+RSpec.describe Klipbook::Sources::KindleDevice::File do
 
   let(:file) { Klipbook::Sources::KindleDevice::File.new(input_file, max_books, file_parser) }
 
@@ -8,24 +8,16 @@ describe Klipbook::Sources::KindleDevice::File do
 
   let(:entries) { [] }
 
-  let(:file_parser) do
-    Object.new.tap do |fake_parser|
-      stub(fake_parser).extract_entries { entries }
-    end
-  end
+  let(:file_parser) { double(extract_entries: entries) }
 
-  let(:input_file) do
-    Object.new.tap do |fake_file|
-      stub(fake_file).read { 'file text' }
-    end
-  end
+  let(:input_file) { double(read: 'file text') }
 
   describe '#books' do
     subject { file.books }
 
     it 'parses the file text with the file parser' do
       subject
-      file_parser.should have_received.extract_entries('file text')
+      expect(file_parser).to have_received(:extract_entries).with('file text')
     end
 
     context 'with entries for three books' do
@@ -59,11 +51,11 @@ describe Klipbook::Sources::KindleDevice::File do
       end
 
       it 'returns three books' do
-        subject.should have(3).items
+        expect(subject.size).to eq 3
       end
 
       it 'returns books sorted by last_update descending' do
-        subject.map(&:title).should == [ 'Book two', 'Book three', 'Book one' ]
+        expect(subject.map(&:title)).to eq [ 'Book two', 'Book three', 'Book one' ]
       end
 
       context 'and max_books set to 2' do
@@ -71,7 +63,7 @@ describe Klipbook::Sources::KindleDevice::File do
         let (:max_books) { 2 }
 
         it 'returns two books' do
-          subject.should have(2).items
+          expect(subject.size).to eq 2
         end
       end
     end
@@ -119,23 +111,23 @@ describe Klipbook::Sources::KindleDevice::File do
       end
 
       it 'returns a single book with the correct title and author information' do
-        subject.first.title.should == 'Book one'
-        subject.first.author.should == 'Author one'
+        expect(subject.first.title).to eq 'Book one'
+        expect(subject.first.author).to eq 'Author one'
       end
 
       it "returns a single book with last update equal to the latest added on date of the book's entries" do
-        subject.first.last_update.should == DateTime.new(2012, 10, 21)
+        expect(subject.first.last_update).to eq DateTime.new(2012, 10, 21)
       end
 
       it "ignores bookmarks when building the book's clipping list" do
-        subject.first.clippings.should have(3).items
-        subject.first.clippings.map(&:type).should_not include(:bookmark)
+        expect(subject.first.clippings.size).to eq 3
+        expect(subject.first.clippings.map(&:type)).not_to include(:bookmark)
       end
 
       it 'returns a single book whose clippings are sorted by location' do
-        subject.first.clippings.map(&:location).should == [2, 3, 10]
-        subject.first.clippings.map(&:text).should == ['Fourth one', 'Third one', 'Second one']
-        subject.first.clippings.map(&:page).should == [1, 2, 3]
+        expect(subject.first.clippings.map(&:location)).to eq [2, 3, 10]
+        expect(subject.first.clippings.map(&:text)).to eq ['Fourth one', 'Third one', 'Second one']
+        expect(subject.first.clippings.map(&:page)).to eq [1, 2, 3]
       end
     end
 
@@ -163,7 +155,9 @@ describe Klipbook::Sources::KindleDevice::File do
         ]
       end
 
-      it { should be_empty }
+      it 'should be empty' do
+        expect(subject).to be_empty
+      end
     end
   end
 end

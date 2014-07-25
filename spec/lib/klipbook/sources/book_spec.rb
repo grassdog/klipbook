@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Klipbook::Book do
+RSpec.describe Klipbook::Book do
   describe '#title_and_author' do
 
     subject { book.title_and_author }
@@ -13,7 +13,7 @@ describe Klipbook::Book do
       end
 
       it 'only contains the title' do
-        subject.should == 'Book title'
+        expect(subject).to eq 'Book title'
       end
     end
 
@@ -26,7 +26,7 @@ describe Klipbook::Book do
       end
 
       it 'contains the title and author' do
-        subject.should == 'Book title by Rob Ripjaw'
+        expect(subject).to eq 'Book title by Rob Ripjaw'
       end
     end
   end

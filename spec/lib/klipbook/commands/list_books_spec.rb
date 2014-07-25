@@ -1,11 +1,9 @@
 require 'spec_helper'
 
-describe Klipbook::Commands::ListBooks do
+RSpec.describe Klipbook::Commands::ListBooks do
 
   let (:output) do
-    Object.new.tap do |fake_output|
-      stub(fake_output).puts
-    end
+    double("output", puts: nil)
   end
 
   describe '#call' do
@@ -18,7 +16,7 @@ describe Klipbook::Commands::ListBooks do
 
       it 'displays a message saying that the clipping file contains no books' do
         subject
-        output.should have_received.puts('No books available')
+        expect(output).to have_received(:puts).with('No books available')
       end
     end
 
@@ -32,13 +30,13 @@ describe Klipbook::Commands::ListBooks do
 
       it 'displays a message describing the book list' do
         subject
-        output.should have_received.puts('Book list:')
+        expect(output).to have_received(:puts).with('Book list:')
       end
 
       it 'displays an indexed list of book titles including the author when available' do
         subject
-        output.should have_received.puts('[1] My first fake title')
-        output.should have_received.puts('[2] Another fake book by Rock Riphard')
+        expect(output).to have_received(:puts).with('[1] My first fake title')
+        expect(output).to have_received(:puts).with('[2] Another fake book by Rock Riphard')
       end
     end
   end

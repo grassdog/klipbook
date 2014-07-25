@@ -22,9 +22,7 @@ describe Klipbook::ToHtml::HtmlPrinter do
   end
 
   let(:message_stream) do
-    Object.new.tap do |fake_stream|
-      stub(fake_stream).puts
-    end
+    double(puts: nil)
   end
 
   describe '#print_to_file' do
@@ -43,12 +41,12 @@ describe Klipbook::ToHtml::HtmlPrinter do
 
       it 'writes a file named after the book into the output directory' do
         subject
-        File.exists?(expected_filepath).should be_true
+        expect(File.exists?(expected_filepath)).to be_truthy
       end
 
       it 'writes a html summary to the file' do
         subject
-        File.read(expected_filepath).should include("<h1>Fake book title</h1>")
+        expect(File.read(expected_filepath)).to include("<h1>Fake book title</h1>")
       end
     end
 
@@ -63,12 +61,12 @@ describe Klipbook::ToHtml::HtmlPrinter do
 
         it "won't write to the file" do
           subject
-          File.size(expected_filepath).should == 0
+          expect(File.size(expected_filepath)).to eq 0
         end
 
         it 'prints a message informing that the file is being skipped' do
           subject
-          message_stream.should have_received.puts("\e[33mSkipping \e[0m#{expected_filename}")
+          expect(message_stream).to have_received(:puts).with("\e[33mSkipping \e[0m#{expected_filename}")
         end
       end
 
@@ -77,12 +75,12 @@ describe Klipbook::ToHtml::HtmlPrinter do
 
         it 'overwrites the file' do
           subject
-          File.size(expected_filepath).should > 0
+          expect(File.size(expected_filepath)).to be > 0
         end
 
         it 'prints a message informing that the file is being written' do
           subject
-          message_stream.should have_received.puts("\e[32mWriting \e[0m#{expected_filename}")
+          expect(message_stream).to have_received(:puts).with("\e[32mWriting \e[0m#{expected_filename}")
         end
       end
     end

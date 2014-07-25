@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Klipbook::Sources::KindleDevice::EntryParser do
+RSpec.describe Klipbook::Sources::KindleDevice::EntryParser do
 
   describe '#build_entry' do
     subject { Klipbook::Sources::KindleDevice::EntryParser.new.build_entry(entry_text) }
@@ -8,7 +8,9 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
     context 'passed an empty entry' do
       let(:entry_text) { "  " }
 
-      it { should be_nil }
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
 
     context 'passed an incomplete entry' do
@@ -16,7 +18,9 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Not long enough"
       end
 
-      it { should be_nil }
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
 
     context 'passed an entry with the title line "Book title (Author\'s Name)"' do
@@ -27,9 +31,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Highlight text\n"
       end
 
-      its(:title) { should == 'Book title' }
+      it 'extracts the title' do
+        expect(subject.title).to eq 'Book title'
+      end
 
-      its(:author) { should == "Author's Name" }
+      it 'extracts the author' do
+        expect(subject.author).to eq "Author's Name"
+      end
     end
 
     context 'passed an entry with the title line "Book title (sub title) (Author\'s Name)"' do
@@ -40,9 +48,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Highlight text\n"
       end
 
-      its(:title) { should == 'Book title (sub title)' }
+      it 'extracts the title containing parens' do
+        expect(subject.title).to eq 'Book title (sub title)'
+      end
 
-      its(:author) { should == "Author's Name" }
+      it 'extracts the author' do
+        expect(subject.author).to eq "Author's Name"
+      end
     end
 
     context 'passed an entry with the title line "Book title"' do
@@ -53,9 +65,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Highlight text\n"
       end
 
-      its(:title) { should == 'Book title' }
+      it 'extracts the title' do
+        expect(subject.title).to eq 'Book title'
+      end
 
-      its (:author) { should be_nil }
+      it 'sets author to nil' do
+        expect(subject.author).to be_nil
+      end
     end
 
     context 'passed an entry that is a highlight' do
@@ -67,10 +83,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The second line of the highlight"
       end
 
-      its(:type) { should == :highlight }
+      it 'returns a highlight' do
+        expect(subject.type).to eq :highlight
+      end
 
       it 'extracts the highlighted text' do
-        subject.text.should == "The first line of the highlight\nThe second line of the highlight"
+        expect(subject.text).to eq "The first line of the highlight\nThe second line of the highlight"
       end
     end
 
@@ -83,10 +101,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The second line of the highlight"
       end
 
-      its(:type) { should == :highlight }
+      it 'returns a highlight' do
+        expect(subject.type).to eq :highlight
+      end
 
       it 'extracts the highlighted text' do
-        subject.text.should == "The first line of the highlight\nThe second line of the highlight"
+        expect(subject.text).to eq "The first line of the highlight\nThe second line of the highlight"
       end
     end
 
@@ -98,10 +118,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The note text"
       end
 
-      its(:type) { should == :note }
+      it 'returns a note' do
+        expect(subject.type).to eq :note
+      end
 
       it 'extracts the note text' do
-        subject.text.should == "The note text"
+        expect(subject.text).to eq "The note text"
       end
     end
 
@@ -113,10 +135,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The note text"
       end
 
-      its(:type) { should == :note }
+      it 'returns a note' do
+        expect(subject.type).to eq :note
+      end
 
       it 'extracts the note text' do
-        subject.text.should == "The note text"
+        expect(subject.text).to eq "The note text"
       end
     end
 
@@ -128,9 +152,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "\n"
       end
 
-      its(:type) { should == :bookmark }
+      it 'returns a bookmark' do
+        expect(subject.type).to eq :bookmark
+      end
 
-      its(:text) { should == '' }
+      it 'extracts empty text' do
+        expect(subject.text).to eq ""
+      end
     end
 
     context 'passed an entry with a 4th-generation bookmark' do
@@ -141,9 +169,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "\n"
       end
 
-      its(:type) { should == :bookmark }
+      it 'returns a bookmark' do
+        expect(subject.type).to eq :bookmark
+      end
 
-      its(:text) { should == '' }
+      it 'extracts empty text' do
+        expect(subject.text).to eq ""
+      end
     end
 
     context 'passed an entry with a single location value' do
@@ -155,9 +187,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The second line of the highlight"
       end
 
-      its(:location) { should == 465 }
+      it 'returns the correct location' do
+        expect(subject.location).to eq 465
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed a 4th-generation entry with a single location value' do
@@ -169,9 +205,13 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "The second line of the highlight"
       end
 
-      its(:location) { should == 465 }
+      it 'returns the correct location' do
+        expect(subject.location).to eq 465
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed an entry with a location range' do
@@ -184,10 +224,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
       end
 
       it 'extracts the first element of the location range' do
-        subject.location.should == 466
+        expect(subject.location).to eq 466
       end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed a 4th-generation entry with a location range' do
@@ -200,10 +242,12 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
       end
 
       it 'extracts the first element of the location range' do
-        subject.location.should == 466
+        expect(subject.location).to eq 466
       end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed an entry with a page number and location range' do
@@ -216,12 +260,16 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
       end
 
       it 'extracts the first element of the location range' do
-        subject.location.should == 1858
+        expect(subject.location).to eq 1858
       end
 
-      its(:page) { should == 171 }
+      it 'extracts the page number' do
+        expect(subject.page).to eq 171
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed a 4th-generation entry with a page number and location range' do
@@ -234,12 +282,16 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
       end
 
       it 'extracts the first element of the location range' do
-        subject.location.should == 1858
+        expect(subject.location).to eq 1858
       end
 
-      its(:page) { should == 171 }
+      it 'extracts the page number' do
+        expect(subject.page).to eq 171
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed an entry with a page number and no location' do
@@ -250,11 +302,17 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Clipping"
       end
 
-      its(:location) { should == 0 }
+      it 'sets location to 0' do
+        expect(subject.location).to eq 0
+      end
 
-      its(:page) { should == 9 }
+      it 'extracts the page number' do
+        expect(subject.page).to eq 9
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
 
     context 'passed a 4th-generation entry with a page number and no location' do
@@ -265,11 +323,17 @@ describe Klipbook::Sources::KindleDevice::EntryParser do
         "Clipping"
       end
 
-      its(:location) { should == 0 }
+      it 'sets location to 0' do
+        expect(subject.location).to eq 0
+      end
 
-      its(:page) { should == 9 }
+      it 'extracts the page number' do
+        expect(subject.page).to eq 9
+      end
 
-      its(:added_on) { should == DateTime.parse('Thursday, April 21, 2011, 07:31 AM') }
+      it 'returns the correct added date' do
+        expect(subject.added_on).to eq DateTime.parse('Thursday, April 21, 2011, 07:31 AM')
+      end
     end
   end
 end

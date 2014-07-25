@@ -1,19 +1,15 @@
 require 'spec_helper'
 
-describe Klipbook::Commands::ToHtml do
+RSpec.describe Klipbook::Commands::ToHtml do
 
   let (:it) { Klipbook::Commands::ToHtml.new(books, pretty_printer) }
 
   let (:pretty_printer) do
-    Object.new.tap do |fake_printer|
-      stub(fake_printer).print_to_file
-    end
+    double(print_to_file: nil)
   end
 
   let (:message_stream) do
-    Object.new.tap do |fake_stream|
-      stub(fake_stream).puts
-    end
+    double(puts: nil)
   end
 
   let (:book_one) { Klipbook::Book.new('book one') }
@@ -28,13 +24,13 @@ describe Klipbook::Commands::ToHtml do
 
     it 'prints a message displaying the output directory' do
       subject
-      message_stream.should have_received.puts('Using output directory: fake output dir')
+      expect(message_stream).to have_received(:puts).with('Using output directory: fake output dir')
     end
 
     it 'passes each book to the pretty printer' do
       subject
-      pretty_printer.should have_received.print_to_file(book_one, output_dir, true)
-      pretty_printer.should have_received.print_to_file(book_two, output_dir, true)
+      expect(pretty_printer).to have_received(:print_to_file).with(book_one, output_dir, true)
+      expect(pretty_printer).to have_received(:print_to_file).with(book_two, output_dir, true)
     end
   end
 end

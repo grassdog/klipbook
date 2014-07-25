@@ -2,14 +2,12 @@
 
 require 'spec_helper'
 
-describe Klipbook::Sources::KindleDevice::FileParser do
+RSpec.describe Klipbook::Sources::KindleDevice::FileParser do
 
   let(:parser) { Klipbook::Sources::KindleDevice::FileParser.new(entry_parser) }
 
   let(:entry_parser) do
-    mock_parser = Object.new
-    stub(mock_parser).build_entry
-    mock_parser
+    double('parser', build_entry: nil)
   end
 
   describe '#extract_entries' do
@@ -19,7 +17,9 @@ describe Klipbook::Sources::KindleDevice::FileParser do
 
       let(:raw_text) { '' }
 
-      it { should be_empty }
+      it 'return an empty set of entries' do
+        expect(subject).to be_empty
+      end
     end
 
     context 'called with text containing two entries' do
@@ -34,10 +34,10 @@ describe Klipbook::Sources::KindleDevice::FileParser do
         entry_one = Object.new
         entry_two = Object.new
 
-        stub(entry_parser).build_entry(' entry one') { entry_one }
-        stub(entry_parser).build_entry(' entry two') { entry_two }
+        allow(entry_parser).to receive(:build_entry).with(' entry one') { entry_one }
+        allow(entry_parser).to receive(:build_entry).with(' entry two') { entry_two }
 
-        subject.should == [ entry_one, entry_two ]
+        expect(subject).to eq [ entry_one, entry_two ]
       end
     end
 
@@ -49,7 +49,7 @@ describe Klipbook::Sources::KindleDevice::FileParser do
 
       it 'strips carriage returns before calling the entry parser' do
         subject
-        entry_parser.should have_received.build_entry('Example  text')
+        expect(entry_parser).to have_received(:build_entry).with('Example  text')
       end
     end
 
@@ -61,7 +61,7 @@ describe Klipbook::Sources::KindleDevice::FileParser do
 
       it 'strips control characters before calling the entry parser' do
         subject
-        entry_parser.should have_received.build_entry('Example  text')
+        expect(entry_parser).to have_received(:build_entry).with('Example  text')
       end
     end
   end

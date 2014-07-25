@@ -10,15 +10,15 @@ describe Klipbook::ToJson::BookFile do
 
       let(:json) { '' }
 
-      its(:books) { should be_empty }
+      it 'returns an object with no books' do
+        expect(subject.books).to be_empty
+      end
     end
   end
 
   describe '#add_books' do
     let (:message_stream) do
-      Object.new.tap do |fake_stream|
-        stub(fake_stream).puts
-      end
+      double(puts: nil)
     end
 
     let(:it) do
@@ -42,8 +42,9 @@ describe Klipbook::ToJson::BookFile do
       end
 
       it.add_books([ new_book ], false, message_stream)
-      it.books.should have(3).items
-      it.books.should include(new_book)
+
+      expect(it.books.size).to eq 3
+      expect(it.books).to include(new_book)
     end
 
     it "replaces books that exist if force is true" do
@@ -54,8 +55,9 @@ describe Klipbook::ToJson::BookFile do
       end
 
       it.add_books([ new_book ], true, message_stream)
-      it.books.should have(2).items
-      it.books.should include(new_book)
+
+      expect(it.books.size).to eq 2
+      expect(it.books).to include(new_book)
     end
 
     it "does not replace existing books if force is false" do
@@ -66,8 +68,9 @@ describe Klipbook::ToJson::BookFile do
       end
 
       it.add_books([ new_book ], false, message_stream)
-      it.books.should have(2).items
-      it.books.should_not include(new_book)
+
+      expect(it.books.size).to eq 2
+      expect(it.books).not_to include(new_book)
     end
   end
 end

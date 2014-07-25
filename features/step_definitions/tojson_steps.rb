@@ -5,9 +5,9 @@ end
 
 Then /^I should find a file called "([^"]*)" that contains "([^"]*)"$/ do |output_file, expected_text|
   in_current_dir do
-    File.exists?(output_file).should be_true
+    expect(File.exists?(output_file)).to be_truthy
     File.open(output_file, 'r') do |f|
-      f.read.should match(/#{expected_text}/m)
+      expect(f.read).to match(/#{expected_text}/m)
     end
   end
 end

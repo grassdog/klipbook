@@ -25,9 +25,9 @@ end
 Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/ do |output_folder, file_name, clipping_count|
   in_current_dir do
     file_path = File.join(output_folder, file_name)
-    File.exists?(file_path).should be_true
+    expect(File.exists?(file_path)).to be_truthy
     File.open(file_path, 'r') do |f|
-      f.read.should match(/<footer>\s+#{clipping_count} clippings &bull;/m)
+      expect(f.read).to match(/<footer>\s+#{clipping_count} clippings &bull;/m)
     end
   end
 end
@@ -40,10 +40,10 @@ end
 Then /^I should find "([^"]*)" html files containing clippings in the directory "([^"]*)"$/ do |file_count, output_dir|
   in_current_dir do
     files = Dir['output/*.html']
-    files.should have(file_count.to_i).items
+    expect(files.size).to eq(file_count.to_i)
     files.each do |fname|
       File.open(fname, 'r') do |f|
-        f.read.should match(/<footer>\s+\d+ clippings &bull;/m)
+        expect(f.read).to match(/<footer>\s+\d+ clippings &bull;/m)
       end
     end
   end

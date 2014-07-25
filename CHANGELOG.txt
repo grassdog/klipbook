@@ -1,8 +1,10 @@
-== 2.1.2 / 2014-07-25
+== 2.1.3 / 2014-07-25
 
 * Minor changes
 
-	* Removed Rainbow gem and pry-debugger gems
+	* Removed Rainbow, RR, pry-debugger gems
+	* Updated dependent gems
+	* Updated tests to use RSpec 3
 	* Tested on Ruby 2.1.2
 
 == 2.1.0 / 2013-12-11

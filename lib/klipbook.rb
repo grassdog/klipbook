@@ -7,6 +7,7 @@ require 'klipbook/colours'
 require 'klipbook/commands/tojson'
 require 'klipbook/commands/list_books'
 require 'klipbook/commands/tohtml'
+require 'klipbook/commands/tomarkdown'
 
 require 'klipbook/sources/book'
 require 'klipbook/sources/clipping'
@@ -24,3 +25,4 @@ require 'klipbook/config'
 
 require 'klipbook/tohtml/html_printer'
 require 'klipbook/tojson/book_file'
+require 'klipbook/tomd/markdown_file'

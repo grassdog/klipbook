@@ -216,6 +216,28 @@ opts = Slop.parse(help: true) do
     end
   end
 
+  command "tomarkdown" do
+    desc = "Print book highlights as Markdown."
+
+    banner banner_for_command("tomarkdown", desc)
+
+    description desc
+
+    on :c, :credentials=, "<username>:<password> for Kindle site"
+    on :i, :infile=,      "Input file (default STDIN)"
+    on :n, :number=,      "Maximum number of books to print as html (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
+    on :o, :outdir=,      "Directory to write Markdown files to (default pwd)"
+    on :f, :force,        "Force overwrite of existing files"
+
+    run do |opts, args|
+      books = fetch_books(opts)
+
+      outdir_path = ensure_outdir(opts)
+
+      Klipbook::Commands::ToMarkdown.new(books).call(outdir_path, opts[:force])
+    end
+  end
+
   # Default action is to output help
   run do |opts, args|
     puts opts.help

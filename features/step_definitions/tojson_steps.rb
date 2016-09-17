@@ -4,7 +4,7 @@ When /^I tojson clippings for "([^"]*)" books from the file "([^"]*)" to the out
 end
 
 Then /^I should find a file called "([^"]*)" that contains "([^"]*)"$/ do |output_file, expected_text|
-  in_current_dir do
+  cd('.') do
     expect(File.exists?(output_file)).to be_truthy
     File.open(output_file, 'r') do |f|
       expect(f.read).to match(/#{expected_text}/m)
@@ -13,5 +13,5 @@ Then /^I should find a file called "([^"]*)" that contains "([^"]*)"$/ do |outpu
 end
 
 def run_tojson(book_count, output_file, input_file)
-  run_simple(unescape("klipbook tojson -n #{book_count} -o #{output_file} -i #{input_file}"), false)
+  run_simple(sanitize_text("klipbook tojson -n #{book_count} -o #{output_file} -i #{input_file}"), false)
 end

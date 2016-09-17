@@ -1,17 +1,17 @@
 CLIPPING_FILE = File.join(File.dirname(__FILE__), '../fixtures/clippings-for-three-books.txt')
 
 Given /^a file in "([^"]*)" named "([^"]*)"$/ do |output_dir, file_name|
-  in_current_dir { FileUtils.touch(File.join(output_dir, file_name)) }
+  cd('.') { FileUtils.touch(File.join(output_dir, file_name)) }
 end
 
 Given /^there is not a directory named "([^"]*)"$/ do |directory_name|
-  in_current_dir do
+  cd('.') do
     FileUtils.rm_f(directory_name)
   end
 end
 
 Given /^a file that contains clippings for 3 books called "([^"]*)"$/ do |file_name|
-  in_current_dir { FileUtils.cp(CLIPPING_FILE, file_name) }
+  cd('.') { FileUtils.cp(CLIPPING_FILE, file_name) }
 end
 
 When /^I tohtml clippings for "([^"]*)" books from the file "([^"]*)" to the output directory "([^"]*)"$/ do |book_count, input_file, output_dir|
@@ -23,7 +23,7 @@ When /^I tohtml clippings for "([^"]*)" books from the file "([^"]*)" to the out
 end
 
 Then /^I should find a file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/ do |output_folder, file_name, clipping_count|
-  in_current_dir do
+  cd('.') do
     file_path = File.join(output_folder, file_name)
     expect(File.exists?(file_path)).to be_truthy
     File.open(file_path, 'r') do |f|
@@ -34,11 +34,11 @@ end
 
 # FIXME This step currently assumes you have site: set up in your klipbookrc
 When /^I tohtml clippings for "([^"]*)" books from the kindle site to the output directory "([^"]*)"$/ do |book_count, output_dir|
-  run_simple(unescape("klipbook tohtml -n #{book_count} -o #{output_dir}"), false)
+  run_simple(sanitize_text("klipbook tohtml -n #{book_count} -o #{output_dir}"), false)
 end
 
 Then /^I should find "([^"]*)" html files containing clippings in the directory "([^"]*)"$/ do |file_count, output_dir|
-  in_current_dir do
+  cd('.') do
     files = Dir['output/*.html']
     expect(files.size).to eq(file_count.to_i)
     files.each do |fname|
@@ -56,6 +56,6 @@ def run_tohtml_file(book_count, output, input, force=false)
     ''
   end
 
-  run_simple(unescape("klipbook tohtml -n #{book_count} #{force_str} -o #{output} -i #{input}"), false)
+  run_simple(sanitize_text("klipbook tohtml -n #{book_count} #{force_str} -o #{output} -i #{input}"), false)
 end
 

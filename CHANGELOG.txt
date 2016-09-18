@@ -1,3 +1,14 @@
+== 3.0.0 / 2016-09-18
+
+* Feature Changes
+
+	* Added markdown as an export format.
+
+* Breaking changes
+
+	* Changed command flags to make things more consistent. 
+	* Changed JSON export to export into individual files rather than a single file. Again for consistency with other export formats.
+
 == 2.1.3 / 2014-07-25
 
 * Minor changes

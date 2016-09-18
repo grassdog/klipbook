@@ -8,9 +8,9 @@ require 'klipbook'
 require 'fileutils'
 
 Before do
-  @aruba_timeout_seconds = 40
+  aruba.config.exit_timeout = 40
 end
 
 Before('@slow') do
-  @aruba_io_wait_seconds = 40
+  aruba.config.io_wait_timeout = 40
 end

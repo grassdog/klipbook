@@ -1,22 +1,30 @@
+require 'yaml'
+
 module Klipbook
   class Config
-    def initialize(config_file_name='.klipbookrc')
-      @config_file_name = config_file_name
-    end
+    DEFAULT_MAXBOOKS=5
 
     def read
-      merge_config_from_rc_file({})
+      merge_config_from_rc_file({
+        count: DEFAULT_MAXBOOKS,
+        output_dir: Dir.pwd,
+        force: false
+      })
     end
 
+    private
+
     def merge_config_from_rc_file(config)
-      config_file = File.join(File.expand_path(ENV['HOME']), @config_file_name)
+      config.merge(file_config)
+    end
 
-      if config_file && File.exist?(config_file)
-        require 'yaml'
-        config.merge!(File.open(config_file) { |file| YAML::load(file) })
+    def file_config
+      config_file = File.expand_path("~/.klipbookrc")
+      if File.exist?(config_file)
+        YAML.load(File.read(config_file))
+      else
+        {}
       end
-
-      config
     end
   end
 end

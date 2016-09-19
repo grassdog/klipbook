@@ -1,246 +1,254 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+require "bundler/setup"
+require "klipbook"
 
-require 'klipbook'
-require 'slop'
+Klipbook::CLI.new.execute!
 
-##########
-# Helpers
-##########
 
-def get_book_source(opts)
-  exit_unless_valid_source(opts)
+# #!/usr/bin/env ruby
 
-  max_books   = opts[:number].to_i
+# $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
-  unless max_books > 0
-    $stderr.puts "Error: Specify a number of books greater than 0"
-    exit 127
-  end
+# require 'klipbook'
+# require 'slop'
 
-  get_file_source(infile(opts), max_books) || get_site_source(credentials(opts), max_books)
-end
+# ##########
+# # Helpers
+# ##########
 
-def exit_unless_valid_source(opts)
-  unless opts[:infile] || opts[:credentials] || CONFIG[:credentials]
-    $stderr.puts "Error: #{SOURCE_HELP}"
-    exit 127
-  end
-end
+# def get_book_source(opts)
+#   exit_unless_valid_source(opts)
 
-def get_site_source(creds, max_books)
-  return nil unless creds
+#   max_books   = opts[:number].to_i
 
-  unless creds =~ /(.+):(.+)/
-    $stderr.puts "Error: your credentials need to be in username:password format."
-    exit 127
-  end
+#   unless max_books > 0
+#     $stderr.puts "Error: Specify a number of books greater than 0"
+#     exit 127
+#   end
 
-  username = $1
-  password = $2
-  Klipbook::Sources::AmazonSite::SiteScraper.new(username, password, max_books)
-end
+#   get_file_source(infile(opts), max_books) || get_site_source(credentials(opts), max_books)
+# end
 
-def get_file_source(file, max_books)
-  return nil unless file
+# def exit_unless_valid_source(opts)
+#   unless opts[:infile] || opts[:credentials] || CONFIG[:credentials]
+#     $stderr.puts "Error: #{SOURCE_HELP}"
+#     exit 127
+#   end
+# end
 
-  Klipbook::Sources::KindleDevice::File.new(file, max_books)
-end
+# def get_site_source(creds, max_books)
+#   return nil unless creds
 
-def fetch_books(opts)
-  get_book_source(opts).books
-end
+#   unless creds =~ /(.+):(.+)/
+#     $stderr.puts "Error: your credentials need to be in username:password format."
+#     exit 127
+#   end
 
-def open_infile(file_path)
-  return nil unless file_path
+#   username = $1
+#   password = $2
+#   Klipbook::Sources::AmazonSite::SiteScraper.new(username, password, max_books)
+# end
 
-  unless File.exists? file_path
-    $stderr.puts "Error: could not open #{file_path}"
-    exit 127
-  end
+# def get_file_source(file, max_books)
+#   return nil unless file
 
-  File.open(file_path, "r")
-end
+#   Klipbook::Sources::KindleDevice::File.new(file, max_books)
+# end
 
-def raw_json_from_file(file_path)
-  File.open(file_path, 'r') do |f|
-    f.read
-  end
-rescue
-  ""
-end
+# def fetch_books(opts)
+#   get_book_source(opts).books
+# end
 
-def book_file(file_path)
-  Klipbook::ToJson::BookFile.from_json(raw_json_from_file(file_path))
-end
+# def open_infile(file_path)
+#   return nil unless file_path
 
-#########
-# Params
-#########
+#   unless File.exists? file_path
+#     $stderr.puts "Error: could not open #{file_path}"
+#     exit 127
+#   end
 
-def infile(opts)
-  open_infile(opts[:infile])
-end
+#   File.open(file_path, "r")
+# end
 
-def credentials(opts)
-  puts "Using credentials from ~/.klipbookrc" if !opts[:credentials] && CONFIG[:credentials]
+# def raw_json_from_file(file_path)
+#   File.open(file_path, 'r') do |f|
+#     f.read
+#   end
+# rescue
+#   ""
+# end
 
-  opts[:credentials] || CONFIG[:credentials]
-end
+# def book_file(file_path)
+#   Klipbook::ToJson::BookFile.from_json(raw_json_from_file(file_path))
+# end
 
-def ensure_outfile(opts)
-  unless opts[:outfile] || CONFIG[:outfile]
-    $stderr.puts("Error: Please specify an outfile.")
-    exit(127)
-  end
+# #########
+# # Params
+# #########
 
-  outfile_path(opts)
-end
+# def infile(opts)
+#   open_infile(opts[:infile])
+# end
 
-def outfile_path(opts)
-  puts "Using outfile from ~/.klipbookrc" if !opts[:outfile] && CONFIG[:outfile]
+# def credentials(opts)
+#   puts "Using credentials from ~/.klipbookrc" if !opts[:credentials] && CONFIG[:credentials]
 
-  opts[:outfile] || CONFIG[:outfile]
-end
+#   opts[:credentials] || CONFIG[:credentials]
+# end
 
-def ensure_outdir(opts)
-  unless opts[:outdir] || CONFIG[:outdir]
-    $stderr.puts("Error: Please specify an outdir.")
-    exit(127)
-  end
+# def ensure_outfile(opts)
+#   unless opts[:outfile] || CONFIG[:outfile]
+#     $stderr.puts("Error: Please specify an outfile.")
+#     exit(127)
+#   end
 
-  outdir = outdir_path(opts)
+#   outfile_path(opts)
+# end
 
-  unless File.exists?(outdir)
-    $stderr.puts("Error: Outdir does not exist.")
-    exit(127)
-  end
+# def outfile_path(opts)
+#   puts "Using outfile from ~/.klipbookrc" if !opts[:outfile] && CONFIG[:outfile]
 
-  outdir
-end
+#   opts[:outfile] || CONFIG[:outfile]
+# end
 
-def outdir_path(opts)
-  puts "Using outdir from ~/.klipbookrc" if !opts[:outdir] && CONFIG[:outdir]
+# def ensure_outdir(opts)
+#   unless opts[:outdir] || CONFIG[:outdir]
+#     $stderr.puts("Error: Please specify an outdir.")
+#     exit(127)
+#   end
 
-  opts[:outdir] || CONFIG[:outdir] || Dir.pwd
-end
+#   outdir = outdir_path(opts)
 
-##########
-# Go time
-##########
+#   unless File.exists?(outdir)
+#     $stderr.puts("Error: Outdir does not exist.")
+#     exit(127)
+#   end
 
-CONFIG = Klipbook::Config.new.read
+#   outdir
+# end
 
-DEFAULT_MAXBOOKS=5
-SOURCE_HELP = "You must specify either `--credentials` or `--infile` as an input."
+# def outdir_path(opts)
+#   puts "Using outdir from ~/.klipbookrc" if !opts[:outdir] && CONFIG[:outdir]
 
-CONFIG_HELP = "Note that credentials, outdir, and outfile defaults can be stored in a file called ~/.klipbookrc\n\n" +
-              "This file is YAML formatted e.g.\n\n" +
-              ":credentials: my-kindle-user@blah.com:my-kindle-password\n" +
-              ":outdir: my/default/output/directory\n" +
-              ":outfile: my/default/output/file.json\n"
+#   opts[:outdir] || CONFIG[:outdir] || Dir.pwd
+# end
 
-def banner_for_command(command, description)
-  "Usage: klipbook #{command} [options]\n\n#{description}\n\n#{SOURCE_HELP}\n"
-end
+# ##########
+# # Go time
+# ##########
 
-opts = Slop.parse(help: true) do
-  banner "Usage: klipbook <command> [options]\n\n" +
-         "Klipbook writes the clippings you've saved on your Kindle into JSON or pretty html.\n\n" +
-         CONFIG_HELP + "\n"
+# CONFIG = Klipbook::Config.new.read
 
-  on :v, :version, "Print the version." do
-    puts "Klipbook version #{Klipbook::VERSION}"
-    exit 0
-  end
+# DEFAULT_MAXBOOKS=5
+# SOURCE_HELP = "You must specify either `--credentials` or `--infile` as an input."
 
-  command "list" do
-    desc = "List the books on the site or in the clippings file."
+# CONFIG_HELP = "Note that credentials, outdir, and outfile defaults can be stored in a file called ~/.klipbookrc\n\n" +
+#               "This file is YAML formatted e.g.\n\n" +
+#               ":credentials: my-kindle-user@blah.com:my-kindle-password\n" +
+#               ":outdir: my/default/output/directory\n" +
+#               ":outfile: my/default/output/file.json\n"
 
-    banner banner_for_command("list", desc)
+# def banner_for_command(command, description)
+#   "Usage: klipbook #{command} [options]\n\n#{description}\n\n#{SOURCE_HELP}\n"
+# end
 
-    description desc
+# opts = Slop.parse(help: true) do
+#   banner "Usage: klipbook <command> [options]\n\n" +
+#          "Klipbook writes the clippings you've saved on your Kindle into JSON or pretty html.\n\n" +
+#          CONFIG_HELP + "\n"
 
-    on :c, :credentials=, "<username>:<password> for Kindle site"
-    on :i, :infile=,      "Input file (default STDIN)"
-    on :n, :number=,      "Maximum number of books to list (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
+#   on :v, :version, "Print the version." do
+#     puts "Klipbook version #{Klipbook::VERSION}"
+#     exit 0
+#   end
 
-    run do |opts, args|
-      books = fetch_books(opts)
-      Klipbook::Commands::ListBooks.new(books).call
-    end
-  end
+#   command "list" do
+#     desc = "List the books on the site or in the clippings file."
 
-  command "tojson" do
-    desc = "Print book highlights as JSON. Note that this will update an existing JSON file in place with new entries."
+#     banner banner_for_command("list", desc)
 
-    banner banner_for_command("tojson", desc)
+#     description desc
 
-    description desc
+#     on :c, :credentials=, "<username>:<password> for Kindle site"
+#     on :i, :infile=,      "Input file (default STDIN)"
+#     on :n, :number=,      "Maximum number of books to list (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
 
-    on :c, :credentials=, "<username>:<password> for Kindle site"
-    on :i, :infile=,      "Input file (default STDIN)"
-    on :n, :number=,      "Maximum number of books to print as json (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
-    on :o, :outfile=,     "Output JSON file (default STDOUT)"
-    on :f, :force,        "Force overwrite of any existing book entries within the output file"
+#     run do |opts, args|
+#       books = fetch_books(opts)
+#       Klipbook::Commands::ListBooks.new(books).call
+#     end
+#   end
 
-    run do |opts, args|
-      outfile_path = ensure_outfile(opts)
+#   command "tojson" do
+#     desc = "Print book highlights as JSON. Note that this will update an existing JSON file in place with new entries."
 
-      books = fetch_books(opts)
+#     banner banner_for_command("tojson", desc)
 
-      Klipbook::Commands::ToJson.new(books, book_file(outfile_path)).call(outfile_path, opts[:force])
-    end
-  end
+#     description desc
 
-  command "tohtml" do
-    desc = "Print book highlights as HTML."
+#     on :c, :credentials=, "<username>:<password> for Kindle site"
+#     on :i, :infile=,      "Input file (default STDIN)"
+#     on :n, :number=,      "Maximum number of books to print as json (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
+#     on :o, :outfile=,     "Output JSON file (default STDOUT)"
+#     on :f, :force,        "Force overwrite of any existing book entries within the output file"
 
-    banner banner_for_command("tohtml", desc)
+#     run do |opts, args|
+#       outfile_path = ensure_outfile(opts)
 
-    description desc
+#       books = fetch_books(opts)
 
-    on :c, :credentials=, "<username>:<password> for Kindle site"
-    on :i, :infile=,      "Input file (default STDIN)"
-    on :n, :number=,      "Maximum number of books to print as html (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
-    on :o, :outdir=,      "Directory to write HTML files to (default pwd)"
-    on :f, :force,        "Force overwrite of existing files"
+#       Klipbook::Commands::ToJson.new(books, book_file(outfile_path)).call(outfile_path, opts[:force])
+#     end
+#   end
 
-    run do |opts, args|
-      books = fetch_books(opts)
+#   command "tohtml" do
+#     desc = "Print book highlights as HTML."
 
-      outdir_path = ensure_outdir(opts)
+#     banner banner_for_command("tohtml", desc)
 
-      Klipbook::Commands::ToHtml.new(books).call(outdir_path, opts[:force])
-    end
-  end
+#     description desc
 
-  command "tomarkdown" do
-    desc = "Print book highlights as Markdown."
+#     on :c, :credentials=, "<username>:<password> for Kindle site"
+#     on :i, :infile=,      "Input file (default STDIN)"
+#     on :n, :number=,      "Maximum number of books to print as html (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
+#     on :o, :outdir=,      "Directory to write HTML files to (default pwd)"
+#     on :f, :force,        "Force overwrite of existing files"
 
-    banner banner_for_command("tomarkdown", desc)
+#     run do |opts, args|
+#       books = fetch_books(opts)
 
-    description desc
+#       outdir_path = ensure_outdir(opts)
 
-    on :c, :credentials=, "<username>:<password> for Kindle site"
-    on :i, :infile=,      "Input file (default STDIN)"
-    on :n, :number=,      "Maximum number of books to print as html (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
-    on :o, :outdir=,      "Directory to write Markdown files to (default pwd)"
-    on :f, :force,        "Force overwrite of existing files"
+#       Klipbook::Commands::ToHtml.new(books).call(outdir_path, opts[:force])
+#     end
+#   end
 
-    run do |opts, args|
-      books = fetch_books(opts)
+#   command "tomarkdown" do
+#     desc = "Print book highlights as Markdown."
 
-      outdir_path = ensure_outdir(opts)
+#     banner banner_for_command("tomarkdown", desc)
 
-      Klipbook::Commands::ToMarkdown.new(books).call(outdir_path, opts[:force])
-    end
-  end
+#     description desc
 
-  # Default action is to output help
-  run do |opts, args|
-    puts opts.help
-  end
-end
+#     on :c, :credentials=, "<username>:<password> for Kindle site"
+#     on :i, :infile=,      "Input file (default STDIN)"
+#     on :n, :number=,      "Maximum number of books to print as html (default is #{DEFAULT_MAXBOOKS})", default: DEFAULT_MAXBOOKS
+#     on :o, :outdir=,      "Directory to write Markdown files to (default pwd)"
+#     on :f, :force,        "Force overwrite of existing files"
+
+#     run do |opts, args|
+#       books = fetch_books(opts)
+
+#       outdir_path = ensure_outdir(opts)
+
+#       Klipbook::Commands::ToMarkdown.new(books).call(outdir_path, opts[:force])
+#     end
+#   end
+
+#   # Default action is to output help
+#   run do |opts, args|
+#     puts opts.help
+#   end
+# end
 

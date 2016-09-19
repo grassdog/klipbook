@@ -102,13 +102,13 @@ $ klipbook export --from-file "My Clippings.txt" --output-format markdown
 
 If you don't feel like having your Amazon credentials in your shell history you can set your default source in the klipbook rc file: `~/.klipbookrc`.
 
-This is a YAML file and you can specify default values for the source and the output directory, e.g.
+This is a YAML file and you can specify default values for the source and the output directory (note the use of snake case) e.g.
 
 ```sh
 $ cat ~/.klipbookrc
 
-:from-site: my-username@blah.com:my-password
-:output-dir: /path/to/my/default/output/directory
+:from_site: my-username@blah.com:my-password
+:output_dir: /path/to/my/default/output/directory
 ```
 
 Command line options override the defaults stored in the rc file.

@@ -2,7 +2,7 @@ require 'yaml'
 
 module Klipbook
   class Config
-    DEFAULT_MAXBOOKS=5
+    DEFAULT_MAXBOOKS = 5
 
     def read
       merge_config_from_rc_file({
@@ -21,7 +21,7 @@ module Klipbook
     def file_config
       config_file = File.expand_path("~/.klipbookrc")
       if File.exist?(config_file)
-        YAML.load(File.read(config_file))
+        YAML.load(File.read(config_file)) || {}
       else
         {}
       end

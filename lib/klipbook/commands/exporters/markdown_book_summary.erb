@@ -1,0 +1,12 @@
+# <%= title %>
+
+<% unless author.blank? %>
+*by <%= author %>*
+<% end %>
+
+<% clippings.each do |clipping| %>
+  <% unless clipping.text.blank? %>
+<%= clipping.text %> <%= location_html(clipping.location) %>
+
+  <% end %>
+<% end %>

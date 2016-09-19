@@ -42,7 +42,7 @@ module Klipbook
         c.option '--from-file FILE', String, "Input clippings file"
         c.option '--from-site username:password', String, "Credentials for Kindle highlights site"
         c.option '-c', '--count COUNT', Integer, "Maximum number of books to list (default is #{Config::DEFAULT_MAXBOOKS})"
-        c.option '--output-format FORMAT', "Format to export in [html, markdown, or json]"
+        c.option '--format FORMAT', "Format to export in [html, markdown, or json]"
         c.option '--output-dir DIRECTORY', "Directory to export files to (default pwd)"
         c.option '-f', '--force', "Force overwrite of existing files"
 

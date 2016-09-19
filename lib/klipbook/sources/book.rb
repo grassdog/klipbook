@@ -1,3 +1,4 @@
+# coding: utf-8
 Klipbook::Book = Struct.new(:asin, :author, :title, :last_update, :clippings) do
   def title_and_author
     author_txt = author ? " by #{author}" : ''
@@ -9,10 +10,18 @@ Klipbook::Book = Struct.new(:asin, :author, :title, :last_update, :clippings) do
   end
 
   def location_html(location)
-    if self.asin
+    if asin
       "<a href=\"kindle://book?action=open&asin=#{asin}&location=#{location}\">loc #{location}</a>"
     else
       "loc #{location}"
+    end
+  end
+
+  def location_markdown(location)
+    if asin
+      "[∞](kindle://book?action=open&asin=#{asin}&location=#{location})"
+    else
+      ""
     end
   end
 

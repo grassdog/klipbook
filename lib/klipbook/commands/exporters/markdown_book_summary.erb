@@ -6,7 +6,7 @@
 
 <% clippings.each do |clipping| %>
   <% unless clipping.text.blank? %>
-<%= clipping.text %> <%= location_html(clipping.location) %>
+<%= clipping.text %> <%= location_markdown(clipping.location) %>
 
   <% end %>
 <% end %>

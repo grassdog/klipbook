@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'klipbook/cli'
 require 'klipbook/util/blank'
 require 'klipbook/util/struct_to_json'

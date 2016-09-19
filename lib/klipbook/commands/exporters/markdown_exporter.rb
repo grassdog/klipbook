@@ -1,4 +1,3 @@
-# coding: utf-8
 module Klipbook
   module Commands
     module Exporters

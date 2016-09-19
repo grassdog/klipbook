@@ -1,5 +1,3 @@
-require 'mechanize'
-
 module Klipbook::Sources
   module AmazonSite
     class BookScraper

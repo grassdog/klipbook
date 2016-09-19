@@ -2,7 +2,7 @@ module Klipbook::Sources
   module KindleDevice
     class File
       def initialize(infile, max_books, file_parser=FileParser.new)
-        @file_text = infile.read.strip
+        @file_text = infile.strip
         @file_parser = file_parser
         @max_books = max_books
       end

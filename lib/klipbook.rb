@@ -3,10 +3,13 @@ require 'klipbook/cli'
 require 'klipbook/util/blank'
 require 'klipbook/util/struct_to_json'
 require 'klipbook/version'
-require 'klipbook/colours'
+require 'klipbook/logger'
+
+require 'klipbook/commands/command'
+require 'klipbook/commands/list'
+require 'klipbook/commands/export'
 
 require 'klipbook/commands/tojson'
-require 'klipbook/commands/list_books'
 require 'klipbook/commands/tohtml'
 require 'klipbook/commands/tomarkdown'
 

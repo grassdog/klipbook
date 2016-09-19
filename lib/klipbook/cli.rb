@@ -13,6 +13,7 @@ module Klipbook
       program :version, Klipbook::VERSION
       program :description, "Klipbook exports the clippings you've saved on your Kindle into JSON, Markdown, or pretty HTML"
 
+      program :help, 'Source', "You must specify either `--from-file` or `--from-site` as an input."
       program :help, 'Config', "Note that command options can be stored in a file called ~/.klipbookrc. This file is YAML formatted and options should be snake case e.g.\n\n" +
         ":from_site: my-kindle-user@blah.com:my-kindle-password\n" +
         ":output_dir: ~/my/default/output/directory\n"
@@ -30,8 +31,7 @@ module Klipbook
         c.action do |_args, options|
           merge_config(options, @config)
 
-          pp options
-          # Commands::BuildInstanceReport.perform(args, options)
+          Klipbook::Commands::List.new.run!(options)
         end
       end
 
@@ -49,9 +49,7 @@ module Klipbook
         c.action do |_args, options|
           merge_config(options, @config)
 
-          pp options
-          # books = fetch_books(opts)
-          # Klipbook::Commands::ListBooks.new(books).call
+          Klipbook::Commands::Export.new.run!(options)
         end
       end
 

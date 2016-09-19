@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Klipbook::Sources::KindleDevice::File do
 
-  let(:file) { Klipbook::Sources::KindleDevice::File.new(input_file, max_books, file_parser) }
+  let(:file) { Klipbook::Sources::KindleDevice::File.new(input_text, max_books, file_parser) }
 
   let(:max_books) { 30 }
 
@@ -10,7 +10,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
 
   let(:file_parser) { double(extract_entries: entries) }
 
-  let(:input_file) { double(read: 'file text') }
+  let(:input_text) { 'file text' }
 
   describe '#books' do
     subject { file.books }

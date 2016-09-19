@@ -13,6 +13,7 @@ require 'klipbook/commands/tojson'
 require 'klipbook/commands/tohtml'
 require 'klipbook/commands/tomarkdown'
 
+require 'klipbook/sources/source'
 require 'klipbook/sources/book'
 require 'klipbook/sources/clipping'
 require 'klipbook/sources/invalid_source_error'

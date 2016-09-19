@@ -13,27 +13,12 @@ module Klipbook
         raise "Implement me"
       end
 
-      protected
+      private
 
       attr_reader :logger
 
-      private
-
       def book_source(options)
-        exit_unless_valid_source(options)
-
-        unless options.count > 0
-          logger.error "Error: Specify a maximum book count greater than 0"
-          exit 127
-        end
-
-        if options.from_file
-          file_source(options.from_file, options.count)
-        elsif options.from_site
-          site_source(options.from_site, options.count)
-        else
-          raise "Unknown source type"
-        end
+        Klipbook::Sources::Source.build(options)
       end
 
       def exit_unless_valid_source(options)
@@ -43,19 +28,11 @@ module Klipbook
         end
       end
 
-      def site_source(credentials, max_books)
-        unless credentials =~ /(.+):(.+)/
-          logger.error "Error: your credentials need to be in username:password format."
+      def exit_unless_valid_count(options)
+        unless options.count > 0
+          logger.error "Error: Specify a maximum book count greater than 0"
           exit 127
         end
-
-        username = $1
-        password = $2
-        Sources::AmazonSite::SiteScraper.new(username, password, max_books)
-      end
-
-      def file_source(file, max_books)
-        Sources::KindleDevice::File.new(File.read(file), max_books)
       end
     end
   end

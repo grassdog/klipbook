@@ -6,6 +6,10 @@ module Klipbook
       "#{title}#{author_txt}"
     end
 
+    def sorted_clippings
+      clippings.sort_by(&:location)
+    end
+
     def get_binding
       binding
     end

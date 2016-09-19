@@ -132,7 +132,7 @@
     <div class="clearfix"></div>
 
     <ul>
-      <% clippings.each do |clipping| %>
+      <% sorted_clippings.each do |clipping| %>
         <% unless clipping.text.blank? %>
         <li class="<%= clipping.type %>">
           <p>

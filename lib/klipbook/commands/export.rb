@@ -41,7 +41,7 @@ module Klipbook
         end
 
         unless File.directory?(options.output_dir)
-          logger.error "Error: Outdir directory '#{options.output_dir}' does not exist."
+          logger.error "Error: Output directory '#{options.output_dir}' does not exist."
           exit 127
         end
       end

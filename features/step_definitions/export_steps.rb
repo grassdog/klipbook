@@ -15,6 +15,10 @@ Given(/^a file that contains clippings for 3 books called "([^"]*)"$/) do |file_
   cd('.') { FileUtils.cp(CLIPPING_FILE, file_name) }
 end
 
+#
+# Whens
+#
+
 When(/^I export clippings for "([^"]*)" books from the file "([^"]*)" as "([^"]*)" to the output directory "([^"]*)"$/) do |book_count, input_file, format, output_dir|
   run_export_file(book_count, output_dir, input_file, format, false)
 end
@@ -22,6 +26,17 @@ end
 When(/^I export clippings for "([^"]*)" books from the file "([^"]*)" as "([^"]*)" to the output directory "([^"]*)" forcefully$/) do |book_count, input_file, format, output_dir|
   run_export_file(book_count, output_dir, input_file, format, true)
 end
+
+# This step currently assumes you have site: set up in your klipbookrc
+# TODO Add a hook to inject VCR or similar here
+When(/^I export clippings for "([^"]*)" books from the kindle site as "([^"]*)" to the output directory "([^"]*)"$/) do |book_count, format, output_dir|
+  run_simple(sanitize_text("klipbook export --format #{format} -c #{book_count} --output-dir #{output_dir}"), false)
+end
+
+
+#
+# Thens
+#
 
 Then(/^I should find a "([^"]*)" file in the folder "([^"]*)" named "([^"]*)" that contains "([^"]*)" clippings$/) do |format, output_folder, file_name, clipping_count|
   cd('.') do
@@ -35,12 +50,6 @@ end
 
 Then(/^the exit status should be non\-zero$/) do
   expect(last_command_started).not_to be_successfully_executed
-end
-
-# This step currently assumes you have site: set up in your klipbookrc
-# TODO Add a hook to inject VCR or similar here
-When(/^I export clippings for "([^"]*)" books from the kindle site as "([^"]*)" to the output directory "([^"]*)"$/) do |book_count, format, output_dir|
-  run_simple(sanitize_text("klipbook export -c #{book_count} --output-dir #{output_dir} --format #{format}"), false)
 end
 
 Then(/^I should find "([^"]*)" "([^"]*)" files containing clippings in the directory "([^"]*)"$/) do |file_count, format, output_dir|
@@ -63,14 +72,16 @@ def run_export_file(book_count, output_dir, input_file, format, force=false)
   run_simple(sanitize_text("klipbook export --format #{format} -c #{book_count} #{force_str} --output-dir #{output_dir} --from-file #{input_file}"), false)
 end
 
+
+
 def confirm_clipping_count(file, format, expected_count)
   if format == 'html'
     expect(file.read).to match(/<footer>\s+#{expected_count} clippings &bull;/m)
   elsif format == 'markdown'
-    clippings = file.readlines.slice(5..-1).join.split("\n\n\n")
+    clippings = file.readlines.slice(5..-1).join.split("\n  \n  \n")
     expect(clippings.count).to eq Integer(expected_count)
   elsif format == 'json'
-    expect(JSON.parse(file.read)[:clippings].count).to eq Integer(expected_count)
+    expect(JSON.parse(file.read)["clippings"].count).to eq Integer(expected_count)
   else
     raise "Unknown format"
   end
@@ -80,10 +91,10 @@ def confirm_clipping_exist(file, format)
   if format == 'html'
     expect(file.read).to match(/<footer>\s+\d+ clippings &bull;/m)
   elsif format == 'markdown'
-    clippings = file.readlines.slice(5..-1).join.split("\n\n\n")
+    clippings = file.readlines.slice(5..-1).join.split("\n  \n  \n")
     expect(clippings.count).to be > 0
   elsif format == 'json'
-    expect(JSON.parse(file.read)[:clippings].count).to be > 0
+    expect(JSON.parse(file.read)["clippings"].count).to be > 0
   else
     raise "Unknown format"
   end

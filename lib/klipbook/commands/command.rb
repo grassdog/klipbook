@@ -30,7 +30,7 @@ module Klipbook
 
       def exit_unless_valid_count(options)
         unless options.count > 0
-          logger.error "Error: Specify a maximum book count greater than 0"
+          logger.error "Error: Specify a maximum book count greater than 0."
           exit 127
         end
       end

@@ -1,23 +1,9 @@
-/Gemfile.lock
-
-# rcov generated
-coverage
-
-# rdoc generated
-rdoc
-
-# yard generated
-doc
-.yardoc
-
-# bundler
-.bundle
-
-# jeweler generated
-pkg
-
-.rvmrc
-rerun.txt
-tmp
-b
-vendor
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/vendor/

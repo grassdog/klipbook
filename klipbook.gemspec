@@ -23,16 +23,16 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = "bin"
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "commander", "~> 4"
-  spec.add_dependency "mechanize", "~> 2.7"
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "pry-byebug", "~> 3.4"
-  spec.add_development_dependency "cucumber", "~> 2.4"
-  spec.add_development_dependency "aruba", "~> 0.14"
+  spec.add_dependency "commander"
+  spec.add_dependency "mechanize"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "pry-byebug"
+  spec.add_development_dependency "cucumber"
+  spec.add_development_dependency "aruba"
 end

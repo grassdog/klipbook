@@ -37,7 +37,7 @@ Copy your clippings file (called "My Clippings.txt" on a 3rd generation Kindle) 
 Then specify the path to your clippings via:
 
 ```sh
-$ klipbook --from-file "My Clippings.txt"
+$ klipbook list --from-file "My Clippings.txt"
 ```
 
 ### Reading from the highlights site
@@ -45,7 +45,7 @@ $ klipbook --from-file "My Clippings.txt"
 Specify your Amazon credentials to klipbook and it will scrape the site and output a clippings file.
 
 ```sh
-$ klipbook --from-site my-username@blah.com:my-password
+$ klipbook list --from-site my-username@blah.com:my-password
 ```
 
 Note that the scraping requires a network connection (obviously) and can take a while so please be patient.

@@ -79,7 +79,7 @@ Klipbook will not overwrite an exiting file by default. You can change this with
 You can export clippings into a pretty html file for each book.
 
 ```sh
-$ klipbook export ---from-file "My Clippings.txt" --output-format html
+$ klipbook export --from-file "My Clippings.txt" --format html
 ```
 
 ### Export to JSON
@@ -87,7 +87,7 @@ $ klipbook export ---from-file "My Clippings.txt" --output-format html
 You can export clippings into a JSON file for each book.
 
 ```sh
-$ klipbook export --from-file "My Clippings.txt" --output-format json
+$ klipbook export --from-file "My Clippings.txt" --format json
 ```
 
 ### Export to Markdown
@@ -95,7 +95,7 @@ $ klipbook export --from-file "My Clippings.txt" --output-format json
 You can export clippings into a markdown file for each book.
 
 ```sh
-$ klipbook export --from-file "My Clippings.txt" --output-format markdown
+$ klipbook export --from-file "My Clippings.txt" --format markdown
 ```
 
 ## Set defaults

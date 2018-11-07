@@ -12,13 +12,7 @@ of a clippings file" />
 
 ## What sources does it support?
 
-Klipbook can take your highlights from a clippings file off a physical Kindle device or from the [Kindle highlights site](https://kindle.amazon.com/your_highlights) itself.
-
-### When should I use the file and when should I use the site?
-
-If your books are purchased from Amazon directly then use the site. The site is the canonical source and will contain all of your notes and highlights from across all of your Kindle devices and applications. Currently the Amazon highlights site only shows clippings for books you've purchased on Amazon.
-
-If your books are personal documents and you've read them on your Kindle device itself then you should use the file from that device as a source i.e. your Kindle device only keeps clippings that you make directly on it.
+Klipbook can take your highlights from a clippings file off a physical Kindle device.
 
 ## How does it work?
 
@@ -39,16 +33,6 @@ Then specify the path to your clippings via:
 ```sh
 $ klipbook list --from-file "My Clippings.txt"
 ```
-
-### Reading from the highlights site
-
-Specify your Amazon credentials to klipbook and it will scrape the site and output a clippings file.
-
-```sh
-$ klipbook list --from-site my-username@blah.com:my-password
-```
-
-Note that the scraping requires a network connection (obviously) and can take a while so please be patient.
 
 ## List
 
@@ -107,7 +91,6 @@ This is a YAML file and you can specify default values for the source and the ou
 ```sh
 $ cat ~/.klipbookrc
 
-:from_site: my-username@blah.com:my-password
 :output_dir: /path/to/my/default/output/directory
 ```
 
@@ -127,7 +110,7 @@ Klipbook has been tested on clippings files from 3rd generation Kindles and the 
 
 ## Tested platforms
 
-Klipbook has been tested on Mac OS X El Capitan using Ruby 2.3.1.
+Klipbook has been tested on Mac OS High Sierra using Ruby 2.5.1.
 
 ## Contributing to Klipbook
 
@@ -135,4 +118,4 @@ Fork the project on [Github](https://github.com/grassdog/klipbook), add tests fo
 
 ## Copyright
 
-Copyright (c) 2016 Ray Grasso. See LICENSE.txt for further details.
+Copyright (c) 2018 Ray Grasso. See LICENSE.txt for further details.

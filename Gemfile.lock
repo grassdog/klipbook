@@ -1,9 +1,8 @@
 PATH
   remote: .
   specs:
-    klipbook (3.0.0)
+    klipbook (4.0.0)
       commander
-      mechanize
 
 GEM
   remote: https://rubygems.org/
@@ -20,8 +19,8 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.1)
-    commander (4.4.0)
-      highline (~> 1.7.2)
+    commander (4.4.7)
+      highline (~> 2.0.0)
     contracts (0.14.0)
     cucumber (2.4.0)
       builder (>= 2.1.2)
@@ -35,36 +34,12 @@ GEM
       gherkin (~> 4.0)
     cucumber-wire (0.0.1)
     diff-lcs (1.2.5)
-    domain_name (0.5.20160826)
-      unf (>= 0.0.5, < 1.0.0)
     ffi (1.9.14)
     gherkin (4.0.0)
-    highline (1.7.8)
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
-    mechanize (2.7.5)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0)
-      mime-types (>= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.6)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
+    highline (2.0.0)
     method_source (0.8.2)
-    mime-types (3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
     multi_json (1.12.1)
     multi_test (0.1.2)
-    net-http-digest_auth (1.4)
-    net-http-persistent (2.9.4)
-    nokogiri (1.6.8)
-      mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
-    ntlm-http (0.1.1)
-    pkg-config (1.1.7)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -88,10 +63,6 @@ GEM
     rspec-support (3.5.0)
     slop (3.6.0)
     thor (0.19.1)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.2)
-    webrobots (0.1.2)
 
 PLATFORMS
   ruby
@@ -106,4 +77,4 @@ DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   1.12.4
+   1.16.4

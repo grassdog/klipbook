@@ -1,45 +1,54 @@
+== 4.0.0 / 2018-11-07
+
+* Breaking changes
+
+  * Remove site scraping feature.
+
+* Minor changes
+
+  * Tested on Ruby 2.5.2
+
 == 3.0.0 / 2016-09-18
 
 * Feature Changes
 
-	* Added markdown as an export format.
+  * Added markdown as an export format.
 
 * Breaking changes
 
-	* Changed command flags to make things more consistent. 
-	* Changed JSON export to export into individual files rather than a single file. Again for consistency with other export formats.
+  * Changed command flags to make things more consistent.
+  * Changed JSON export to export into individual files rather than a single file. Again for consistency with other export formats.
 
 == 2.1.3 / 2014-07-25
 
 * Minor changes
 
-	* Removed Rainbow, RR, pry-debugger gems
-	* Updated dependent gems
-	* Updated tests to use RSpec 3
-	* Tested on Ruby 2.1.2
+  * Removed Rainbow, RR, pry-debugger gems
+  * Updated dependent gems
+  * Updated tests to use RSpec 3
+  * Tested on Ruby 2.1.2
 
 == 2.1.0 / 2013-12-11
 
 * Feature changes
 
-	* Reworked parameters for better clarity. tosjon and tohtml are now supported.
+  * Reworked parameters for better clarity. tosjon and tohtml are now supported.
 
 == 2.0.0 / 2013-02-12
 
 * Feature changes
 
-	* Renamed the collate command to pretty print which describes what it does better.
+  * Renamed the collate command to pretty print which describes what it does better.
 
-	* Introduces a _new_ collate command that collates all clippings into a single JSON
+  * Introduces a _new_ collate command that collates all clippings into a single JSON
 file.
 
 * Other unexposed changes
 
-	* Internally refactored much of the codebase into a more sensible structure.
+  * Internally refactored much of the codebase into a more sensible structure.
 
 == 1.0.2 / 2012-12-12
 
 * Bug fixes
 
-	* Updated site scraping code to ensure it still works
-
+  * Updated site scraping code to ensure it still works

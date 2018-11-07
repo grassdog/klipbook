@@ -22,10 +22,3 @@ Feature: klipbook lists the books in a clipping file
     When I list "5" books in the file "input.txt"
     Then the output should match /\[1\] .+ by .+/
     And the exit status should be 0
-
-  @slow
-  Scenario: Site with one book
-    When I list "1" books from the kindle site
-    Then the output should match /\[1\] .+ by .+/
-    And the exit status should be 0
-

@@ -22,5 +22,3 @@ require 'klipbook/sources/kindle_device/entry_parser'
 require 'klipbook/sources/kindle_device/entry'
 require 'klipbook/sources/kindle_device/file'
 
-require 'klipbook/sources/amazon_site/site_scraper'
-require 'klipbook/sources/amazon_site/book_scraper'

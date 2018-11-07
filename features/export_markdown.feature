@@ -19,10 +19,3 @@ Feature: klipbook outputs clippings from a clippings file into a Markdown file
     When I export clippings for "3" books from the file "input.txt" as "markdown" to the output directory "output"
     Then the output should contain "- Skipping Clean Code A Handbook of Agile Software Craftsmanship.md"
     And the exit status should be 0
-
-  @slow
-  Scenario: Site with clippings for a book
-    Given a directory named "output"
-    When I export clippings for "1" books from the kindle site as "markdown" to the output directory "output"
-    Then I should find "1" "markdown" files containing clippings in the directory "output"
-    And the exit status should be 0

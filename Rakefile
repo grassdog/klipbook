@@ -9,10 +9,6 @@ desc 'Run specs'
 RSpec::Core::RakeTask.new(:spec)
 
 Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = '--format pretty --tags ~@slow'
-end
-
-Cucumber::Rake::Task.new(:allfeatures) do |t|
   t.cucumber_opts = '--format pretty'
 end
 

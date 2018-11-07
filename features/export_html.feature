@@ -41,11 +41,3 @@ Feature: klipbook outputs the clippings from a clippings file into a set of HTML
     When I export clippings for "3" books from the file "input.txt" as "html" to the output directory "output"
     Then the output should contain "Error: Output directory 'output' does not exist."
     And the exit status should be non-zero
-
-  @slow
-  Scenario: Site with clippings for a book
-    Given a directory named "output"
-    When I export clippings for "1" books from the kindle site as "html" to the output directory "output"
-    Then I should find "1" "html" files containing clippings in the directory "output"
-    And the exit status should be 0
-

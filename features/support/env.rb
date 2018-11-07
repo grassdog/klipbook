@@ -11,6 +11,3 @@ Before do
   aruba.config.exit_timeout = 40
 end
 
-Before('@slow') do
-  aruba.config.io_wait_timeout = 40
-end

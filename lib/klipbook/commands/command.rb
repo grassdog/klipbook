@@ -22,8 +22,8 @@ module Klipbook
       end
 
       def exit_unless_valid_source(options)
-        unless options.from_file || options.from_site
-          logger.error "Error: You must specify either `--from-file` or `--from-site` as an input."
+        unless options.from_file
+          logger.error "Error: You must specify `--from-file` as an input."
           exit 127
         end
       end

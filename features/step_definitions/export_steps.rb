@@ -27,12 +27,6 @@ When(/^I export clippings for "([^"]*)" books from the file "([^"]*)" as "([^"]*
   run_export_file(book_count, output_dir, input_file, format, true)
 end
 
-# This step currently assumes you have site: set up in your klipbookrc
-# TODO Add a hook to inject VCR or similar here
-When(/^I export clippings for "([^"]*)" books from the kindle site as "([^"]*)" to the output directory "([^"]*)"$/) do |book_count, format, output_dir|
-  run_simple(sanitize_text("klipbook export --format #{format} -c #{book_count} --output-dir #{output_dir}"), false)
-end
-
 
 #
 # Thens

@@ -84,7 +84,7 @@ $ klipbook export --from-file "My Clippings.txt" --format markdown
 
 ## Set defaults
 
-If you don't feel like having your Amazon credentials in your shell history you can set your default source in the klipbook rc file: `~/.klipbookrc`.
+You can set your defaults in the klipbook rc file: `~/.klipbookrc`.
 
 This is a YAML file and you can specify default values for the source and the output directory (note the use of snake case) e.g.
 

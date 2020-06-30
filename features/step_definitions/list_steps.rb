@@ -6,6 +6,6 @@ Given /^I have a clippings file "([^"]*)" that contains no clippings$/ do |input
 end
 
 When /^I list "([^"]*)" books in the file "([^"]*)"$/ do |book_count, input_file|
-  run_simple(sanitize_text("klipbook list -c #{book_count} --from-file #{input_file}"), false)
+  run_command_and_stop(sanitize_text("klipbook list -c #{book_count} --from-file #{input_file}"), fail_on_error: false)
 end
 

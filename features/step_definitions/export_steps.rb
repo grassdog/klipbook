@@ -63,7 +63,7 @@ end
 def run_export_file(book_count, output_dir, input_file, format, force=false)
   force_str = force ? '-f' : ''
 
-  run_simple(sanitize_text("klipbook export --format #{format} -c #{book_count} #{force_str} --output-dir #{output_dir} --from-file #{input_file}"), false)
+  run_command_and_stop(sanitize_text("klipbook export --format #{format} -c #{book_count} #{force_str} --output-dir #{output_dir} --from-file #{input_file}"), fail_on_error: false)
 end
 
 

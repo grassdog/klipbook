@@ -2,7 +2,6 @@ module Klipbook
   module Sources
     module KindleDevice
       class EntryParser
-
         def build_entry(entry_text)
           return nil if invalid_entry?(entry_text)
 

@@ -21,4 +21,3 @@ require 'klipbook/sources/kindle_device/file_parser'
 require 'klipbook/sources/kindle_device/entry_parser'
 require 'klipbook/sources/kindle_device/entry'
 require 'klipbook/sources/kindle_device/file'
-

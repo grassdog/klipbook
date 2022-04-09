@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Klipbook::Sources::KindleDevice::EntryParser do
-
   describe '#build_entry' do
     subject { Klipbook::Sources::KindleDevice::EntryParser.new.build_entry(entry_text) }
 

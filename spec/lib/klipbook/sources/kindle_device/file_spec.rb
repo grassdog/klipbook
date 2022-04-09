@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Klipbook::Sources::KindleDevice::File do
-
   let(:file) { Klipbook::Sources::KindleDevice::File.new(input_text, max_books, file_parser) }
 
   let(:max_books) { 30 }

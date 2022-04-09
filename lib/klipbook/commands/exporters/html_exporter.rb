@@ -22,4 +22,3 @@ module Klipbook
     end
   end
 end
-

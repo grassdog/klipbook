@@ -22,25 +22,25 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
     context 'with entries for three books' do
       let(:entries) do
         [
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
             e.added_on = DateTime.new(2012, 10, 10)
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
             e.added_on = DateTime.new(2012, 10, 10)
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book two'
             e.author = 'Author two'
             e.type = :highlight
             e.added_on = DateTime.new(2012, 10, 12)
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book three'
             e.author = 'Author two'
             e.type = :highlight
@@ -70,7 +70,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
     context 'with entries for a single book' do
       let(:entries) do
         [
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :bookmark
@@ -79,7 +79,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
             e.added_on = DateTime.new(2012, 10, 10)
             e.text = 'First one'
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
@@ -88,7 +88,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
             e.added_on = DateTime.new(2012, 10, 11)
             e.text = 'Second one'
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :highlight
@@ -97,7 +97,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
             e.added_on = DateTime.new(2012, 10, 1)
             e.text = 'Third one'
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :note
@@ -133,7 +133,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
     context 'with entries for a single book that are all bookmarks' do
       let(:entries) do
         [
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :bookmark
@@ -142,7 +142,7 @@ RSpec.describe Klipbook::Sources::KindleDevice::File do
             e.added_on = DateTime.new(2012, 10, 10)
             e.text = 'First one'
           end,
-          Klipbook::Sources::KindleDevice::Entry.new do |e|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |e|
             e.title = 'Book one'
             e.author = 'Author one'
             e.type = :bookmark

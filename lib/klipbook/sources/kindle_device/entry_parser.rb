@@ -12,7 +12,7 @@ module Klipbook
 
           type = extract_type(metadata)
 
-          Klipbook::Sources::KindleDevice::Entry.new do |h|
+          Klipbook::Sources::KindleDevice::Entry.new.tap do |h|
             h.title = extract_title(title_line)
             h.author = extract_author(title_line)
             h.location = extract_location(metadata)

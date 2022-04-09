@@ -1,4 +1,3 @@
-# coding: utf-8
 module Klipbook
   Book = Struct.new(:asin, :author, :title, :last_update, :clippings) do
     def title_and_author

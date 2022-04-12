@@ -1,9 +1,6 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 RSpec.describe Klipbook::Sources::KindleDevice::FileParser do
-
   let(:parser) { Klipbook::Sources::KindleDevice::FileParser.new(entry_parser) }
 
   let(:entry_parser) do
